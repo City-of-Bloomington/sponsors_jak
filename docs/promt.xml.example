@@ -1,0 +1,84 @@
+<Context reloadable="false"
+         crossContext="true">
+  <Parameter
+      name="url"
+      value="this app url"
+      override="false" />
+
+  <Parameter
+      name="server_path"
+      value="the server running this app folder to save files"
+      override="false" />
+
+  <!-- CAS related -->
+  <Parameter
+      name="serverName"
+      value="server name running this app"
+      override="false" />
+
+  <Parameter
+      name="cas_url"
+      value="cas logout url"
+      override="false" />
+<Parameter
+      name="casServerLoginUrl"
+      value=" cas login url "
+      />
+
+  <Parameter
+      name="casServerUrlPrefix"
+      value="https://bloomington.in.gov/cas"
+      />
+  <!-- ADFS related -->
+  <Parameter
+      name="adfs_username"
+      value="username used in openid"
+      />
+  <Parameter
+      name="auth_end_point"
+      value="openid authorize end point"
+      />
+  <Parameter
+      name="discovery_uri"
+      value="url for /adfs/.well-known/openid-configurati
+on"
+      />
+  <Parameter
+      name="token_end_point"
+      value="openid token end point"
+      />
+  <Parameter
+      name="callback_uri"
+      value="provide callback url"
+      />
+  <Parameter
+      name="client_id"
+      value=" you client id"
+      />
+  <Parameter
+      name="client_secret"
+      value="your client secret"
+      />
+  <Parameter
+      name="scope"
+      value="openid"
+      />
+
+  <!-- assume mysql db you may use the following by filling the missing -->
+ <Resource name="jdbc/MySQL_promt" auth="Container"
+            type="javax.sql.DataSource"
+            username="db user"
+            password="db pass"
+            driverClassName="com.mysql.cj.jdbc.Driver"
+            url="jdbc:mysql://database url"
+            removeAbandonedOnBorrow="true"
+            removeAbandonedTimeout="60"
+            maxWaitMillis="60000"
+            maxIdle="4"
+            maxTotal="10"  />
+  <Resources>
+    <PostResources
+        base="/ folder on the server to save uploaded files"
+        className="org.apache.catalina.webresources.DirResourceSet"
+        webAppMount="/WEB-INF/classes"/>
+  </Resources>

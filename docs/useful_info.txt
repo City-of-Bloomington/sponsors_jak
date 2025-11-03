@@ -1,0 +1,14 @@
+
+Note: the following database tables are dropped
+any table that starts with spon_
+
+don_thanks
+spon_event_donation
+spon_option_types
+spon_org_types
+spon_sponsors
+
+some of these are replaced with the prefix spons_
+
+
+

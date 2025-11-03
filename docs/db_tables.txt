@@ -1,0 +1,308 @@
+;; sponsors app
+;; mysql database tables
+;;
+ CREATE TABLE `spons_benefit_types` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `name` varchar(150) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `name` (`name`)
+) ENGINE=InnoDB AUTO_INCREMENT=349 DEFAULT CHARSET=utf8mb3 
+;;
+;;
+CREATE TABLE `spons_benefits` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `sponship_id` int DEFAULT NULL,
+  `ben_id` int DEFAULT NULL,
+  `fulfilled` char(1) DEFAULT NULL,
+  `flfld_date` date DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `sponship_id` (`sponship_id`),
+  KEY `ben_id` (`ben_id`),
+  CONSTRAINT `spons_benefits_ibfk_1` FOREIGN KEY (`sponship_id`) REFERENCES `spons_sponsorships` (`id`),
+  CONSTRAINT `spons_benefits_ibfk_2` FOREIGN KEY (`ben_id`) REFERENCES `spons_benefit_types` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=1247 DEFAULT CHARSET=utf8mb3 
+;;
+;;
+CREATE TABLE `spons_budget_cycles` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `name` varchar(30) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `name` (`name`)
+) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8mb3 
+;;
+;;
+CREATE TABLE `spons_cont_times` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `name` varchar(30) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb3
+;;
+;;
+CREATE TABLE `spons_contacts` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `spon_id` int DEFAULT NULL,
+  `occupation` varchar(70) DEFAULT NULL,
+  `lname` varchar(70) DEFAULT NULL,
+  `fname` varchar(30) DEFAULT NULL,
+  `address` varchar(80) DEFAULT NULL,
+  `pobox` varchar(20) DEFAULT NULL,
+  `city` varchar(30) DEFAULT NULL,
+  `state` varchar(2) DEFAULT NULL,
+  `zip` varchar(10) DEFAULT NULL,
+  `phone` varchar(30) DEFAULT NULL,
+  `phone2` varchar(20) DEFAULT NULL,
+  `email` varchar(50) DEFAULT NULL,
+  `pref_con_time` varchar(30) DEFAULT NULL,
+  `con_means` varchar(30) DEFAULT NULL,
+  `notes` varchar(500) DEFAULT NULL,
+  `prim_cont` char(1) DEFAULT 'y',
+  PRIMARY KEY (`id`),
+  KEY `spon_id` (`spon_id`),
+  CONSTRAINT `spons_contacts_ibfk_1` FOREIGN KEY (`spon_id`) REFERENCES `spons_sponsors` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=1331 DEFAULT CHARSET=utf8mb3 
+;;
+;;
+ CREATE TABLE `spons_events` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `name` varchar(100) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `name` (`name`)
+) ENGINE=InnoDB AUTO_INCREMENT=213 DEFAULT CHARSET=utf8mb3 
+;;
+;;
+CREATE TABLE `spons_expenses` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `sponship_id` int DEFAULT NULL,
+  `vendor_id` int DEFAULT NULL,
+  `value` double DEFAULT NULL,
+  `date` date DEFAULT NULL,
+  `details` varchar(500) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `sponship_id` (`sponship_id`),
+  KEY `vendor_id` (`vendor_id`),
+  CONSTRAINT `spons_expenses_ibfk_1` FOREIGN KEY (`sponship_id`) REFERENCES `spons_sponsorships` (`id`),
+  CONSTRAINT `spons_expenses_ibfk_2` FOREIGN KEY (`vendor_id`) REFERENCES `spons_vendors` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=83 DEFAULT CHARSET=utf8mb3
+;;
+;;
+CREATE TABLE `spons_invoice_pays` (
+  `inv_id` int NOT NULL,
+  `pay_id` int NOT NULL,
+  `inv_balance` double DEFAULT NULL,
+  KEY `inv_id` (`inv_id`),
+  KEY `pay_id` (`pay_id`),
+  CONSTRAINT `spons_invoice_pays_ibfk_1` FOREIGN KEY (`inv_id`) REFERENCES `spons_invoices` (`id`),
+  CONSTRAINT `spons_invoice_pays_ibfk_2` FOREIGN KEY (`pay_id`) REFERENCES `spons_payments` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 
+;;
+;;
+
+ CREATE TABLE `spons_invoices` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `spon_id` int DEFAULT NULL,
+  `total` double DEFAULT NULL,
+  `dueDate` date DEFAULT NULL,
+  `invoiceDate` date DEFAULT NULL,
+  `voided` char(1) DEFAULT NULL,
+  `remit_notes` varchar(250) DEFAULT NULL,
+  `deposit_notes` varchar(300) DEFAULT NULL,
+  `staff_id` varchar(50) DEFAULT NULL,
+  `attention` varchar(50) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `spon_id` (`spon_id`),
+  KEY `staff_id` (`staff_id`),
+  CONSTRAINT `spons_invoices_ibfk_1` FOREIGN KEY (`spon_id`) REFERENCES `spons_sponsors` (`id`),
+  CONSTRAINT `spons_invoices_ibfk_2` FOREIGN KEY (`staff_id`) REFERENCES `users` (`userid`)
+) ENGINE=InnoDB AUTO_INCREMENT=14934 DEFAULT CHARSET=utf8mb3 
+;;
+;;
+ CREATE TABLE `spons_opportunities` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `event_id` int DEFAULT NULL,
+  `start_date` date DEFAULT NULL,
+  `program_area` varchar(30) DEFAULT NULL,
+  `lead` varchar(40) DEFAULT NULL,
+  `season` int DEFAULT NULL,
+  `year` int DEFAULT NULL,
+  `park_cont` varchar(30) DEFAULT NULL,
+  `instructions` varchar(500) DEFAULT NULL,
+  `end_date` date DEFAULT NULL,
+  `name` varchar(70) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=9480 DEFAULT CHARSET=utf8mb3 
+;;
+;;
+CREATE TABLE `spons_org_types` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `name` varchar(30) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `name` (`name`)
+) ENGINE=InnoDB AUTO_INCREMENT=73 DEFAULT CHARSET=utf8mb3
+;;
+;;
+ CREATE TABLE `spons_payments` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `sponship_id` int DEFAULT NULL,
+  `value` double DEFAULT NULL,
+  `dueDate` date DEFAULT NULL,
+  `balance` double DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `sponship_id` (`sponship_id`),
+  CONSTRAINT `spons_payments_ibfk_1` FOREIGN KEY (`sponship_id`) REFERENCES `spons_sponsorships` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=15893 DEFAULT CHARSET=utf8mb3 
+;;
+;;
+CREATE TABLE `spons_phones` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `phone` varchar(20) DEFAULT NULL,
+  `phone_type` enum('work','home','cell') DEFAULT NULL,
+  `own_type` enum('s','c') DEFAULT NULL,
+  `own_id` int DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2879 DEFAULT CHARSET=utf8mb3
+;;
+;;
+CREATE TABLE `spons_receipt_seq` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=4332 DEFAULT CHARSET=utf8mb3
+;;
+;;
+ CREATE TABLE `spons_receipts` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `receipt_no` int DEFAULT NULL,
+  `inv_id` int DEFAULT NULL,
+  `value` double DEFAULT NULL,
+  `check_no` varchar(30) DEFAULT NULL,
+  `received` date DEFAULT NULL,
+  `pay_type` enum('Cash','Check','Money Order','Credit Card','EFT') DEFAULT NULL,
+  `voided` char(1) DEFAULT NULL,
+  `recu_by` varchar(8) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `inv_id` (`inv_id`),
+  CONSTRAINT `spons_receipts_ibfk_1` FOREIGN KEY (`inv_id`) REFERENCES `spons_invoices` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2612 DEFAULT CHARSET=utf8mb3 
+;;
+;;
+CREATE TABLE `spons_seasons` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `name` varchar(30) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `name` (`name`)
+) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8mb3
+;;
+;;
+CREATE TABLE `spons_sponsor_file_s` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=527 DEFAULT CHARSET=utf8mb3 
+;;
+;;
+ CREATE TABLE `spons_sponsor_files` (
+  `id` int NOT NULL,
+  `spon_id` int NOT NULL,
+  `name` varchar(90) DEFAULT NULL,
+  `date` date DEFAULT NULL,
+  `notes` varchar(90) DEFAULT NULL,
+  `old_name` varchar(250) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `spon_id` (`spon_id`),
+  CONSTRAINT `spons_sponsor_files_ibfk_1` FOREIGN KEY (`id`) REFERENCES `spons_sponsor_file_s` (`id`),
+  CONSTRAINT `spons_sponsor_files_ibfk_2` FOREIGN KEY (`spon_id`) REFERENCES `spons_sponsors` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 
+;;
+;;
+ CREATE TABLE `spons_sponsor_links` (
+  `spon_id` int NOT NULL,
+  `spon_id2` int NOT NULL,
+  PRIMARY KEY (`spon_id`,`spon_id2`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 
+;;
+;;
+CREATE TABLE `spons_sponsors` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `type` int DEFAULT NULL,
+  `orgname` varchar(80) DEFAULT NULL,
+  `address` varchar(80) DEFAULT NULL,
+  `city` varchar(30) DEFAULT NULL,
+  `state` char(2) DEFAULT NULL,
+  `zip` varchar(10) DEFAULT NULL,
+  `pobox` varchar(15) DEFAULT NULL,
+  `email` varchar(150) DEFAULT NULL,
+  `pref_con_time` varchar(30) DEFAULT NULL,
+  `interests` varchar(80) DEFAULT NULL,
+  `target_pop` varchar(60) DEFAULT NULL,
+  `spon_status` enum('Prospect','Active','Inactive') DEFAULT NULL,
+  `con_means` varchar(30) DEFAULT NULL,
+  `fax` varchar(15) DEFAULT NULL,
+  `website` varchar(160) DEFAULT NULL,
+  `acc_manager` varchar(8) DEFAULT NULL,
+  `notes` varchar(500) DEFAULT NULL,
+  `bni` char(1) DEFAULT NULL,
+  `chapter` varchar(80) DEFAULT NULL,
+  `referral_from` varchar(80) DEFAULT NULL,
+  `facebook` varchar(160) DEFAULT NULL,
+  `instagram` varchar(160) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=1197 DEFAULT CHARSET=utf8mb3
+;;
+;;
+CREATE TABLE `spons_sponsorships` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `oppt_id` int DEFAULT NULL,
+  `spon_id` int DEFAULT NULL,
+  `details` varchar(50) DEFAULT NULL,
+  `don_type` enum('tangible goods','monetary','gift certificate','service') DEFAULT NULL,
+  `start_date` date DEFAULT NULL,
+  `terms` int DEFAULT NULL,
+  `value` double DEFAULT NULL,
+  `spon_level` enum('Donor','Patron','Supporter','Contributer','Partner') DEFAULT NULL,
+  `pay_type` enum('Monthly','Quarterly','Semi-annual','Other') DEFAULT NULL,
+  `cont_start_date` date DEFAULT NULL,
+  `cont_end_date` date DEFAULT NULL,
+  `notes` varchar(512) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `spon_id` (`spon_id`),
+  CONSTRAINT `spons_sponsorships_ibfk_1` FOREIGN KEY (`spon_id`) REFERENCES `spons_sponsors` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3994 DEFAULT CHARSET=utf8mb3 
+;;
+;;
+CREATE TABLE `spons_type_options` (
+  `type` varchar(30) NOT NULL,
+  `description` varchar(50) NOT NULL,
+  PRIMARY KEY (`type`,`description`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 
+;;
+;;
+CREATE TABLE `spons_vendors` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `name` varchar(50) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `name` (`name`)
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb3
+;;
+;;
+CREATE TABLE `sponsorship_benefits` (
+  `sponship_id` int DEFAULT NULL,
+  `ben_id` int DEFAULT NULL,
+  `fulfilled` char(1) DEFAULT NULL,
+  `flfld_date` date DEFAULT NULL,
+  `notes` varchar(300) DEFAULT NULL,
+  KEY `sponship_id` (`sponship_id`),
+  KEY `ben_id` (`ben_id`),
+  CONSTRAINT `sponsorship_benefits_ibfk_1` FOREIGN KEY (`sponship_id`) REFERENCES `spons_sponsorships` (`id`),
+  CONSTRAINT `sponsorship_benefits_ibfk_2` FOREIGN KEY (`ben_id`) REFERENCES `spons_benefit_types` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 
+;;
+;;
+CREATE TABLE `users` (
+  `userid` varchar(50) NOT NULL DEFAULT '',
+  `role` enum('Edit','Edit:Delete','Edit:Delete:Admin') DEFAULT NULL,
+  `fname` varchar(50) DEFAULT NULL,
+  `manager` char(1) DEFAULT NULL,
+  `lname` varchar(50) DEFAULT NULL,
+  `phone` varchar(20) DEFAULT NULL,
+  PRIMARY KEY (`userid`),
+  UNIQUE KEY `userid` (`userid`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 
+;;

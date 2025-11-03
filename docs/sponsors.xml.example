@@ -1,0 +1,90 @@
+<Context reloadable="false"
+         crossContext="true">
+  <Parameter
+      name="url"
+      value="https://your server or localhost/sponsors/"
+      override="false" />
+  <Parameter
+      name="url2"
+      value="https://your server of localhost/sponsors/"
+      override="false" />
+
+  <!-- check if we need the following or change it to local -->
+  <Parameter
+      name="server_path"
+      value="/location of uploaded files/"
+      override="false" />
+
+  <!-- CAS related -->
+  <Parameter
+      name="serverName"
+      value="this server"
+      override="false" />
+<Parameter
+      name="cas_url"
+      value="https://your cas server/cas/logout"
+      override="false" />
+
+  <Parameter
+      name="casServerLoginUrl"
+      value="https://your cas server/cas/login"
+      />
+
+  <Parameter
+      name="casServerUrlPrefix"
+      value="https://your cas server/cas"
+      />
+  <!-- ADFS related -->
+  <Parameter
+      name="adfs_username"
+      value="username used"
+      />
+  <Parameter
+      name="auth_end_point"
+      value="https://your openid server/authorize"
+      />
+ <Parameter
+      name="discovery_uri"
+      value="https://your openid server/adfs/.well-known/openid-configurati
+on"
+      />
+  <Parameter
+      name="token_end_point"
+      value="https://your openid token server/token"
+      />
+  <Parameter
+      name="callback_uri"
+      value="https://your server/sponsors/callback"
+      />
+  <Parameter
+      name="client_id"
+      value="your client id from OpenId server"
+      />
+  <Parameter
+      name="client_secret"
+      value="your client secret from openid server"
+      />
+       <Parameter
+      name="scope"
+      value="openid"
+      />
+
+  <Resource name="jdbc/MySQL_sponsor" auth="Container"
+            type="javax.sql.DataSource"
+            username="your username for db"
+            password="your pass"
+            driverClassName="com.mysql.cj.jdbc.Driver"
+            url="jdbc:mysql://localhost:3306/sponsors?serverTimezone=America/New
+_York&amp;useSSL=false&amp;autoReconnect=true&amp;"
+            removeAbandonedOnBorrow="true"
+            removeAbandonedTimeout="60"
+            maxWaitMillis="60000"
+            maxIdle="4"
+            maxTotal="10"  />
+  <Resources>
+    <PostResources
+        base="/location of log4j2.xml file/conf"
+        className="org.apache.catalina.webresources.DirResourceSet"
+        webAppMount="/WEB-INF/classes"/>
+  </Resources>
+

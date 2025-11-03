@@ -1,0 +1,15 @@
+<Context
+         reloadable="false" crossContext="true">
+	<!-- you may put this file in META-INF folder -->
+   <Resource name="jdbc/MySQL_promt"
+						 auth="Container"
+						 type="javax.sql.DataSource" 
+						 username="db user name"
+						 password="your pass"
+						 driverClassName="com.mysql.jdbc.Driver"
+						 url="jdbc:mysql://database server:3306/sponsors" 
+						 removeAbandonedTimeout="60"
+						 maxWaitMillis="10000"
+						 removeAbandonedOnMaintenance="true"						 
+						 maxTotal="10"  /> 
+</Context> 
