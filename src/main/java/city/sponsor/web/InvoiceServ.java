@@ -290,22 +290,14 @@ public class InvoiceServ extends TopServlet{
 	if(!spon_id.equals("")){
 	    out.println("<input type=\"hidden\" name=\"spon_id\" value=\""+spon_id+"\" />");
 	}	
-	out.println("<table border=\"1\" width=\"90%\">");
-	out.println("<tr><td class=\"center\">");
-	//
-	// Add/Edit record
-	//
-	out.println("<table width=\"80%\">");
-	out.println("<tr><td class=\"center title\">");
-	out.println("Invoice Info</td></tr>");
-	out.println("<tr><td>");
-	out.println("<table width=\"100%\">");
+	out.println("<table width=\"90%\">");
+	out.println("<caption>Invoice Info</caption>");	
 	if(!id.equals("")){
 	    out.println("<tr><th>Invoice #</th>");
 	    out.println("<td class=\"left\">");
 	    out.println(id);
 	    String voided = invoice.isVoided()?"checked=\"checked\"":"";
-	    out.println("&nbsp;<input type=\"checkbox\" name=\"voided\" value=\"y\" "+voided+" />Void this invoice");
+	    out.println("&nbsp;<input type=\"checkbox\" name=\"voided\" value=\"y\" "+voided+" id=\"void_it\"/><label for=\"void_id\">:Void this invoice</label>");
 	    out.println("</td></tr>");
 			
 	}
@@ -314,9 +306,8 @@ public class InvoiceServ extends TopServlet{
 	if(sponsor != null){
 	    out.println("<a href=\""+url+"SponsorServ?id="+sponsor.getId()+"\">"+sponsor+"</a>");
 	}
-		
 	if(id.equals("")){
-	    out.println("<tr><th>Payment Due Date Up to </th>");	
+	    out.println("<tr><th><label for=\"date_to\">Payment Due Date Up to </label></th>");	
 	    out.println("<td class=\"left\">");
 	    out.println("<input name=\"date_to\" size=\"10\" maxlength=\"10\" "+
 			" id=\"date_to\" value=\""+date_to+"\" />");
@@ -329,32 +320,32 @@ public class InvoiceServ extends TopServlet{
 	    out.println("<td class=\"left\">$"+invoice.getTotal());
 	    out.println("</td></tr>");
 	}
-	out.println("<tr><th>Invoice Date</th>");
+	out.println("<tr><th><label for=\"invoiceDate\">Invoice Date</label></th>");
 	out.println("<td class=\"left\">");
 	out.println("<input name=\"invoiceDate\" size=\"10\" maxlength=\"10\" "+
 		    " id=\"invoiceDate\" value=\""+invoice.getInvoiceDate()+"\" />");
 	out.println("</td></tr>");		
 	out.println("<tr>");
-	out.println("<th>Invoice Due Date</th>");
+	out.println("<th><label for=\"dueDate\">Invoice Due Date</label></th>");
 	out.println("<td class=\"left\">");
 	out.println("<input name=\"dueDate\" size=\"10\" maxlength=\"10\" "+
 		    " id=\"dueDate\" value=\""+invoice.getDueDate()+"\" />");
 	out.println("</td></tr>");
 	out.println("<tr>");
-	out.println("<th colspan=\"2\">Remittance Instructions (250 characters)</th></td></tr>");
+	out.println("<th colspan=\"2\"><label for=\"remit_notes\">Remittance Instructions (250 characters)</label></th></td></tr>");
 	out.println("<tr>");
 	out.println("<td colspan=\"2\" class=\"left\">");
-	out.println("<textarea name=\"remit_notes\" rows=\"3\" cols=\"70\">");
+	out.println("<textarea name=\"remit_notes\" rows=\"3\" cols=\"70\" id=\"remit_notes\">");
 	out.println(invoice.getRemit_notes());
 	out.println("</textarea></td></tr>");
-	out.println("<th colspan=\"2\">Deposit Revenue Lines (250 characters)</th></td></tr>");		
+	out.println("<th colspan=\"2\"><label for=\"depot_notes\">Deposit Revenue Lines (250 characters)</label></th></td></tr>");		
 	out.println("<tr>");
 	out.println("<td colspan=\"2\" class=\"left\">");
-	out.println("<textarea name=\"deposit_notes\" rows=\"3\" cols=\"70\">");
+	out.println("<textarea name=\"deposit_notes\" id=\"depot_notes\" rows=\"3\" cols=\"70\">");
 	out.println(invoice.getDeposit_notes());
 	out.println("</textarea></td></tr>");
 	out.println("<tr>");
-	out.println("<th>Controller Attention</th>");
+	out.println("<th><label for=\"attention\">Controller Attention</label></th>");
 	out.println("<td class=\"left\">");
 	String attention = defaultAttention;
 	if(invoice.hasAttention()){
@@ -363,15 +354,14 @@ public class InvoiceServ extends TopServlet{
 	out.println("<input name=\"attention\" size=\"30\" maxlength=\"50\" "+
 		    " id=\"attention\" value=\""+attention+"\" />");
 	out.println("</td></tr>");
-		
-	out.println("</table></td></tr>");
+
+	
 	out.println("</table>");
 	if(pays != null && pays.size() > 0){
-			
-	    out.println("<tr><td align=\"center\"><table width=\"80%\" border=\"1\">");
 	    if(id.equals("")){
 		out.println("All the following payment requests will be included in this invoice, you can exclude certain ones by unchecking.<br />");
 	    }
+	    out.println("<table>");
 	    out.println("<caption>Sponsorship Payment Requests</caption>");
 	    out.println("<tr><th>Due Date</th><th>Amount</th><th>Balance</th></tr>");
 	    String checked="checked=\"checked\"";
@@ -387,24 +377,19 @@ public class InvoiceServ extends TopServlet{
 		out.println("<td class=\"money\">"+cf.format(pay.getBalance())+"</td>");		
 		out.println("</tr>");
 	    }
-	    out.println("</table></td></tr>");
-	    if(id.equals("")){
-		if(user.canEdit()){
-		    out.println("<tr><td class=\"center\"><input type=\"submit\" "+
-				" name=\"action\" value=\"Save\" />");
-		    out.println("</td></tr>");
-		}
-		out.println("</table>");
-		out.println("</form>");
-	    }			
+	    if(id.isEmpty()){
+		out.println("<tr><td><input type=\"submit\" "+
+			    " name=\"action\" value=\"Save\" />");
+		out.println("</td></tr>");
+	    }
+	    out.println("</table>");
 	}
 	else{
-	    out.println("<tr><td>No payments due</td></tr>");
+	    out.println("No payments due<br />");
 	}
 	if(!id.equals("")){ // Save, Update
-	    out.println("<tr><td valign=\"top\" class=\"center\">");
-	    out.println("<table width=\"100%\" border=\"1\"><tr><td>");
-	    out.println("<table width=\"100%\">");	
+	    out.println("<table width=\"100%\" border=\"1\">");
+	    out.println("<caption>Actions </caption>");
 	    out.println("<tr>");
 	    if(user.canEdit() && !invoice.hasReceipts()){
 		out.println("<td valign=\"top\"><input "+
@@ -439,10 +424,7 @@ public class InvoiceServ extends TopServlet{
 			    " value=\"Delete\" />");
 		out.println("</td>");
 	    }
-	    out.println("</tr></table></td></tr>");
-	    out.println("</table></td></tr>");			
-	    out.println("</table>");
-	    out.println("</td></tr></table>");	
+	    out.println("</tr></table>");
 	    out.println("</form>");
 	    if(invoice.hasReceipts()){
 		out.println("<table width=\"90%\" border=\"1\">");
@@ -463,8 +445,7 @@ public class InvoiceServ extends TopServlet{
 		    out.println("<td>"+rpt.getReceived()+"</td>");
 		    out.println("</tr>");
 		}
-		out.println("</table></td></tr>");			
-		out.println("</table>");
+		out.println("</table>");			
 	    }
 	}
 	if(!spon_id.equals("")){
@@ -495,7 +476,6 @@ public class InvoiceServ extends TopServlet{
 		    out.println("</tr>");
 		}
 		out.println("</table>");
-		out.println("</td></tr></table>");
 	    }
 	}
 	out.println(Inserts.footer(url));		

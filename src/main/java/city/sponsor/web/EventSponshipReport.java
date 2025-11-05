@@ -167,25 +167,20 @@ public class EventSponshipReport extends TopServlet{
 		    " onsubmit=\"return validateForm()\">");
 	//
 	out.println("<fieldset><legend>Sponsorships Report</legend>");
-	out.println("<table border=\"1\" width=\"60%\">");
-	out.println("<tr><td class=\"center\">");
 	//
 	// Add/Edit record
 	//
 	out.println("<table width=\"80%\">");
-	out.println("<tr><td class=\"center title\">");
-	out.println("Opportunity and Event</td></tr>");
-	out.println("<tr><td>");
-	out.println("<table width=\"100%\">");
-	out.println("<tr><th>Opportunity</th>");
+	out.println("<caption>Opportunity and Event</caption>");
+	out.println("<tr><th><label for=\"opport_name\">Opportunity</label></th>");
 	out.println("<td class=\"left\">");
 	out.println("<input name=\"name\" size=\"30\" id=\"opport_name\" "+
 		    " maxlength=\"50\" value=\""+opport_name+"\" />");
-	out.println("<b>ID</b><input id=\"oppt_id\" name=\"oppt_id\" size=\"4\" value=\""+oppt_id+"\" />");				
+	out.println("<label for=\"oppt_id\">ID</label><input id=\"oppt_id\" name=\"oppt_id\" size=\"4\" value=\""+oppt_id+"\" />");				
 	out.println("</td></tr>");
-	out.println("<tr><th>Event</th>");
+	out.println("<tr><th><label for=\"event_id\">Event</label></th>");
 	out.println("<td class=\"left\">");
-	out.println("<select name=\"event_id\">");
+	out.println("<select name=\"event_id\" id=\"event_id\">");
 	out.println("<option value=\"\">All</option>");
 	for(Type event: events){
 	    String selected="";
@@ -195,9 +190,9 @@ public class EventSponshipReport extends TopServlet{
 	    out.println("<option value=\""+event.getId()+"\" "+selected+">"+event+"</option>");
 	}
 	out.println("</select></td></tr>");
-	out.println("<tr><th>Season</th>");
+	out.println("<tr><th><label for=\"season_id\">Season</label></th>");
 	out.println("<td class=\"left\">");
-	out.println("<select name=\"season_id\">");
+	out.println("<select name=\"season_id\" id=\"season_id\">");
 	out.println("<option value=\"\">All</option>");
 	for(Type season:seasons){
 	    String selected="";
@@ -207,9 +202,9 @@ public class EventSponshipReport extends TopServlet{
 	    out.println("<option value=\""+season.getId()+"\" "+selected+">"+season+"</option>");
 	}
 	out.println("</select></td></tr>");
-	out.println("<tr><th>Year</th>");
+	out.println("<tr><th><label for=\"year\">Year</lable></th>");
 	out.println("<td class=\"left\">");
-	out.println("<select name=\"year\">");
+	out.println("<select name=\"year\" id=\"year\">");
 	out.println("<option value=\"\">All</option>");
 	for(String str: Helper.getYearsArr()){
 	    String selected="";
@@ -219,9 +214,9 @@ public class EventSponshipReport extends TopServlet{
 	    out.println("<option value=\""+str+"\" "+selected+">"+str+"</option>");
 	}
 	out.println("</select></td></tr>");
-	out.println("<tr><th>Program Area</th>");
+	out.println("<tr><th><label for=\"area_id\">Program Area</label></th>");
 	out.println("<td class=\"left\">");
-	out.println("<select name=\"program_area\">");
+	out.println("<select name=\"program_area\" id=\"area_id\">");
 	out.println("<option value=\"\">All</option>");
 	for(String str: progAreas){
 	    String selected="";
@@ -232,55 +227,35 @@ public class EventSponshipReport extends TopServlet{
 	}
 	out.println("</select></td>");
 	out.println("</tr>");
-	out.println("</table></td></tr>");
-	out.println("</table></td></tr>");
+	out.println("</table>");
+	out.println("<br />");
 	//
 	// contact table
 	//
-	out.println("<tr><td><table width=\"100%\">");
-	out.println("<tr><td class=\"center title\">");		
-	out.println(" Date Type and Range</td></tr>");
-	out.println("<tr><td>");
-	out.println("<table width=\"100%\">");
-	out.println("<tr><td colspan=\"4\">Pick the date type to use in date range below</td></tr>");				
-	out.println("<tr><th>Date Type</th><td colspan=\"3\">");
+	out.println("<table width=\"80%\">");
+	out.println("<caption> Date Type and Range</caption>");
+	out.println("<tr><td colspan=\"3\">Pick the date type to use in date range below</td></tr>");				
+	out.println("<tr><th>Date Type</th><td>");
 	String checked = which_date.equals("cont_start_date")?"checked=\"checked\"":"";
-	out.println("<input type=\"radio\" name=\"which_date\" value=\"cont_start_date\" "+checked+" />Contract Start Date, ");
+	out.println("<input type=\"radio\" id=\"date_type\" name=\"which_date\" value=\"cont_start_date\" "+checked+" /><label for=\"date_type\">Contract Start Date</label></td> ");
 	checked = which_date.equals("cont_end_date")?"checked=\"checked\"":"";				
-	out.println("<input type=\"radio\" name=\"which_date\" value=\"cont_end_date\" "+checked+" />Contract End Date</td></tr> ");				
-	out.println("<tr><th>Date From</th>");
+	out.println("<td><input type=\"radio\" id=\"date_type2\" name=\"which_date\" value=\"cont_end_date\" "+checked+" /><label for=\"date_type2\">Contract End Date</label></td></tr> ");				
+	out.println("<tr><th><label for=\"date_from\">Date From</label></th>");
 	out.println("<td class=\"left\">");
 	out.println("<input name=\"date_from\" size=\"10\" id=\"date_from\" "+
-		    " maxlength=\"10\" value=\""+date_from+"\" /></td>");
-	out.println("<th> To </th>");
+		    " maxlength=\"10\" value=\""+date_from+"\" />");
+	out.println("<label for=\"date_to\"> To </label></td>");
 	out.println("<td class=\"left\">");
 	out.println("<input name=\"date_to\" size=\"10\" id=\"date_to\" "+
 		    " maxlength=\"10\" value=\""+date_to+"\" />");
 	out.println("</td></tr>");	
-		
-	out.println("</table></td></tr>");
-	out.println("</table></td></tr>");
-	//
-	/*
-	  out.println("<tr><td><table width=\"100%\">");
-	  out.println("<tr>");
-	  out.println("<th>Sort By</th>");
-	  out.println("<td class=\"left\">");
-	  out.println("<select name=\"sortBy\">");
-	  out.println("<option value=\"orgname\">Business Name</option>");
-	  out.println("<select> &nbsp;&nbsp;");
-	  checked = (report.equals("csv"))? checked="checked=\"checked\"":"";
-	  out.println("<th><input type=\"checkbox\" name=\"report\" value=\"csv\" "+checked+" /> Export to csv file.</th> ");		
-	  out.println("</tr></table></td></tr>");
-				
-	*/
+
 	out.println("<tr><td class=\"center\"><input type=\"submit\" "+
 		    " name=\"action\" value=\"Submit\" />");
-	out.println("</td></tr>");
-	out.println("</table></td></tr>");
+	out.println("</td></tr>");	
 	out.println("</table>");
-	out.println("</fieldset>");			
 	out.println("</form>");
+	out.println("</fieldset>");
 	out.println(Inserts.footer(url));
 	out.println("<script>");
 	out.println("  $( \"#date_from\" ).datepicker("+Inserts.jqDateStr(url)+"); ");

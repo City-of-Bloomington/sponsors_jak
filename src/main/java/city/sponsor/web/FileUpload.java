@@ -3,21 +3,23 @@ package city.sponsor.web;
 import java.util.*;
 import java.sql.*;
 import java.io.*;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import jakarta.servlet.*;
 import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.WebServlet;
-import javax.naming.*;
-import javax.naming.directory.*;
-import javax.sql.*;
-import city.sponsor.model.*;
-import city.sponsor.list.*;
-import city.sponsor.util.*;
-import org.apache.commons.fileupload.*;
-import org.apache.commons.fileupload.servlet.*;
-import org.apache.commons.fileupload.disk.*;
+import org.apache.commons.fileupload2.core.DiskFileItem;
+import org.apache.commons.fileupload2.core.DiskFileItemFactory;
+import org.apache.commons.fileupload2.core.FileItem;
+import org.apache.commons.fileupload2.jakarta.servlet6.JakartaServletFileUpload;
+import org.apache.commons.fileupload2.jakarta.servlet6.*;
 import org.apache.commons.io.*;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import city.sponsor.model.*;
+import city.sponsor.list.*;
+import city.sponsor.util.*;
+
 
 /**
  * Generates the interface to handle image viewing and uploading.
@@ -31,7 +33,8 @@ public class FileUpload extends TopServlet{
 
     static final long serialVersionUID = 37L;	
     static Logger logger = LogManager.getLogger(FileUpload.class);
-    int maxImageSize = 2000000, maxDocSize=5000000;
+    private static int maxImageSize = 2000000, maxDocSize=5000000;
+    private static final int DEFAULT_BUFFER_SIZE = 10240; // 10KB.
     String [] inspIdArr = null;
     String [] inspArr = null;
     String [] typeIdArr = null;
@@ -81,9 +84,6 @@ public class FileUpload extends TopServlet{
 	res.setContentType("text/html");
 	PrintWriter out = res.getWriter();
 	String name, value;
-	Connection con = null;
-	Statement stmt = null;
-	ResultSet rs = null;
 	boolean connectDbOk = false, success = true,
 	    sizeLimitExceeded = false;
 	String saveDirectory ="",file_path="";
@@ -110,6 +110,8 @@ public class FileUpload extends TopServlet{
 	    cur_path = pc_path;
 	else
 	    cur_path = server_path+"files/";
+
+	
 	session = req.getSession(false);
 
 	if(session != null){
@@ -131,116 +133,116 @@ public class FileUpload extends TopServlet{
 	// we have to make sure that this directory exits
 	// if not we create it
 	//
-	File myDir = new File(saveDirectory);
+	SponFile sponFile = new SponFile(debug);
+	String new_path = cur_path;
+	Path path = Paths.get(new_path);
+	File myDir = new File(new_path);
 	if(!myDir.isDirectory()){
 	    myDir.mkdirs();
 	}
-	// newFile = "spon"+month+day+seq; // no extension 
-	// boolean isMultipart = ServletFileUpload.isMultipartContent(req);
-	// System.err.println(" Multi "+isMultipart);
-	//
-	// Create a factory for disk-based file items
-	DiskFileItemFactory factory = new DiskFileItemFactory();
-	//
-	// Set factory constraints
-	factory.setSizeThreshold(maxMemorySize);
-	//
-	// if not set will use system temp directory
-	// factory.setRepository(fileDirectory); 
-	//
-	// Create a new file upload handler
-	ServletFileUpload upload = new ServletFileUpload(factory);
+	FileCleaningTracker tracker = JakartaFileCleaner.getFileCleaningTracker(context);
+	DiskFileItemFactory factory = DiskFileItemFactory.builder()
+	    .setPath(path)
+	    //.setSizeThreshold(maxDocSize)
+	    .setBufferSizeMax(maxMemorySize)
+	    .get();
+	JakartaServletDiskFileUpload upload = new JakartaServletDiskFileUpload(factory);
+
+	// Set overall request size constraint
+	upload.setFileSizeMax(maxRequestSize);
 	// ServletFileUpload upload = new ServletFileUpload();
 	//
 	// Set overall request size constraint
 	upload.setSizeMax(maxRequestSize);
 	//
-	String ext = "";
-	SponFile sponFile = new SponFile(debug);
-	List<FileItem> items = null;
+	String ext = "", old_name="";
+
+	List<DiskFileItem> items = null;
 	try{
-	    items = upload.parseRequest(req);
-	    Iterator<FileItem> iter = items.iterator();
-	    while (iter.hasNext()) {
-		FileItem item = iter.next();
-		if (item.isFormField()) {
-		    //
-		    // process form fields
-		    //
-		    name = item.getFieldName();
-		    value = item.getString();
-		    if (name.equals("id")){  
-			id = value;
-			sponFile.setId(value);
-		    }
-		    else if (name.equals("notes")) {
-			notes=value;
-			sponFile.setNotes(value);
-		    }
-		    else if (name.equals("spon_id")){ 
-			spon_id = value;
-			sponFile.setSpon_id(value);
-		    }
-		    else if (name.equals("load_file")) {
-			load_file =value.replace('+',' ');
-		    }
-		    else if(name.equals("action")){
-			action = value;
-		    }
-		}
-		else {
-		    //
-		    // process uploaded item/items
-		    //
-		    // String fieldName = item.getFieldName();
-		    String contentType = item.getContentType();
-		    // boolean isInMemory = item.isInMemory();
-		    sizeInBytes = item.getSize();
-		    String oldName = item.getName();
-		    String filename = "";
-		    if (oldName != null) {
-			filename = FilenameUtils.getName(oldName);
-			logger.error(" file "+oldName);
-			String extent = 
-			    filename.substring(filename.indexOf(".")).toLowerCase();
-			if(extent.equals("")){
-			    ext = extent;
-			}
-			else{
-			    if(contentType.endsWith("jpeg"))
-				ext = ".jpg";
-			    else if(contentType.endsWith("gif"))
-				ext = ".gif";
-			    else if(contentType.endsWith("png"))
-				ext = ".png";
-			    else if(contentType.endsWith("application"))
-				ext = ".pdf";
-			    else if(contentType.endsWith("plain"))
-				ext = ".txt";
-			    else if(contentType.endsWith("msword"))
-				ext = ".doc";
-			    else if(contentType.contains("html"))
-				ext = ".html";
-			    else
-				ext = ".jpg";
-			}
+	    if(JakartaServletDiskFileUpload.isMultipartContent(req)){	    
+		items = upload.parseRequest(req);
+		Iterator<DiskFileItem> iter = items.iterator();
+		while (iter.hasNext()) {
+		    FileItem item = iter.next();
+		    if (item.isFormField()) {
 			//
-			// create the file on the hard drive and save it
+			// process form fields
 			//
-			if(sizeInBytes > maxDocSize) 
-			    sizeLimitExceeded = true;
-			if(sizeLimitExceeded){
-			    message = " File Uploaded exceeds size limits "+
-				sizeInBytes;
-			    success = false;
+			name = item.getFieldName();
+			value = item.getString();
+			if (name.equals("id")){  
+			    id = value;
+			    sponFile.setId(value);
 			}
-			else{
+			else if (name.equals("notes")) {
+			    notes=value;
+			    sponFile.setNotes(value);
+			}
+			else if (name.equals("spon_id")){ 
+			    spon_id = value;
+			    sponFile.setSpon_id(value);
+			}
+			else if (name.equals("load_file")) {
+			    load_file =value.replace('+',' ');
+			}
+			else if(name.equals("action")){
+			    action = value;
+			}
+		    }
+		    else {
+			//
+			// process uploaded item/items
+			//
+			// String fieldName = item.getFieldName();
+			String contentType = item.getContentType();
+			// boolean isInMemory = item.isInMemory();
+			sizeInBytes = item.getSize();
+			String oldName = item.getName();
+			String filename = "";
+			if (oldName != null) {
+			    filename = FilenameUtils.getName(oldName);
+			    logger.error(" file "+oldName);
+			    String extent = 
+				filename.substring(filename.indexOf(".")).toLowerCase();
+			    if(extent.equals("")){
+				ext = extent;
+			    }
+			    else{
+				if(contentType.endsWith("jpeg"))
+				    ext = ".jpg";
+				else if(contentType.endsWith("gif"))
+				    ext = ".gif";
+				else if(contentType.endsWith("png"))
+				    ext = ".png";
+				else if(contentType.endsWith("application"))
+				    ext = ".pdf";
+				else if(contentType.endsWith("plain"))
+				    ext = ".txt";
+				else if(contentType.endsWith("msword"))
+				    ext = ".doc";
+				else if(contentType.contains("html"))
+				    ext = ".html";
+				else
+				    ext = ".jpg";
+			    }
 			    //
-			    // get a new name
+			    // create the file on the hard drive and save it
 			    //
-			    newFile = sponFile.getFullPath(cur_path, ext, url);
-			    File file = new File(saveDirectory, newFile);
-			    item.write(file);
+			    if(sizeInBytes > maxDocSize) 
+				sizeLimitExceeded = true;
+			    if(sizeLimitExceeded){
+				message = " File Uploaded exceeds size limits "+
+				    sizeInBytes;
+				success = false;
+			    }
+			    else{
+				//
+				// get a new name
+				//
+				newFile = sponFile.getFullPath(cur_path, ext, url);
+				Path uploadedFile = Paths.get(cur_path+newFile);
+				item.write(uploadedFile);
+			    }
 			}
 		    }
 		}

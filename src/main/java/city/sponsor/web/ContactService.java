@@ -86,22 +86,6 @@ public class ContactService extends TopServlet{
 	out.flush();
 	out.close();
     }
-    /**
-     * *************************
-     *
-     * json format as an array
-     [
-     {"value":"Walid Sibo",
-     "id":"sibow",
-     "dept":"ITS"
-     },
-     {"value":"schertza",
-     "id":"Alan Schertz",
-     "dept":"ITS"
-     }
-     ]
-     ***************************
-     */
     String writeJson(ContactAbbrList buds, String type){
 	String json="";
 	for(Contact bud:buds){

@@ -165,12 +165,13 @@ public class EventServ extends TopServlet{
 	out.println("<form name=\"myForm\" method=\"post\" "+
 		    " action=\""+url+"EventServ?\""+
 		    " onsubmit=\"return validateForm()\">");
-	out.println("<fieldset><legend>Event</legend>");
+
 	if(!id.equals("")){
 	    out.println("<input type=\"hidden\" name=\"id\" value=\""+id+"\" />");
 	    out.println("<input type=\"hidden\" name=\"action2\" value=\"\" />");
 	}
 	out.println("<table width=\"60%\">");
+	out.println("<caption>Event</caption>");	
 	if(!id.equals("")){
 	    out.println("<tr><th>ID:</th><td>"+id+"</td></tr>");
 	}
@@ -187,7 +188,6 @@ public class EventServ extends TopServlet{
 			" name=\"action\" value=\"Update\" /></td></tr>");
 	}		
 	out.println("</table>");  
-	out.println("</fieldset>");			
 	out.println("</form>");
 	EventList events = new EventList(debug);
 	String back = events.find();

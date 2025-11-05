@@ -276,7 +276,7 @@ public class ContactServ extends TopServlet{
 	out.println("<form name=\"myForm\" method=\"post\" "+
 		    " action=\""+url+"ContactServ?\""+
 		    " onsubmit=\"return validateForm()\">");
-	out.println("<fieldset><legend>Contact Info</legend>");
+
 	if(!id.equals("")){
 	    out.println("<input type=\"hidden\" name=\"id\" value=\""+id+"\" />");
 	    out.println("<input type=\"hidden\" name=\"action2\" value=\"\" />");
@@ -284,49 +284,41 @@ public class ContactServ extends TopServlet{
 	if(!spon_id.equals("")){
 	    out.println("<input type=\"hidden\" name=\"spon_id\" value=\""+spon_id+"\" />");
 	}	
-	out.println("<table border=\"1\" width=\"90%\">");
-	out.println("<tr><td class=\"center\">");
-	//
-	// Add/Edit record
-	//
-	out.println("<table width=\"100%\">");
-	out.println("<tr><td class=\"center title\">");
-	out.println("Contact Info</td></tr>");
-	out.println("<tr><td>");
-	out.println("<table width=\"100%\">");
-	out.println("<tr><th>Last Name</th><th>First Name</th><th>Title</th>");
+	out.println("<table width=\"90%\">");
+	out.println("<caption>Contact Info</caption>");
+	out.println("<tr><th><label for=\"lname\">Last Name</label></th><th><label for=\"fname\">First Name</label></th><th><label for=\"occup\">Title</label></th>");
 	out.println("</tr>");
 	out.println("<tr>");
 	out.println("<td class=\"left\">");
-	out.println("<input name=\"lname\" "+
+	out.println("<input name=\"lname\" id=\"lname\" "+
 		    " size=\"25\" maxlength=\"50\" value=\""+
 		    Helper.replaceSpecialChars(contact.getLname())+"\" />");
 	out.println("</td><td class=\"left\">");
 	out.println("<input name=\"fname\" size=\"25\" maxlength=\"30\" "+
-		    " value=\""+contact.getFname()+"\" />");
+		    " value=\""+contact.getFname()+"\" id=\"fname\" />");
 	out.println("</td><td class=\"left\">");
-	out.println("<input name=\"occupation\" size=\"30\" maxlength=\"70\" "+
+	out.println("<input name=\"occupation\" size=\"30\" id=\"occup\" maxlength=\"70\" "+
 		    " value=\""+contact.getOccupation()+"\" /></td>");	
 		
 	out.println("</tr>");
-	out.println("<tr><th colspan=\"2\">Address</th><th>Email</th></tr>");
+	out.println("<tr><th colspan=\"2\"><label for=\"addr\">Address</label></th><th><label for=\"email\">Email</label></th></tr>");
 	out.println("<tr><td colspan=\"2\" class=\"left\">");	
-	out.println("<input name=\"address\" size=\"50\" maxlength=\"70\" "+
+	out.println("<input name=\"address\" size=\"50\" maxlength=\"70\" id=\"addr\" "+
 		    " value=\""+contact.getAddress()+"\" />");
 	out.println("</td>");
 	out.println("<td class=\"left\">");
-	out.println("<input name=\"email\" size=\"30\" maxlength=\"50\" value=\""+contact.getEmail()+"\" /></td>");
+	out.println("<input name=\"email\" size=\"30\" maxlength=\"50\" value=\""+contact.getEmail()+"\" id=\"email\" /></td>");
 	out.println("</tr>");
-	out.println("<tr><th>City </th><th>State</th><th>Zip code</th></tr>");
+	out.println("<tr><th><label for=\"city\">City </label></th><th><label for=\"state\">State</label></th><th><label for=\"zip\">Zip code</label></th></tr>");
 	out.println("<tr><td class=\"left\">");	
 	out.println("<input name=\"city\" size=\"10\" maxlength=\"30\" "+
-		    " value=\""+contact.getCity()+"\" />");
+		    " value=\""+contact.getCity()+"\" id=\"city\"/>");
 	out.println("</td><td class=\"left\">");
 	out.println("<input name=\"state\" size=\"2\" maxlength=\"2\" "+
-		    " value=\""+contact.getState()+"\" />");
+		    " value=\""+contact.getState()+"\" id=\"state\"/>");
 	out.println("</td><td class=\"left\">");
 	out.println("<input name=\"zip\" size=\"10\" maxlength=\"10\" "+
-		    " value=\""+contact.getZip()+"\" />");
+		    " value=\""+contact.getZip()+"\" id=\"zip\"/>");
 	out.println("</td></tr>");
 	out.println("</table></td></tr>");
 	//

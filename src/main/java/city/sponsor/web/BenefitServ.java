@@ -247,16 +247,11 @@ public class BenefitServ extends TopServlet{
 		out.println("<input type=\"hidden\" id=\"b"+jj+"\" name=\"b"+jj+"\" value=\"\" />");
 	    }
 	}
-	out.println("<table border=\"1\" width=\"90%\">"); 
-	out.println("<tr><td class=\"center\">");
 	//
 	// Add/Edit record
 	//
-	out.println("<table width=\"100%\">");          
-	out.println("<tr><td class=\"center title\">");
-	out.println("Benefits Info</td></tr>");
-	out.println("<tr><td>");
-	out.println("<table width=\"100%\">");           
+	out.println("<table width=\"100%\">");
+	out.println("<caption>Benefits Info</caption>");
 	out.println("<tr><th>Opportunity</th>");
 	out.println("<td class=\"left\" colspan=\"3\">");
 	if(opport != null){
@@ -284,16 +279,12 @@ public class BenefitServ extends TopServlet{
 	out.println("</td>");
 	out.println("<th>Year</th><td class=\"left\">"+opport.getYear());
 	out.println("</td></tr>");
-	out.println("<tr>");
-	out.println("</table></td></tr>"); 
-	out.println("</table></td></tr>"); 
 	// benefit table
-	out.println("<table width=\"90%\" border=\"1\">"); 
 	int njj = 0;
 	if(benefits != null){
-	    out.println("<tr><td class=\"center title\">");
-	    out.println("Current Benefits</td></tr>");
-	    out.println("<tr><td><table width=\"100%\">"); 
+	    out.println("<tr><td colspan=\"2\">");
+	    out.println("<table>");
+	    out.println("<caption>Current Benefits</caption>");
 	    out.println("<tr><th>#</th><th>Benefit</th><th>Fulfilled</th>"+
 			"<th>Fulf. Date</th><th>Notes</th></tr>");
 	    int jj=1;
@@ -311,12 +302,10 @@ public class BenefitServ extends TopServlet{
 	    njj = benefits.size();
 	    out.println("</table></td></tr>"); 
 	}
-	out.println("<tr><td class=\"center title\">");
-	out.println("Add Benefits (five at a time)</td></tr>");
-	out.println("<tr><td><table width=\"100%\">");
+	out.println("<tr><td colspan=\"2\"><table>");
+	out.println("<caption>Add Benefits (five at a time)</caption>");
 	out.println("<tr><th>#</th><th>Benefit</th><th>Fulfilled</th>"+
 		    "<th>Fulf. Date</th></tr>");
-
 	for(int jj=1;jj<6;jj++){
 	    out.println("<tr><td>"+(njj+jj)+"</td><td class=\"left\">"+
 			"<input type=\"text\" name=\"bname"+jj+"\" id=\"bname"+jj+"\" size=\"70\" maxlength=\"150\" /></td>");

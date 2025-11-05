@@ -312,7 +312,7 @@ public class ActionServ extends TopServlet{
 	out.println("<form name=\"myForm\" method=\"post\" id=\"myForm\" "+
 		    " action=\""+url+"ActionServ?\""+
 		    " onsubmit=\"return validateForm()\" >");
-	out.println("<fieldset><legend>Note Info</legend>");
+	out.println("<fieldset><legend>Notes Info</legend>");
 	if(!id.equals("")){
 	    out.println("<input type=\"hidden\" name=\"id\" value=\""+id+"\" />");
 	    out.println("<input type=\"hidden\" name=\"action2\" value=\"\" />");
@@ -333,16 +333,11 @@ public class ActionServ extends TopServlet{
 	if(benefit != null){
 	    out.println("<input type=\"hidden\"  name=\"ben_id\" value=\""+benefit.getId()+"\" />");
 	}			
-	out.println("<table border=\"1\" width=\"90%\">");
-	out.println("<tr><td class=\"center\">");
 	//
 	// Add/Edit record
 	//
 	out.println("<table width=\"100%\">");
-	out.println("<tr><td class=\"center title\">");
-	out.println("Note Info</td></tr>");
-	out.println("<tr><td>");
-	out.println("<table width=\"100%\">");
+	out.println("<caption>Notes </caption>");
 	if(sponsor != null){
 	    out.println("<tr><th>Sponsor</th><td class=\"left\"><a href=\""+url+"SponsorServ?id="+sponsor.getId()+"\">");
 	    out.println(sponsor);
@@ -370,7 +365,7 @@ public class ActionServ extends TopServlet{
 	if(sponship_id.equals("") && sponships != null){
 	    sponship = sponships.get(0);
 	    if(sponships.size() > 1){
-		out.println("<tr><th>Sponsorships</th><td class=\"left\">");
+		out.println("<tr><th><label for=\"sponsorshi_id\">Sponsorships</th></label><td class=\"left\">");
 		out.println("<select name=\"sponship_id\" >");
 		out.println("<option value=\"\"></option>");
 		for(Sponsorship spsh:sponships){
@@ -393,7 +388,7 @@ public class ActionServ extends TopServlet{
 	}
 	else if(contacts != null){
 	    if(contacts.size() > 1){
-		out.println("<tr><th>Contacts</th><td class=\"left\">");
+		out.println("<tr><th><label for=\"cont_id\">Contacts</lable></th><td class=\"left\">");
 		out.println("<select name=\"cont_id\">");
 		out.println("<option value=\"\"></option>");
 		for(Contact cont:contacts){
@@ -404,8 +399,8 @@ public class ActionServ extends TopServlet{
 	}
 	else if(id.equals("")){
 	    needContact = true;
-	    out.println("<tr><th>Contact Name</th><td class=\"left\"><input id=\"contactName\" size=\"30\" />");
-	    out.println("<b>ID</b><input id=\"cont_id\"  name=\"cont_id\" value=\""+cont_id+"\" size=\"4\" />");			
+	    out.println("<tr><th><label for=\"contName\">Contact Name</label></th><td class=\"left\"><input id=\"contactName\" size=\"30\" />");
+	    out.println("<label for\"cont_id\">ID</label><input id=\"cont_id\"  name=\"cont_id\" value=\""+cont_id+"\" size=\"4\" />");			
 	    out.println("</td></tr>");
 	}	
 	if(benefit != null){
@@ -426,53 +421,45 @@ public class ActionServ extends TopServlet{
 	}
 	out.println(actBy);
 	out.println("</td></tr>");
-	out.println("<tr><th>Set Email Notification</th>");
+	out.println("<tr><th><label for=\"m_alert\">Set Email Notification</label></th>");
 	out.println("<td class=\"left\">");
 	String checked = act.hasAlert() ? "checked=\"checked\"":"";
 	out.println("<input name=\"m_alert\" type=\"checkbox\" "+
-		    " value=\"y\" "+checked+" /> on ");
+		    " value=\"y\" "+checked+" id=\"m_alert\"/><label for=\"alert_date\"> on </label>");
 	out.println("<input name=\"alert_date\" size=\"10\" maxlength=\"10\" "+
 		    " id=\"alert_date\" value=\""+act.getAlert_date()+"\"/>");
 	out.println("</td></tr>");
-	out.println("<tr><th>Notify Another User</th>");
+	out.println("<tr><th><label for=\"another_id\">Notify Another User</label></th>");
 	out.println("<td class=\"left\">");
 	out.println("<input name=\"another_userid\" size=\"10\" maxlength=\"10\" "+
-		    " id=\"another_userid\" value=\""+act.getAnotherUserid()+"\"/>(make sure this a valid city employee userid)</td></tr>");		
-	out.println("<tr><th>Notes *</th></tr>");		
+		    " id=\"another_id\" value=\""+act.getAnotherUserid()+"\"/>(make sure this a valid city employee userid)</td></tr>");		
+	out.println("<tr><th><label for=\"notes\">Notes </lable></th></tr>");		
 	out.println("<tr><td colspan=\"2\" class=\"left\">");
 	out.println("<textarea name=\"notes\" id=\"notes\" row=\"5\" cols=\"70\">");
 	out.println(act.getNotes());
 	out.println("</textarea></td></tr>");
-	out.println("<tr><th>Followup Date</th>");
+	out.println("<tr><th><label for=\"folllowup\">Followup Date</lable></th>");
 	out.println("<td class=\"left\">");
 	out.println("<input name=\"followup\" size=\"10\" maxlength=\"10\" "+
 		    " id=\"followup\" value=\""+act.getFollowup()+"\" />");
 	out.println("</td></tr>");
-	out.println("<tr><th>Status</th>");
+	out.println("<tr><th><label for=\"status\">Status</lable></th>");
 	out.println("<td class=\"left\">");
 	for(String str:Helper.actionStatusArr){
 	    String status = act.getStatus();
 	    checked = status.equals(str)?"checked=\"checked\"":"";
 	    out.println("<input type=\"radio\" name=\"status\" "+checked+
-			" value=\""+str+"\" />"+str);
+			" value=\""+str+"\" id=\"status\"/>"+str);
 	}
 	out.println("</td></tr>");
-	out.println("</table></td></tr>");
 	if(id.equals("")){
-	    out.println("</table></td></tr>");
 	    if(user.canEdit()){
 		out.println("<tr><td class=\"center\"><input type=\"submit\" "+
 			    " name=\"action\" value=\"Save\" />");
 		out.println("</td></tr>");
 	    }
-	    out.println("</table>");
-	    out.println("</fieldset>");			
-	    out.println("</form>");
 	}
 	else{ // Save, Update
-	    out.println("<tr><td valign=\"top\" class=\"center\">");
-	    out.println("<table width=\"100%\" border=\"1\"><tr><td>");
-	    out.println("<table width=\"100%\">");	
 	    out.println("<tr>");
 	    if(user.canEdit()){
 		out.println("<td><input "+
@@ -483,16 +470,11 @@ public class ActionServ extends TopServlet{
 			"onclick=\"document.location='"+url+"ActionServ?spon_id="+spon_id+"&amp;cont_id="+cont_id+"'\" "+
 			"value=\"Add Another Task Notes\" />");					
 	    if(user.canDelete()){
-		out.println("<td>");
 		out.println("<input type=\"button\" "+
 			    " onclick=\"validateDelete2();\" "+
 			    " value=\"Delete\" />");
-		out.println("</td>");
 	    }
-	    out.println("</tr></table></td></tr>");
-	    out.println("</table></td></tr>");			
-	    out.println("</table>");
-	    out.println("</td></tr></table>");	
+	    out.println("</td></tr>");
 	    out.println("</fieldset>");
 	    out.println("</form>");
 
@@ -500,9 +482,8 @@ public class ActionServ extends TopServlet{
 	    actl.setStatus("Ongoing");
 	    actl.find();
 	    if(actl != null && actl.size() > 0){
-		out.println("<table width=\"90%\" border=\"1\"><tr><td align=\"center\">");
-		out.println("<caption>Recent Ongoing Task Notes</caption>");
 		out.println("<table width=\"90%\" >");
+		out.println("<caption>Recent Ongoing Task Notes</caption>");
 		for(Action actt:actl){
 		    sponship = actt.getSponship();
 		    sponsor = actt.getSponsor();
@@ -543,7 +524,6 @@ public class ActionServ extends TopServlet{
 		    out.println("<tr><td colspan=\"2\" class=\"center\"><hr width=\"90%\" /></td></tr>");
 		}
 		out.println("</table>");
-		out.println("</td></tr></table>");
 	    }
 	}
 	out.println(Inserts.footer(url));	

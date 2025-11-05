@@ -145,7 +145,6 @@ public class BenNoteServ extends TopServlet{
 	out.println("<form name=\"myForm\" method=\"post\" "+
 		    " action=\""+url+"BenNoteServ?\""+
 		    " onsubmit=\"return validateForm()\">");
-	out.println("<fieldset><legend>Benefit Note</legend>");
 	if(!id.equals("")){
 	    out.println("<input type=\"hidden\" name=\"id\" value=\""+id+"\" />");
 	    out.println("<input type=\"hidden\" name=\"action2\" value=\"\" />");
@@ -153,10 +152,11 @@ public class BenNoteServ extends TopServlet{
 	if(!sponship_id.equals("")){
 	    out.println("<input type=\"hidden\" name=\"sponship_id\" value=\""+sponship_id+"\" />");
 	}	
-	out.println("<table border=\"1\" width=\"90%\">"); 
-	out.println("<tr><th>Notes</th></tr>");
-	out.println("<tr><td><textarea name=\"notes\" rows=\"5\" cols=\"50\">");
-	// out.println(dbt.getNotes());
+	out.println("<table border=\"1\" width=\"90%\">");
+	out.println("<caption>Benefit Note</caption>");
+
+	out.println("<tr><th><label for=\"notes\">Notes</label></th></tr>");
+	out.println("<tr><td><textarea name=\"notes\" id=\"notes\" rows=\"5\" cols=\"50\">");
 	out.println("</textarea></td></tr>");
 	if(user.canEdit()){
 	    String str = dbt.hasNotes()?"Update":"Save";
@@ -165,15 +165,11 @@ public class BenNoteServ extends TopServlet{
 	    out.println("</td></tr>");
 	}
 	out.println("</table>");  
-	out.println("</fieldset>");			
 	out.println("</form>");
 	out.println("<center>");
 	out.println("<a href=\"#\" onclick=\"javascript:window.close();\">Close This Window</a>");
 	out.println("</center>");
-		
 	out.print("<br /><br />");
-		
-
 	out.print("</div>");
 	out.print("</body></html>");
 	out.flush();

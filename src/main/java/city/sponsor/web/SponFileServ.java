@@ -6,19 +6,20 @@ import java.io.*;
 import jakarta.servlet.*;
 import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.WebServlet;
-import javax.naming.*;
-import javax.naming.directory.*;
-import javax.sql.*;
-import city.sponsor.model.*;
-import city.sponsor.list.*;
-import city.sponsor.util.*;
-import org.apache.commons.fileupload.*;
-import org.apache.commons.fileupload.servlet.*;
-import org.apache.commons.fileupload.disk.*;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import org.apache.commons.fileupload2.core.DiskFileItem;
+import org.apache.commons.fileupload2.core.DiskFileItemFactory;
+import org.apache.commons.fileupload2.core.FileItem; // 
+import org.apache.commons.fileupload2.jakarta.servlet6.JakartaServletFileUpload;
+import org.apache.commons.fileupload2.jakarta.servlet6.*;
+
 import org.apache.commons.io.*;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-
+import city.sponsor.model.*;
+import city.sponsor.list.*;
+import city.sponsor.util.*;
 /**
    
  * Generates the interface to handle image viewing and uploading.
@@ -58,9 +59,6 @@ public class SponFileServ extends TopServlet{
 	res.setContentType("text/html");
 	PrintWriter out = res.getWriter();
 	String name, value;
-	Connection con = null;
-	Statement stmt = null;
-	ResultSet rs = null;
 	boolean connectDbOk = false, success = true,
 	    sizeLimitExceeded = false;
 	String saveDirectory ="",file_path="";
@@ -103,40 +101,45 @@ public class SponFileServ extends TopServlet{
 	// we have to make sure that this directory exits
 	// if not we create it
 	//
-	File myDir = new File(server_path);
+	SponFile sponFile = new SponFile(debug);
+	String new_path = server_path;
+	Path path = Paths.get(new_path);
+	File myDir = new File(new_path);
 	if(!myDir.isDirectory()){
 	    myDir.mkdirs();
 	}
-	// newFile = "spon"+month+day+seq; // no extension 
-	// boolean isMultipart = ServletFileUpload.isMultipartContent(req);
-	// System.err.println(" Multi "+isMultipart);
-	//
-	// Create a factory for disk-based file items
-	DiskFileItemFactory factory = new DiskFileItemFactory();
+// Create a factory for disk-based file items
+	FileCleaningTracker tracker = JakartaFileCleaner.getFileCleaningTracker(context);
+	DiskFileItemFactory factory = DiskFileItemFactory.builder()
+	    .setPath(path)
+	    //.setSizeThreshold(maxDocSize)
+	    .setBufferSizeMax(maxMemorySize)
+	    .get();
+	
 	//
 	// Set factory constraints
-	factory.setSizeThreshold(maxMemorySize);
 	//
 	// if not set will use system temp directory
 	// factory.setRepository(fileDirectory); 
 	//
 	// Create a new file upload handler
-	ServletFileUpload upload = new ServletFileUpload(factory);
+	JakartaServletDiskFileUpload upload = new JakartaServletDiskFileUpload(factory);
+
+	// Set overall request size constraint
+	upload.setFileSizeMax(maxRequestSize);
 	// ServletFileUpload upload = new ServletFileUpload();
 	//
 	// Set overall request size constraint
 	upload.setSizeMax(maxRequestSize);
 	//
 	String ext = "", old_name="";
-	SponFile sponFile = new SponFile(debug);
-	List<FileItem> items = null;
-	String content_type = req.getContentType();
 
-		
+	List<DiskFileItem> items = null;
+	String content_type = req.getContentType();
 	try{
-	    if(content_type != null && content_type.startsWith("multipart")){
+	    if(JakartaServletDiskFileUpload.isMultipartContent(req)){	    
 		items = upload.parseRequest(req);
-		Iterator<FileItem> iter = items.iterator();
+		Iterator<DiskFileItem> iter = items.iterator();
 		while (iter.hasNext()) {
 		    FileItem item = iter.next();
 		    if (item.isFormField()) {
@@ -227,8 +230,8 @@ public class SponFileServ extends TopServlet{
 				newFile = sponFile.getName();
 				if(!newFile.equals("")){
 				    saveDirectory = sponFile.getFullPath(server_path,ext, url2);
-				    File file = new File(saveDirectory, newFile);
-				    item.write(file);
+				    Path uploadedFile = Paths.get(saveDirectory+newFile);
+				    item.write(uploadedFile);
 				}
 				else{
 				    message = "Error: no file name assigned ";

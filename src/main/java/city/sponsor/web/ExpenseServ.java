@@ -249,7 +249,7 @@ public class ExpenseServ extends TopServlet{
 	out.println("<form name=\"myForm\" method=\"post\" "+
 		    " action=\""+url+"ExpenseServ?\""+
 		    " onsubmit=\"return validateForm()\">");
-	out.println("<fieldset><legend>Expenses Info</legend>");
+
 	if(!id.equals("")){
 	    out.println("<input type=\"hidden\" name=\"id\" value=\""+id+"\" />");
 	    out.println("<input type=\"hidden\" name=\"action2\" value=\"\" />");
@@ -257,16 +257,11 @@ public class ExpenseServ extends TopServlet{
 	if(!sponship_id.equals("")){
 	    out.println("<input type=\"hidden\" name=\"sponship_id\" value=\""+sponship_id+"\" />");
 	}
-	out.println("<table border=\"1\" width=\"90%\">");
-	out.println("<tr><td class=\"center\">");
 	//
 	// Add/Edit record
 	//
 	out.println("<table width=\"100%\">");
-	out.println("<tr><td class=\"center title\">");
-	out.println("Expenses Info</td></tr>");
-	out.println("<tr><td>");
-	out.println("<table width=\"100%\">");
+	out.println("<caption>Expenses Info</caption>");	
 	if(!id.equals("")){
 	    out.println("<tr><th>ID</th>");
 	    out.println("<td class=\"left\">");
@@ -285,9 +280,9 @@ public class ExpenseServ extends TopServlet{
 	    out.println("<a href=\""+url+"SponsorshipServ?id="+sponship.getId()+"\">"+sponship+"</a>");
 	}
 	out.println("</td></tr>");
-	out.println("<tr><th>Vendor</th>");
+	out.println("<tr><th><label for=\"vend_id\">Vendor</label></th>");
 	out.println("<td class=\"left\">");
-	out.println("<select name=\"vendor_id\">");
+	out.println("<select name=\"vendor_id\" id=\"vend_id\">");
 	out.println("<option value=\"\"></option>");
 	if(vendors != null && vendors.size() > 0){
 	    for(Vendor vv:vendors){
@@ -300,45 +295,37 @@ public class ExpenseServ extends TopServlet{
 	}
 	out.println("</select>");
 	if(vendor_id.equals("")){
-	    out.println("Add New Vendor");
+	    out.println("<label for=\"addNew\">Add New Vendor</label>");
 	    out.println("<input name=\"addVendor\" size=\"20\" maxlength=\"30\" "+
-			" value=\"\" />");
+			" value=\"\" id=\"addNew\" />");
 	}
 	out.println("</td></tr>");
 	// 
-	out.println("<tr><th>Expenses Amount $</th>");
+	out.println("<tr><th><label for=\"value\" Expenses Amount $</th>");
 	out.println("<td class=\"left\">");
-	out.println("<input name=\"value\" size=\"8\" maxlength=\"8\" "+
+	out.println("<input name=\"value\" size=\"8\" maxlength=\"8\" id=\"value\" "+
 		    " value=\""+expen.getValue()+"\" />");
 	out.println("</td></tr>");
 	out.println("<tr>");
-	out.println("<th>Date</th>");
+	out.println("<th><label for=\"date\"> Date</label></th>");
 	out.println("<td class=\"left\">");
 	out.println("<input name=\"date\" size=\"10\" maxlength=\"10\" "+
 		    " id=\"date\" value=\""+expen.getDate()+"\" />");
 	out.println("</td></tr>");
 	out.println("<tr>");
-	out.println("<th>Details</th>");
+	out.println("<th><label for=\"det_id\">Details</label></th>");
 	out.println("<td class=\"left\">");
-	out.println("<textarea name=\"details\" rows=\"5\" cols=\"70\">");
+	out.println("<textarea name=\"details\" rows=\"5\" cols=\"70\" id=\"det_id\">");
 	out.println(expen.getDetails());
 	out.println("</textarea></td></tr>");
-	out.println("</table></td></tr>");
 	if(id.equals("")){
-	    out.println("</table></td></tr>");							
 	    if(user.canEdit()){
 		out.println("<tr><td class=\"center\"><input type=\"submit\" "+
 			    " name=\"action\" value=\"Save\" />");
 		out.println("</td></tr>");
 	    }
-	    out.println("</table>");
-	    out.println("</fieldset>");			
-	    out.println("</form>");
 	}
 	else{ // Save, Update
-	    out.println("<tr><td valign=\"top\" class=\"center\">");
-	    out.println("<table width=\"100%\" border=\"1\"><tr><td>");
-	    out.println("<table width=\"100%\">");	
 	    out.println("<tr>");
 	    if(user.canEdit()){
 		out.println("<td valign=\"top\"><input "+
@@ -353,12 +340,8 @@ public class ExpenseServ extends TopServlet{
 			    " value=\"Delete\" />");
 		out.println("</td>");
 	    }
-	    out.println("</tr></table></td></tr>");
-	    out.println("</table></td></tr>");			
-	    out.println("</table>");
-	    out.println("</td></tr></table>");	
-	    out.println("</fieldset>");
-	    out.println("</form>");
+	    out.println("</tr>");
+
 	}
 	if(sponship.hasExpenses()){
 	    ExpenseList rows = sponship.getExpenses();
@@ -366,6 +349,8 @@ public class ExpenseServ extends TopServlet{
 		Helper.writeExpenses(out, rows, url);
 	    }
 	}
+	out.println("</table>");
+	out.println("</form>");	
 	out.println(Inserts.footer(url));
 	out.println("<script>");
 	out.println("  $( \"#date\" ).datepicker("+Inserts.jqDateStr(url)+"); ");

@@ -203,8 +203,8 @@ public class IncomeReport extends TopServlet{
 	    out.println(Inserts.xhtmlHeaderInc);
 	    out.println("<div id=\"mainContent\">");			
 	    out.println("<h3>"+title+"</h2>");
-	    out.println("<table width=\"95%\"><tr><td align=\"center\">");
 	    out.println("<table width=\"100%\" border=\"1\">");
+	    out.println("<caption>Income report</caption>");
 	    out.println("<tr>"+
 			"<th>Opportunity</th>"+
 			"<th>Corporate Partner</th>"+
@@ -251,7 +251,6 @@ public class IncomeReport extends TopServlet{
 	    out.println("<td align=\"right\">"+cf.format(net)+"</td>");	
 	    out.println("</tr>");
 	    out.println("</table>");
-	    out.println("</td></tr></table>");			
 	    out.print("<br /><br />");
 	    out.print("</body></html>");
 	    out.flush();
@@ -328,9 +327,6 @@ public class IncomeReport extends TopServlet{
 	//
     	// delete startNew
 	//
-	out.println("<div class=\"center\">");
-	out.println("<h2>Periodic Income Report</h2>");
-	out.println("</div>"); 		
 	if(!message.equals("")){
 	    if(success)
 		out.println("<p class=\"center\">"+message+"</p>");
@@ -340,60 +336,50 @@ public class IncomeReport extends TopServlet{
 	out.println("<form name=\"myForm\" method=\"post\" "+
 		    " action=\""+url+"IncomeReport?\""+
 		    " onsubmit=\"return validateForm()\">");
-
-	out.println("<fieldset><legend>Income Report</legend>");
-	out.println("<table border=\"1\" width=\"70%\">");
-	out.println("<tr><td align=\"center\">");
-	//
-	// Add/Edit record
+	out.println("<fieldset>");
+	out.println("<legend>Periodic Income Report</legend>");	
 	//
 	out.println("<table width=\"80%\">");
-	out.println("<tr><td class=\"center title\">");
-	out.println("Period</td></tr>");
-	out.println("<tr><td>");
-	out.println("<table width=\"100%\">");
-	out.println("<tr><th>Opportunity</th>");
+	out.println("<caption>Report options</caption>");	
+	out.println("<tr><th><label for=\"oppt_id\">Opportunity</label></th>");
 	out.println("<td class=\"left\">");
 	out.println("<input name=\"name\" size=\"30\" id=\"opport_name\" "+
 		    " maxlength=\"50\" value=\"\" />");
 	out.println("<b>ID</b><input id=\"oppt_id\" name=\"oppt_id\" size=\"4\" value=\"\" />");				
 	out.println("</td></tr>");		
-	out.println("<tr><th>Period Type</th></tr>");
+	out.println("<tr><th><label for=\"type\">Period Type</label></th></tr>");
 	out.println("<tr>");
-	out.println("<th><input type=\"radio\" name=\"type\" value=\"quarter\" checked=\"checked\" />Quarter Report</th>");
+	out.println("<th><input type=\"radio\" name=\"type\" value=\"quarter\" checked=\"checked\" id=\"type\"/>Quarter Report</th>");
 	out.println("<td class=\"left\">Pick one</td></tr>");
 	out.println("<tr><th>&nbsp;</th>");
 	out.println("<td class=\"left\">");
-	out.println("<input type=\"radio\" name=\"quarter\" value=\"1\" checked=\"checked\" />First Quarter</td></tr>");
+	out.println("<input type=\"radio\" name=\"quarter\" value=\"1\" checked=\"checked\" id=\"q1\"/><label for=\"q1\">First Quarter</label></td></tr>");
 	out.println("<tr><th>&nbsp;</th>");
 	out.println("<td class=\"left\">");		
-	out.println("<input type=\"radio\" name=\"quarter\" value=\"2\" />Second Quarter</td></tr>");
+	out.println("<input type=\"radio\" name=\"quarter\" value=\"2\" id=\"q2\"/><label for=\"q2\">Second Quarter</label></td></tr>");
 	out.println("<tr><th>&nbsp;</th>");
 	out.println("<td class=\"left\">");		
-	out.println("<input type=\"radio\" name=\"quarter\" value=\"3\" />Third Quarter</td></tr>");
+	out.println("<input type=\"radio\" name=\"quarter\" value=\"3\" id=\"q3\"/><label for=\"q3\">Third Quarter</label></td></tr>");
 	out.println("<tr><th>&nbsp;</th>");
 	out.println("<td class=\"left\">");		
-	out.println("<input type=\"radio\" name=\"quarter\" value=\"4\" />Fourth Quarter</td></tr>");
-	out.println("<tr><th><input type=\"radio\" name=\"type\" value=\"annual\" />Annual Report</th><td>&nbsp;</td></tr>");	
-	out.println("<tr><th><input type=\"radio\" name=\"type\" value=\"specific\" />Specific Period</th><td class=\"left\">Set start and end dates</td></tr>");	
+	out.println("<input type=\"radio\" name=\"quarter\" value=\"4\" id=\"q4\"/><label for=\"q4\">Fourth Quarter</label></td></tr>");
+	out.println("<tr><th><input type=\"radio\" name=\"type\" value=\"annual\" id=\"annual\"/><label for=\"annual\">Annual Report</label></th><td>&nbsp;</td></tr>");	
+	out.println("<tr><th><input type=\"radio\" name=\"type\" value=\"specific\" id=\"spec\" /><label for=\"spec\">Specific Period</label></th><td class=\"left\">Set start and end dates</td></tr>");	
 	out.println("<tr><th>&nbsp;</th>");
 	out.println("<td class=\"left\">");	
-	out.println("Start Date:<input id=\"date_from\" name=\"date_from\" value=\"\" size=\"10\" maxlength=\"10\" /></td></tr>");
+	out.println("<label for=\"date_from\">Start Date:</label><input id=\"date_from\" name=\"date_from\" value=\"\" size=\"10\" maxlength=\"10\" /></td></tr>");
 	out.println("<tr><th>&nbsp;</th>");
 	out.println("<td class=\"left\">");			
-	out.println("End Date<input id=\"date_to\" name=\"date_to\" value=\"\" size=\"10\" maxlength=\"10\" /></td></tr>");	
+	out.println("<label for=\"date_to\">End Date</label><input id=\"date_to\" name=\"date_to\" value=\"\" size=\"10\" maxlength=\"10\" /></td></tr>");	
 	out.println("<tr><th>Output Format</th>");
 	out.println("<td class=\"left\">");
-	out.println("<input type=\"radio\" name=\"output\" value=\"\" checked=\"checked\" />HTML</th>");
-	out.println("<input type=\"radio\" name=\"output\" value=\"csv\" />CSV File (Excel)");
+	out.println("<input type=\"radio\" name=\"output\" value=\"\" checked=\"checked\" id=\"html\" /><label for=\"html\">HTML</label></th>");
+	out.println("<input type=\"radio\" name=\"output\" value=\"csv\" id=\"csv\" /><label for=\"csv\">CSV File (Excel)</label>");
 	out.println("</td></tr>");
-	out.println("</table></td></tr>");
-	out.println("</td></tr>");		
-	out.println("</table>");	
 	out.println("<tr><td class=\"right\"><input type=\"submit\" name=\"action\" value=\"Submit\" />");
 	out.println("</td></tr>");		
 	out.println("</table>");
-	out.println("</fieldset>");			
+	out.println("</fieldset>");
 	out.println("</form>");
 	out.println(Inserts.footer(url));
 	out.println("<script>");

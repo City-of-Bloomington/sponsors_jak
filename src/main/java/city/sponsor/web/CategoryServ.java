@@ -166,19 +166,14 @@ public class CategoryServ extends TopServlet{
 	out.println("<form name=\"myForm\" method=\"post\" "+
 		    " action=\""+url+"CategoryServ?\""+
 		    " onsubmit=\"return validateForm()\">");
-	out.println("<fieldset><legend>Category Editor</legend>");
-	out.println("<table border=\"1\" width=\"90%\">");
-	out.println("<tr><td class=\"center\">");
-	//
-	out.println("<table width=\"100%\">");
-	out.println("<tr><td class=\"center title\">");
+	out.println("<table width=\"100%\">");	
+	out.println("<caption>Category Editor</caption>");
+
+	out.println("<tr><td colspan=\"2\" class=\"center title\">");
 	out.println("Pick A Category Group</td></tr>");
-	out.println("<tr><td>");
-	out.println("<table width=\"100%\">");
-	out.println("<tr>");
-	out.println("<tr><th>Categories</th>");		
+	out.println("<tr><th><label for=\'cat_name\'>Categories</label></th>");		
 	out.println("<td class=\"left\">");
-	out.println("<select name=\"cat_name\" onchange=\"forms[0].submit();\">");
+	out.println("<select name=\"cat_name\" id=\"cat_name\" onchange=\"forms[0].submit();\">");
 	out.println("<option value=\"\">Pick One</option>");
 	String selected="", disabled="";
 	if(cat_name.equals("org_types")) selected="selected=\"selected\"";
@@ -200,9 +195,9 @@ public class CategoryServ extends TopServlet{
 	out.println("<option value=\"events\" "+selected+">Events</option>");	
 	out.println("</select></td></tr>");
 	if(types != null){
-	    out.println("<tr><th>Available Options</th>");
+	    out.println("<tr><th><label for=\"id\">Available Options</label></th>");
 	    out.println("<td class=\"left\">");			
-	    out.println("<select name=\"id\">");
+	    out.println("<select name=\"id\" id=\"id\">");
 	    out.println("<option value=\"\"></option>\n");			
 	    for(Type type:types){
 		out.println("<option value=\""+type.getId()+"\">"+type+"</option>\n");
@@ -210,25 +205,22 @@ public class CategoryServ extends TopServlet{
 	    out.println("</select></td></tr>");
 	}
 	if(cat_name.equals("")) disabled="disabled=\"disabled\"";
-	out.println("<tr><th>Add New Category Option</th>");		
+	out.println("<tr><th><label for\"new_name\">Add New Category Option</label></th>");		
 	out.println("<td class=\"left\">");
 	out.println("<input name=\"new_name\" size=\"70\" maxlength=\"150\" "+
 		    " id=\"new_name\" value=\"\" "+disabled+"/>");		
 	out.println("</td></tr>");
-	out.println("<tr><th>Replace Selected Option with</th>");		
+	out.println("<tr><th><label for=\"replace\">Replace Selected Option with</label></th>");		
 	out.println("<td class=\"left\">");
 	out.println("<input name=\"replace\" size=\"70\" maxlength=\"150\" "+
 		    " id=\"replace\" value=\"\" "+disabled+"/>");		
 	out.println("</td></tr>");
-	out.println("</table></td></tr>");
-	out.println("</table></td></tr>");							
 	if(user.canEdit()){
-	    out.println("<tr><td class=\"center\"><input type=\"submit\" "+
+	    out.println("<tr><td class=\"center\" colspan=\"2\"><input type=\"submit\" "+
 			" name=\"action\" value=\"Submit\" />");
 	    out.println("</td></tr>");
 	}
 	out.println("</table>");
-	out.println("</fieldset>");			
 	out.println("</form>");
 	out.print("<br /><br />");
 	out.print("</div>");
