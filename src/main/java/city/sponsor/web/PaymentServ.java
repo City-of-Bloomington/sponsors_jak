@@ -222,7 +222,6 @@ public class PaymentServ extends TopServlet{
 	out.println("<form name=\"myForm\" method=\"post\" "+
 		    " action=\""+url+"PaymentServ?\""+
 		    " onsubmit=\"return validateForm()\">");
-	out.println("<fieldset><legend>Payment Info</legend>");
 	if(!id.equals("")){
 	    out.println("<input type=\"hidden\" name=\"id\" value=\""+id+"\" />");
 	    out.println("<input type=\"hidden\" name=\"action2\" value=\"\" />");
@@ -231,16 +230,9 @@ public class PaymentServ extends TopServlet{
 	if(!sponship_id.equals("")){
 	    out.println("<input type=\"hidden\" name=\"sponship_id\" value=\""+sponship_id+"\" />");
 	}
-	out.println("<table border=\"1\" width=\"90%\">");
-	out.println("<tr><td class=\"center\">");
 	//
-	// Add/Edit record
-	//
-	out.println("<table width=\"100%\">");
-	out.println("<tr><td class=\"center title\">");
-	out.println("Payment Info</td></tr>");
-	out.println("<tr><td>");
-	out.println("<table width=\"100%\">");
+	out.println("<table width=\"90%\" border=\"1\">");
+	out.println("<caption>Payment Info</caption>");
 	if(!id.equals("")){
 	    out.println("<tr><th>ID</th>");
 	    out.println("<td class=\"left\">");
@@ -264,16 +256,16 @@ public class PaymentServ extends TopServlet{
 	    out.println("<a href=\""+url+"SponsorshipServ?id="+sponship.getId()+"\">"+sponship+"</a>");
 	}
 	out.println("</td></tr>");
-	out.println("<tr><th>Payment Amount $</th>");
+	out.println("<tr><th><label for=\"pay_id\">Payment Amount $</label></th>");
 	out.println("<td class=\"left\">");
 	out.println("<input name=\"value\" size=\"8\" maxlength=\"8\" "+
-		    " value=\""+pay.getValue()+"\" />");
+		    " id=\"pay_id\" value=\""+pay.getValue()+"\" />");
 	if(pay.getBalance() > 0){
 	    out.println("&nbsp;&nbsp;<b>Balance </b>"+pay.getBalance());
 	}
 	out.println("</td></tr>");
 	out.println("<tr>");
-	out.println("<th>Due Date</th>");
+	out.println("<th><label for=\"dueDate\">Due Date</label></th>");
 	out.println("<td class=\"left\">");
 	out.println("<input name=\"dueDate\" size=\"10\" maxlength=\"10\" "+
 		    " id=\"dueDate\" value=\""+pay.getDueDate()+"\" />");
@@ -281,47 +273,28 @@ public class PaymentServ extends TopServlet{
 	out.println("<tr><th>Status </th>");
 	out.println("<td class=\"left\">"+pay.getStatus());
 	out.println("</td></tr>");
-	out.println("</table></td></tr>");
 	if(id.equals("")){
-	    out.println("</table></td></tr>");							
-	    if(user.canEdit()){
-		out.println("<tr><td class=\"center\"><input type=\"submit\" "+
-			    " name=\"action\" value=\"Save\" />");
-		out.println("</td></tr>");
-	    }
-	    out.println("</table>");
-	    out.println("</fieldset>");			
-	    out.println("</form>");
+	    out.println("<tr><td class=\"center\"><input type=\"submit\" "+
+			" name=\"action\" value=\"Save\" />");
+	    out.println("</td></tr>");
 	}
 	else{ // Save, Update
-	    out.println("<tr><td valign=\"top\" class=\"center\">");
-	    out.println("<table width=\"100%\" border=\"1\"><tr><td>");
-	    out.println("<table width=\"100%\">");	
 	    out.println("<tr>");
-	    if(user.canEdit()){
-		out.println("<td valign=\"top\"><input "+
-			    "type=\"submit\" name=\"action\" value=\"Update\" />");
-		out.println("</td>");
+	    out.println("<td valign=\"top\" colspan=\"2\"><input "+
+			"type=\"submit\" name=\"action\" value=\"Update\" />");
+	    if(user.canDelete()){
+		out.println("<input type=\"button\" "+
+			    " onclick=\"validateDelete2();\" "+
+			    " value=\"Delete\" />");
 	    }
 	    out.println("<td valign=\"top\"><input type=\"button\" "+
 			"onclick=\"document.location='"+url+"InvoiceServ?spon_id="+sponsor.getId()+"'\" "+
 			"value=\"Invoice\" />");
 	    out.println("</td>");
-	    //			
-	    if(user.canDelete()){
-		out.println("<td>");
-		out.println("<input type=\"button\" "+
-			    " onclick=\"validateDelete2();\" "+
-			    " value=\"Delete\" />");
-		out.println("</td>");
-	    }
-	    out.println("</tr></table></td></tr>");
-	    out.println("</table></td></tr>");			
-	    out.println("</table>");
-	    out.println("</td></tr></table>");	
-	    out.println("</fieldset>");
-	    out.println("</form>");
+	    out.println("</tr>");
 	}
+	out.println("</table>");
+	out.println("</form>");
 	if(sponship.hasPayments()){
 	    PaymentList pays = sponship.getPayments();
 	    if(pays != null && pays.size() > 0){

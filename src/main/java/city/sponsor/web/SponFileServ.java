@@ -335,7 +335,7 @@ public class SponFileServ extends TopServlet{
        	out.println("     return true;				         ");
 	out.println("	}	         			             ");
 	out.println(" </script>		                         ");
-    	out.println(" <center><h3>File Upload</h3>");
+    	out.println(" <center>");
 	//
 	if(success){
 	    if(!message.equals(""))
@@ -355,14 +355,9 @@ public class SponFileServ extends TopServlet{
 	}	
 	//
 	out.println("<table border=\"1\" width=\"80%\">");
-	out.println("<tr><td>");
-	//
-	// 1st block
-	//
-	out.println("<table width=100%>");
+	out.println("<caption>File Upload</caption>");
 	if(id.equals("")){
 	    out.println("<tr><td class=\"left\" colspan=\"2\">"+
-			"<font color=\"green\">"+
 			"To upload a new document to sponsors,<br> "+
 			" Download it to your computer"+
 			" in a specific folder.<br />"+
@@ -375,7 +370,7 @@ public class SponFileServ extends TopServlet{
 			" Supported document and image files are of type 'pdf','doc','txt' "+
 			" 'html','gif','jpg','png' "+
 			" <br /><br />");
-	    out.println("</font></td></tr>");
+	    out.println("</td></tr>");
 	}
 	else{
 	    out.println("<tr><th>Date </th><td class=\"left\">"+sponFile.getDate()+"</td></tr>");
@@ -383,44 +378,41 @@ public class SponFileServ extends TopServlet{
 	    out.println("<tr><th>New Name</th><td>"+sponFile.getName()+"</td></tr>");
 	    out.println("<tr><td colspan=\"2\">If you upload the file after download, it will replace the old one.</td></tr>");
 	}
-	out.println("<tr><th>File </th><td class=\"left\">"); 
-	out.println("<input type=\"file\" name=\"load_file\" "+
-		    " size=\"30\"></td></tr>");
-	out.println("<tr><th>Notes </th>");
+	out.println("<tr><th><label for=\"file_id\">File </label></th>");
 	out.println("<td class=\"left\">"); 
-	out.println("<input name=\"notes\" size=\"70\" maxlength=\"90\" value=\""+sponFile.getNotes()+"\" />");
+	out.println("<input type=\"file\" name=\"load_file\" "+
+		    " size=\"30\" id=\"file_id\" /></td></tr>");
+	out.println("<tr><th><label for=\"notes\">Notes </label></th>");
+	out.println("<td class=\"left\">"); 
+	out.println("<input name=\"notes\" size=\"70\" maxlength=\"90\" value=\""+sponFile.getNotes()+"\" id=\"notes\" />");
 	out.println("</td></tr>");
 	out.println("<tr><th>Sponsor</th>");
 	out.println("<td class=\"left\">"); 
 	out.println("<a href=\""+url+"SponsorServ?id="+spon_id+"\">"+sponsor+
 		    "</a></td></tr>");
-	out.println("</table></td></tr>");
 	//
-	if(user.canEdit()){
-	    if(id.equals("")){
-		out.println("<tr><td class=\"right\">  "+
-			    "<input type=\"submit\" name=\"action\" "+
-			    "value=\"Save\">"+
-			    "</td></tr>");
-	    }
-	    else{
-		out.println("<tr><td><table width=\"50%\"><tr>");
-				
-		out.println("<td class=\"right\">  "+
-			    "<input type=\"submit\" name=\"action\" "+
-			    "value=\"Update\">"+
-			    "</td>");
-		out.println("<td class=\"right\">  "+
-			    "<input type=\"submit\" name=\"action\" "+
-			    "onclick=\"validateDelete();\" "+
-			    "value=\"Delete\">"+
-			    "</td>");
-		out.println("</table></td></tr>");				
-	    }
+	if(id.equals("")){
+	    out.println("<tr><td colspan=\"2\" class=\"center\">  "+
+			"<input type=\"submit\" name=\"action\" "+
+			"value=\"Save\" />"+
+			"</td></tr>");
 	}
+	else{
+	    out.println("<tr><td class=\"right\">  "+
+			"<input type=\"submit\" name=\"action\" "+
+			"value=\"Update\" />"+
+			"</td>");
+	    out.println("<td>  "+
+			"<input type=\"submit\" name=\"action\" "+
+			"onclick=\"validateDelete();\" "+
+			"value=\"Delete\" />"+
+			"</td>");
+	    out.println("</tr>");				
+	}
+	out.println("</table>");
 	out.println("</form>");
 	if(sponFiles != null && sponFiles.size() > 0){
-	    out.println("<tr><td class=\"center\"><table width=\"80%\">");
+	    out.println("<table width=\"80%\" border=\"1\">");
 	    out.println("<caption>Uploaded Files</caption>");
 	    out.println("<tr><th>Date</th><th>File</th><th>Notes</th></tr>");
 	    for(SponFile sp:sponFiles){
@@ -430,9 +422,8 @@ public class SponFileServ extends TopServlet{
 		out.println("<td align=\"left\">"+sp.getNotes()+"</td>");
 		out.println("</tr>");
 	    }
-	    out.println("</table></td></tr>");
+	    out.println("</table>");
 	}
-	out.println("</table><br>");
 	//
 	// send what we have so far
 	//

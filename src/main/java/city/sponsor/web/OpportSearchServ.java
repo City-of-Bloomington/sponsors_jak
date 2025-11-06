@@ -200,23 +200,18 @@ public class OpportSearchServ extends TopServlet{
 		    " action=\""+url+"OpportSearchServ?\""+
 		    " onsubmit=\"return validateForm()\">");
 	out.println("<input type=\"hidden\" name=\"pageNumber\" value=\""+pageNumber+"\" />");
-	out.println("<fieldset><legend>Search</legend>");
+
 	out.println("<table border=\"1\" width=\"90%\">");
-	out.println("<tr><td class=\"center\">");
-	//
-	// Add/Edit record
-	//
-	out.println("<table width=\"100%\">");
-		
-	out.println("<tr><th>Opportunity</th>");
+	out.println("<caption>Search Options</caption>");	
+	out.println("<tr><th><label for=\"opport_name\">Opportunity</label></th>");
 	out.println("<td class=\"left\">");
 	out.println("<input name=\"name\" size=\"30\" id=\"opport_name\" "+
 		    " maxlength=\"50\" value=\""+opport_name+"\" />");
-	out.println("<b>ID</b><input id=\"oppt_id\" name=\"id\" size=\"4\" value=\""+id+"\" />");				
+	out.println("<label for=\"oppt_id\">ID</label><input id=\"oppt_id\" name=\"id\" size=\"4\" value=\""+id+"\" />");				
 	out.println("</td></tr>");
-	out.println("<tr><th>Event</th>");
+	out.println("<tr><th><label for=\"event_id\">Event</label></th>");
 	out.println("<td class=\"left\">");
-	out.println("<select name=\"event_id\">");
+	out.println("<select name=\"event_id\" id=\"event_id\">");
 	out.println("<option value=\"\">All</option>");
 	for(Type event: events){
 	    String selected="";
@@ -226,9 +221,9 @@ public class OpportSearchServ extends TopServlet{
 	    out.println("<option value=\""+event.getId()+"\" "+selected+">"+event+"</option>");
 	}
 	out.println("</select></td></tr>");
-	out.println("<tr><th>Season</th>");
+	out.println("<tr><th><label for=\"season_id\">Season</label></th>");
 	out.println("<td class=\"left\">");
-	out.println("<select name=\"season_id\">");
+	out.println("<select name=\"season_id\" id=\"season_id\">");
 	out.println("<option value=\"\">All</option>");
 	for(Type season:seasons){
 	    String selected="";
@@ -238,9 +233,9 @@ public class OpportSearchServ extends TopServlet{
 	    out.println("<option value=\""+season.getId()+"\" "+selected+">"+season+"</option>");
 	}
 	out.println("</select></td></tr>");
-	out.println("<tr><th>Year</th>");
+	out.println("<tr><th><label for=\"year\">Year</label></th>");
 	out.println("<td class=\"left\">");
-	out.println("<select name=\"year\">");
+	out.println("<select name=\"year\" id=\"year\">");
 	out.println("<option value=\"\">All</option>");
 	for(String str: Helper.getYearsArr()){
 	    String selected="";
@@ -250,9 +245,9 @@ public class OpportSearchServ extends TopServlet{
 	    out.println("<option value=\""+str+"\" "+selected+">"+str+"</option>");
 	}
 	out.println("</select></td></tr>");
-	out.println("<tr><th>Program Area</th>");
+	out.println("<tr><th><label for=\"area\">Program Area</label></th>");
 	out.println("<td class=\"left\">");
-	out.println("<select name=\"program_area\">");
+	out.println("<select name=\"program_area\" id=\"area\">");
 	out.println("<option value=\"\">All</option>");
 	for(String str: progAreas){
 	    String selected="";
@@ -264,41 +259,33 @@ public class OpportSearchServ extends TopServlet{
 	out.println("</select></td>");
 	out.println("</tr>");
 		
-	out.println("<tr><th>Special Instructions</th>");
-	out.println("<td class=\"left\">");
-	out.println("<input name=\"instructions\" size=\"30\" "+
-		    " maxlength=\"50\" value=\""+instructions+"\" />");
-	out.println("</td></tr>");
-	out.println("<tr><th>Start Date From</th>");
+	out.println("<tr><th><label for=\"date_from\">Start Date From</label></th>");
 	out.println("<td class=\"left\">");
 	out.println("<input name=\"date_from\" size=\"10\" id=\"date_from\" "+
 		    " maxlength=\"10\" value=\""+date_from+"\" />");
 	out.println("&nbsp;&nbsp;");
-	out.println("<b> To </b>");
+	out.println("<label for=\"date_to\"> To </label>");
 	out.println("<input name=\"date_to\" size=\"10\" id=\"date_to\" "+
 		    " maxlength=\"10\" value=\""+date_to+"\" />");
 	out.println("(mm/dd/yyyy)");
 	out.println("</td></tr>");	
-	out.println("<tr><th>Records Per Page </th>");
+	out.println("<tr><th><label for=\"pageSize\">Records Per Page </label></th>");
 	out.println("<td class=\"left\">");		
-	out.println("<input name=\"pageSize\" size=\"3\" maxlength=\"3\" value=\""+pageSize+"\" /></th></tr>");
-	out.println("<tr><th>Sort By </th>");
+	out.println("<input name=\"pageSize\" size=\"3\" maxlength=\"3\" value=\""+pageSize+"\" id=\"pageSize\" /></th></tr>");
+	out.println("<tr><th><label for=\"sortBy\">Sort By </label></th>");
 	out.println("<td class=\"left\">");
-	out.println("<select name=\"sortBy\">");
+	out.println("<select name=\"sortBy\" id=\"sortBy\">");
 	out.println("<option value=\"name\">Name</option>");
 	out.println("<option value=\"start_date DESC\" selected=\"selected\">Start Date</option>");
 	out.println("<select></th>");	
-	out.println("</tr></table></td></tr>");
-	out.println("<tr><td class=\"center\"><input type=\"submit\" "+
+	out.println("<tr><th>&nbsp;</th><td><input type=\"submit\" "+
 		    " name=\"action\" value=\"Submit\" />");
 	out.println("</td></tr>");		
-	out.println("</table></td></tr>");							
-	out.println("</fieldset>");			
+	out.println("</table>");							
 	out.println("</form>");
 
 	if(!action.equals("")){
 	    int cnt = opports.size();
-	    out.println("<table width=\"90%\"><tr><td align=\"center\">");
 	    out.println("<table width=\"100%\" border=\"1\">");
 	    out.println("<caption>Found "+cnt+" Opportunities</caption>");
 	    if(cnt == 0){
@@ -340,7 +327,6 @@ public class OpportSearchServ extends TopServlet{
 		}
 	    }
 	    out.println("</table>");
-	    out.println("</td></tr></table>");
 	    PageList pages = opports.buildPages(url+"OpportSearchServ?action=Submit");
 	    String all = pages.getPagesStr();
 	    if(!all.equals("")){

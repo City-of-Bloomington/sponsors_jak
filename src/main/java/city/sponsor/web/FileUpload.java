@@ -28,6 +28,8 @@ import city.sponsor.util.*;
  * class
  *
  */
+// NOTES
+// probably not nused, look for SponFileUpload
 @WebServlet(urlPatterns = {"/FileUpload"})
 public class FileUpload extends TopServlet{
 
@@ -278,7 +280,7 @@ public class FileUpload extends TopServlet{
        	out.println("     return true;				         ");
 	out.println("	}	         			             ");
 	out.println(" </script>		                            ");
-    	out.println(" <center><h3>File Upload</h3>");
+    	out.println(" <center><h2>File Upload</h2>");
 	//
 	if(success){
 	    if(!message.equals(""))
@@ -297,14 +299,11 @@ public class FileUpload extends TopServlet{
 	    out.println("<input type=\"hidden\" name=\"spon_id\" value=\""+spon_id+"\" />");
 	}	
 	//
-	out.println("<table border=\"1\" width=\"80%\">");
-	out.println("<tr><td>");
-	//
 	// 1st block
 	//
-	out.println("<table width=100%>");
+	out.println("<table width=\"80%\">");
+	out.println("<caption>File upload</caption>");
 	out.println("<tr><td class=\"left\" colspan=\"2\">"+
-		    "<font color=\"green\">"+
 		    "To upload a new document to sponsors,<br> "+
 		    " Download it to your computer"+
 		    " in a specific folder.<br />"+
@@ -316,33 +315,31 @@ public class FileUpload extends TopServlet{
 		    " file will be provided with the new name.<br />"+
 		    " Supported document and image files are of type 'pdf','doc','txt' "+
 		    " 'html','gif','jpg','png' "+
-		    " <br>");
-	out.println("</font></td></tr>");
-	out.println("<tr><th>File </th><td class=\"left\">"); 
+		    " <br />");
+	out.println("</td></tr>");
+	out.println("<tr><th><label for=\"file_id\"> File </label></th><td class=\"left\">"); 
 	out.println("<input type=\"file\" name=\"load_file\" "+
-		    " size=\"30\"></td></tr>");
-	out.println("<tr><th>Notes </th>");
+		    " id=\"file_id\" size=\"30\" /></td></tr>");
+	out.println("<tr><th><label for=\"notes\">Notes </label></th>");
 	out.println("<td class=\"left\">"); 
-	out.println("<input name=\"notes\" size=\"70\" maxlength=\"90\" />");
+	out.println("<input name=\"notes\" size=\"70\" maxlength=\"90\" id=\"notes\" />");
 	out.println("</td></tr>");
 	out.println("<tr><th>Sponsor</th>");
 	out.println("<td class=\"left\">"); 
 	out.println("<a href=\""+url+"SponsorServ?id="+id+"\">"+sponsor+
 		    "</a></td></tr>");
 	//
-	if(user.canEdit()){
-	    out.println("<tr><td algn=\"right\">  "+
-			"<input type=\"submit\" name=\"action\" "+
-			"value=\"Save\">"+
-			"</td></tr>");
-	}
-	out.println("</form>");
+	out.println("<tr><th>&nbsp;</th><td class=\"left\">  "+
+		    "<input type=\"submit\" name=\"action\" "+
+		    "value=\"Save\" />"+
+		    "</td></tr>");
+
 	if(sponFiles != null && sponFiles.size() > 0){
 
 			
 	}
-	out.println("</table></td></tr>");
-	out.println("</table><br>");
+	out.println("</table><br />");
+	out.println("</form>");
 	//
 	// send what we have so far
 	//

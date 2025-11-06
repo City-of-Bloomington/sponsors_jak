@@ -208,7 +208,7 @@ public class InvoiceSearchServ extends TopServlet{
 	//
 	// Add/Edit record
 	//
-	out.println("<table width=\"100%\"><caption>Search Options</caption>");
+	out.println("<table width=\"90%\" border=\"1\"><caption>Search Options</caption>");
 	out.println("<tr><th><label for=\"id\">ID (Invoice Number)</label></th>");
 	out.println("<td class=\"left\">");		
 	out.println("<input name=\"id\" size=\"10\" id=\"id\""+

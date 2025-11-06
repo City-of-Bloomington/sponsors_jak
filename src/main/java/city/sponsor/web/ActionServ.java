@@ -312,7 +312,6 @@ public class ActionServ extends TopServlet{
 	out.println("<form name=\"myForm\" method=\"post\" id=\"myForm\" "+
 		    " action=\""+url+"ActionServ?\""+
 		    " onsubmit=\"return validateForm()\" >");
-	out.println("<fieldset><legend>Notes Info</legend>");
 	if(!id.equals("")){
 	    out.println("<input type=\"hidden\" name=\"id\" value=\""+id+"\" />");
 	    out.println("<input type=\"hidden\" name=\"action2\" value=\"\" />");
@@ -336,8 +335,8 @@ public class ActionServ extends TopServlet{
 	//
 	// Add/Edit record
 	//
-	out.println("<table width=\"100%\">");
-	out.println("<caption>Notes </caption>");
+	out.println("<table width=\"90%\" border=\"1\">");
+	out.println("<caption>Notes Info</caption>");
 	if(sponsor != null){
 	    out.println("<tr><th>Sponsor</th><td class=\"left\"><a href=\""+url+"SponsorServ?id="+sponsor.getId()+"\">");
 	    out.println(sponsor);
@@ -433,9 +432,9 @@ public class ActionServ extends TopServlet{
 	out.println("<td class=\"left\">");
 	out.println("<input name=\"another_userid\" size=\"10\" maxlength=\"10\" "+
 		    " id=\"another_id\" value=\""+act.getAnotherUserid()+"\"/>(make sure this a valid city employee userid)</td></tr>");		
-	out.println("<tr><th><label for=\"notes\">Notes </lable></th></tr>");		
-	out.println("<tr><td colspan=\"2\" class=\"left\">");
-	out.println("<textarea name=\"notes\" id=\"notes\" row=\"5\" cols=\"70\">");
+	out.println("<tr><th><label for=\"notes\">Notes </lable></th>");		
+	out.println("<td class=\"left\">");
+	out.println("<textarea name=\"notes\" id=\"notes\" row=\"5\" cols=\"50\">");
 	out.println(act.getNotes());
 	out.println("</textarea></td></tr>");
 	out.println("<tr><th><label for=\"folllowup\">Followup Date</lable></th>");
@@ -453,11 +452,9 @@ public class ActionServ extends TopServlet{
 	}
 	out.println("</td></tr>");
 	if(id.equals("")){
-	    if(user.canEdit()){
-		out.println("<tr><td class=\"center\"><input type=\"submit\" "+
-			    " name=\"action\" value=\"Save\" />");
-		out.println("</td></tr>");
-	    }
+	    out.println("<tr><td class=\"center\"><input type=\"submit\" "+
+			" name=\"action\" value=\"Save\" />");
+	    out.println("</td></tr>");
 	}
 	else{ // Save, Update
 	    out.println("<tr>");
@@ -475,7 +472,7 @@ public class ActionServ extends TopServlet{
 			    " value=\"Delete\" />");
 	    }
 	    out.println("</td></tr>");
-	    out.println("</fieldset>");
+	    out.println("</table>");
 	    out.println("</form>");
 
 	    ActionList actl = new ActionList(debug, spon_id, oppt_id, sponship_id);

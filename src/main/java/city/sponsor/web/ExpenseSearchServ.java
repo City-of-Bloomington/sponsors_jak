@@ -207,7 +207,7 @@ public class ExpenseSearchServ extends TopServlet{
 	out.println("<input type=\"hidden\" name=\"pageNumber\" value=\""+pageNumber+"\" />");
 
 	out.println("<fieldset><legend>Search Expenses</legend>");
-	out.println("<table width=\"90%\">");
+	out.println("<table width=\"90%\" border=\"1\">");
 	out.println("<caption>Search Options</caption>");
 	out.println("<tr><th><label for=\"id\">Expense ID</label></th>");
 	out.println("<td class=\"left\">");		
@@ -262,7 +262,7 @@ public class ExpenseSearchServ extends TopServlet{
 	out.println("<option value=\"value\" "+selected+">Amount</option>");
 	out.println("<select></th>");	
 	out.println("</tr>");
-	out.println("<tr><td class=\"center\"><input type=\"submit\" "+
+	out.println("<tr><td class=\"center\" colspan=\"2\"><input type=\"submit\" "+
 		    " name=\"action\" value=\"Submit\" />");
 	out.println("</td></tr>");		
 	out.println("</table>");							

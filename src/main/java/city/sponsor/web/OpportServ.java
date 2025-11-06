@@ -238,24 +238,20 @@ public class OpportServ extends TopServlet{
 	out.println("<form name=\"myForm\" method=\"post\" "+
 		    " action=\""+url+"OpportServ?\""+
 		    " onsubmit=\"return validateForm()\">");
-	out.println("<fieldset><legend>Opportunity Info</legend>");
+
 	if(!id.equals("")){
 	    out.println("<input type=\"hidden\" name=\"id\" value=\""+id+"\" />");
 	    out.println("<input type=\"hidden\" name=\"event_id\" value=\""+opport.getEvent_id()+"\" />");		
 	    out.println("<input type=\"hidden\" name=\"action2\" value=\"\" />");
 	}
-	out.println("<table border=\"1\" width=\"90%\">");
-	out.println("<tr><td class=\"center\">");
 	//
 	// Add/Edit record
 	//
-	out.println("<table width=\"100%\">");
+	out.println("<table width=\"90%\" border=\"1\">");
+	out.println("<caption>Opportunity Info</caption>");	
 	out.println("<tr><td class=\"center title\">");
-	out.println("Opportunity Info</td></tr>");
-	out.println("<tr><td>");
-	out.println("<table width=\"100%\">");
-	out.println("<tr><th>Event</th>");
-	out.println("<td colspan=\"3\" class=\"left\">");			
+	out.println("<tr><th><label for=\"event_id\">Event</label></th>");
+	out.println("<td class=\"left\">");			
 	out.println("<select name=\"event_id\">");
 	out.println("<option value=\"\">Pick Event</option>");
 	for(Type event: events){
@@ -278,9 +274,9 @@ public class OpportServ extends TopServlet{
 			Helper.replaceSpecialChars(opport.getName())+"\" />");
 	    out.println("</td></tr>");
 	}
-	out.println("<tr><th>Season</th>");
+	out.println("<tr><th><label for=\"season_id\">Season</label></th>");
 	out.println("<td class=\"left\">");
-	out.println("<select name=\"season_id\">");
+	out.println("<select name=\"season_id\" id=\"season_id\">");
 	out.println("<option value=\"\"></option>");
 	for(Type tt: seasons){
 	    String selected="";
@@ -289,9 +285,10 @@ public class OpportServ extends TopServlet{
 	    }
 	    out.println("<option value=\""+tt.getId()+"\" "+selected+">"+tt+"</option>");
 	}
-	out.println("</select></td>");
-	out.println("<th>Year</th><td class=\"left\">");
-	out.println("<select name=\"year\">");
+	out.println("</select></td></tr>");
+	
+	out.println("<tr><th><label for=\"year\">Year</label></th><td class=\"left\">");
+	out.println("<select name=\"year\" id=\"year\">");
 	out.println("<option value=\"\"></option>");
 	for(int yy: Helper.getYearList()){
 	    String selected="";
@@ -303,21 +300,21 @@ public class OpportServ extends TopServlet{
 	out.println("</select>");
 	out.println("</td></tr>");
 	out.println("<tr>");
-	out.println("<th>Start Date</th>");
+	out.println("<th><label for=\"start_date\">Start Date</label></th>");
 	out.println("<td class=\"left\">");
 	out.println("<input name=\"start_date\" id=\"start_date\" size=\"10\" maxlength=\"10\" "+
 		    " value=\""+opport.getStart_date()+"\" />");
-	out.println("</td>");
-	out.println("<th>End Date</th>");
+	out.println("</td></tr>");
+	out.println("<tr><th><label for=\"end_date\">End Date</label></th>");
 	out.println("<td class=\"left\">");
 	out.println("<input name=\"end_date\" id=\"end_date\" size=\"10\" maxlength=\"10\" "+
 		    " value=\""+opport.getEnd_date()+"\" />");
 	out.println("</td>");
 	out.println("</tr>");
 	out.println("<tr>");
-	out.println("<th>Program Area</th>");
+	out.println("<th><label for=\"area\">Program Area</label></th>");
 	out.println("<td class=\"left\">");
-	out.println("<select name=\"program_area\">");
+	out.println("<select name=\"program_area\" id=\"area\">");
 	out.println("<option value=\"\"></option>");
 	for(String str: progAreas){
 	    String selected="";
@@ -329,42 +326,22 @@ public class OpportServ extends TopServlet{
 	out.println("</select></td>");
 	out.println("</tr>");
 	out.println("<tr>");
-	out.println("<th colspan=\"4\">Special Instructions</th>");
-	out.println("</tr>");
-	out.println("<tr>");
-	out.println("<td colspan=\"4\" class=\"left\">");
-	out.println("<textarea name=\"instructions\" rows=\"5\" cols=\"70\">");
+	out.println("<th><label for=\"instr\">Special Instructions</label></th>");
+	out.println("<td class=\"left\">");
+	out.println("<textarea name=\"instructions\" rows=\"5\" id=\"instr\" cols=\"70\">");
 	out.println(opport.getInstructions());
 	out.println("</textarea></td>");
 	out.println("</tr>");	
-	out.println("</table></td></tr>");
 	if(id.equals("")){
-	    out.println("</table></td></tr>");							
-	    if(user.canEdit()){
-		out.println("<tr><td class=\"center\"><input type=\"submit\" "+
-			    " name=\"action\" value=\"Save\" />");
-		out.println("</td></tr>");
-	    }
-	    out.println("</table>");
-	    out.println("</fieldset>");			
-	    out.println("</form>");
+	    out.println("<tr><td colspan=\"2\" class=\"center\"><input type=\"submit\" "+
+			" name=\"action\" value=\"Save\" />");
+	    out.println("</td></tr>");
 	}
 	else{ // Save, Update
-	    out.println("<tr><td valign=\"top\" class=\"center\">");
-	    out.println("<table width=\"100%\" border=\"1\"><tr><td>");
-	    out.println("<table width=\"100%\">");	
 	    out.println("<tr>");
-	    if(user.canEdit()){
-		out.println("<td><input "+
-			    "type=\"submit\" name=\"action\" value=\"Update\" />");
-		out.println("</td>");
-	    }
-	    out.println("<td><input type=\"button\" value=\"New Sponsorship\" "+
-			"onclick=\"document.location='"+url+"SponsorshipServ?oppt_id="+id+"'\" />");
+	    out.println("<td><input "+
+			"type=\"submit\" name=\"action\" value=\"Update\" />");
 	    out.println("</td>");
-	    out.println("<td><input type=\"button\" value=\"Add Notes\" "+
-			"onclick=\"document.location='"+url+"ActionServ?oppt_id="+id+"'\" />");
-	    out.println("</td>");	
 	    if(user.canDelete()){
 		out.println("<td>");
 		out.println("<input type=\"button\" "+
@@ -372,13 +349,19 @@ public class OpportServ extends TopServlet{
 			    " value=\"Delete\" />");
 		out.println("</td>");
 	    }
-	    out.println("</tr></table></td></tr>");
-	    out.println("</table></td></tr>");			
-	    out.println("</table>");
-	    out.println("</td></tr></table>");	
-	    out.println("</fieldset>");
-	    out.println("</form>");
+	    out.println("</tr>");
+	    out.println("<tr>");
+	    out.println("<td><input type=\"button\" value=\"New Sponsorship\" "+
+			"onclick=\"document.location='"+url+"SponsorshipServ?oppt_id="+id+"'\" />");
+	    out.println("</td>");
+	    out.println("<td><input type=\"button\" value=\"Add Notes\" "+
+			"onclick=\"document.location='"+url+"ActionServ?oppt_id="+id+"'\" />");
+	    out.println("</td>");	
+
+	    out.println("</tr>");
 	}
+	out.println("</table>");
+	out.println("</form>");
 	if(!id.equals("")){
 	    SponsorshipList donors = new SponsorshipList(debug, id, null);
 	    String back = donors.find();
