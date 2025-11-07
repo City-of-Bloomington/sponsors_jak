@@ -226,7 +226,6 @@ public class ReceiptServ extends TopServlet{
 	out.println("<form name=\"myForm\" method=\"post\" "+
 		    " action=\""+url+"ReceiptServ?\""+
 		    " onsubmit=\"return validateForm()\">");
-	out.println("<fieldset><legend>Receipt Info</legend>");
 	if(!id.equals("")){
 	    out.println("<input type=\"hidden\" name=\"id\" value=\""+id+"\" />");
 	    out.println("<input type=\"hidden\" name=\"action2\" value=\"\" />");
@@ -236,15 +235,7 @@ public class ReceiptServ extends TopServlet{
 	}
 	out.println("<input type=\"hidden\" name=\"receipt_no\" value=\""+receipt.getReceipt_no()+"\" />");		
 	out.println("<table border=\"1\" width=\"90%\">");
-	out.println("<tr><td class=\"center\">");
-	//
-	// Add/Edit record
-	//
-	out.println("<table width=\"100%\">");
-	out.println("<tr><td class=\"center title\">");
-	out.println("Receipt Info</td></tr>");
-	out.println("<tr><td>");
-	out.println("<table width=\"100%\">");
+	out.println("<caption>Receipt Info</caption>");
 	out.println("<tr><th>Sponsor</th>");
 	out.println("<td class=\"left\">");
 	if(sponsor != null){
@@ -260,22 +251,22 @@ public class ReceiptServ extends TopServlet{
 		checked = "checked=\"checked\" ";
 	    }
 	    out.println("&nbsp;&nbsp;");
-	    out.println("<input type=\"checkbox\" name=\"voided\" "+checked+" value=\"y\" />Voided");
+	    out.println("<input type=\"checkbox\" name=\"voided\" "+checked+" value=\"y\" id=\"voided\" /> <label for=\"voided\">Voided</label>");
 	}
 	out.println("</td></tr>");
 		
-	out.println("<tr><th>Received Amount $</th>");
+	out.println("<tr><th><label for=\"value\">Received Amount $</label></th>");
 	out.println("<td class=\"left\">");
 	out.println("<input name=\"value\" size=\"8\" maxlength=\"8\" "+
-		    " value=\""+receipt.getValue()+"\" />");
+		    " id=\"value\" value=\""+receipt.getValue()+"\" />");
 	out.println("</td></tr>");
 	out.println("<tr>");
-	out.println("<th>Received Date</th>");
+	out.println("<th><label for=\"received\">Received Date</label></th>");
 	out.println("<td class=\"left\">");
 	out.println("<input name=\"received\" size=\"10\" maxlength=\"10\" "+
 		    " id=\"received\" value=\""+receipt.getReceived()+"\" />");
 	out.println("</td></tr>");
-	out.println("<tr><th>Check No.</th>");
+	out.println("<tr><th><label for=\"check_no\">Check No.</label></th>");
 	out.println("<td class=\"left\">");
 	out.println("<input name=\"check_no\" size=\"15\" maxlength=\"20\" "+
 		    " id=\"check_no\" value=\""+receipt.getCheck_no()+"\" />");
@@ -286,12 +277,12 @@ public class ReceiptServ extends TopServlet{
 	for(String pstr:Helper.payMethodArr){
 	    String checked = "";
 	    if(pstr.equals(ptype)) checked = "checked=\"checked\"";
-	    out.println("<input type=\"radio\" name=\"pay_type\" value=\""+pstr+"\" "+checked +" />"+pstr);
+	    out.println("<input type=\"radio\" name=\"pay_type\" value=\""+pstr+"\" "+checked +" id=\""+pstr+"\"/><label for=\""+pstr+"\">"+pstr+"</label>");
 	}
 	out.println("</td></tr>");
-	out.println("<tr><th>Received By </th>");
+	out.println("<tr><th><label for=\"recu_by\">Received By </label></th>");
 	out.println("<td class=\"left\">");	
-	out.println("<select name=\"recu_by\">");
+	out.println("<select name=\"recu_by\" id=\"recu_by\">");
 	out.println("<option></option>");
 	for(User muser:managers){
 	    String selected = "";
@@ -299,22 +290,14 @@ public class ReceiptServ extends TopServlet{
 	    out.println("<option value=\""+muser.getUserid()+"\" "+selected+">"+muser+"</option>");			
 	}	
 	out.println("</select></td></tr>");	
-	out.println("</table></td></tr>");
 	if(id.equals("")){
-	    out.println("</table></td></tr>");							
 	    if(user.canEdit()){
 		out.println("<tr><td class=\"center\"><input type=\"submit\" "+
 			    " name=\"action\" value=\"Save\" />");
 		out.println("</td></tr>");
 	    }
-	    out.println("</table>");
-	    out.println("</fieldset>");			
-	    out.println("</form>");
 	}
 	else{ // Save, Update
-	    out.println("<tr><td valign=\"top\" class=\"center\">");
-	    out.println("<table width=\"100%\" border=\"1\"><tr><td>");
-	    out.println("<table width=\"100%\">");	
 	    out.println("<tr>");
 	    if(user.canEdit()){
 		out.println("<td valign=\"top\"><input "+
@@ -331,13 +314,10 @@ public class ReceiptServ extends TopServlet{
 			"scrollbars=2,top=200,left=200,"+
 			"resizable=1');\" value=\"Printable\" />");
 	    out.println("</td>");
-	    out.println("</tr></table></td></tr>");
-	    out.println("</table></td></tr>");			
-	    out.println("</table>");
-	    out.println("</td></tr></table>");
-	    out.println("</fieldset>");
-	    out.println("</form>");
+	    out.println("</tr>");
 	}
+	out.println("</table>");
+	out.println("</form>");
 	if(invoice != null){
 	    if(invoice.hasReceipts()){
 		out.println("<table width=\"90%\" border=\"1\">");

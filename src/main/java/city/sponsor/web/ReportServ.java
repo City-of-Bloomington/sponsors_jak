@@ -287,21 +287,15 @@ public class ReportServ extends TopServlet{
 	out.println("<input type=\"hidden\" name=\"pageNumber\" value=\""+pageNumber+"\" />");
 	out.println("<fieldset><legend>Report</legend>");
 	out.println("<table border=\"1\" width=\"90%\">");
-	out.println("<tr><td class=\"center\">");
-	//
-	// Add/Edit record
-	//
-	out.println("<table width=\"100%\">");
-	out.println("<tr><td class=\"center title\">");
-	out.println("Business</td></tr>");
-	out.println("<tr><td>");
-	out.println("<table width=\"100%\">");
-	out.println("<tr><th>Sponsorship Status</th><th>Account Manager</th>");
-	out.println("<th>Industry Category</th>");
+	out.println("<caption>");
+	out.println("Business Options</caption>");
+	out.println("<tr><th><label for=\"spon_status\">Sponsorship Status</label></th>");
+	out.println("<th><label for=\"acc_manager\">Account Manager</label></th>");
+	out.println("<th><label for=\"type\">Industry Category</label></th>");
 	out.println("</tr>");
 	out.println("<tr>");
 	out.println("<td class=\"left\">");
-	out.println("<select name=\"spon_status\">");
+	out.println("<select name=\"spon_status\" id=\"spon_status\">");
 	out.println("<option value=\"\">All</option>");	
 	for(String status:Helper.statusArr){
 	    String selected = "";
@@ -310,7 +304,7 @@ public class ReportServ extends TopServlet{
 	}
 	out.println("</select></td>");
 	out.println("<td class=\"left\">");
-	out.println("<select name=\"acc_manager\">");
+	out.println("<select name=\"acc_manager\" id=\"acc_manager\">");
 	out.println("<option value=\"\">All</option>");	
 	for(User muser:managers){
 	    String selected = "";
@@ -319,7 +313,7 @@ public class ReportServ extends TopServlet{
 	}
 	out.println("</select></td>");
 	out.println("<td class=\"left\">");
-	out.println("<select name=\"type\">");
+	out.println("<select name=\"type\" id=\"type\">");
 	out.println("<option value=\"\">All</option>");
 	for(Type tt:orgTypes){
 	    String selected = type.equals(tt.getId())?"selected=\"selected\"":"";
@@ -329,10 +323,11 @@ public class ReportServ extends TopServlet{
 	out.println("</tr>");
 	//
 	// contact info
-	out.println("<tr><th>Community Focus</th><th colspan=\"2\">Target Market</th>");
+	out.println("<tr><th><label for=\"interests\">Community Focus</label></th>");
+	out.println("<th colspan=\"2\"><label for=\"target\">Target Market</label></th>");
 	out.println("</tr>");
 	out.println("<tr><td class=\"left\">");
-	out.println("<select name=\"interests\">");
+	out.println("<select name=\"interests\" id=\"interests\">");
 	out.println("<option value=\"\">All</option>");
 		
 	for(String str: interestList){
@@ -343,8 +338,8 @@ public class ReportServ extends TopServlet{
 	    out.println("<option value=\""+str+"\" "+selected+">"+str+"</option>");
 	}			
 	out.println("<select></td>");	
-	out.println("<td class=\"left\">");
-	out.println("<select name=\"target_pop\">");
+	out.println("<td class=\"left\" colspan=\"2\">");
+	out.println("<select name=\"target_pop\" id=\"target\">");
 	out.println("<option value=\"\">All</option>");
 	for(String str: targetPops){
 	    String selected="";
@@ -356,24 +351,15 @@ public class ReportServ extends TopServlet{
 	out.println("<select>");	
 	out.println("</td>");
 	out.println("</tr>");
-	out.println("</table></td></tr>");
-	out.println("</table></td></tr>");
+	out.println("</table>");
 	//
-	// contact table
-	out.println("<tr><td><table width=\"100%\">");
-	out.println("<tr><td class=\"center title\">");
-	out.println("Opportunities Related</td></tr>");
-	out.println("<tr><td>");
-	out.println("<table width=\"100%\">");
-	out.println("<tr><th>Opportunity</th>");
+	out.println("<table width=\"90%\" border=\"1\">");
+	out.println("<caption>Opportunities Related Options</caption>");	
+	out.println("<tr><th><label for=\"opport_name\">Opportunity</label></th>");
 	out.println("<td class=\"left\">");
 	out.println("<input name=\"name\" size=\"30\" id=\"opport_name\" "+
-		    " maxlength=\"50\" value=\""+opport_name+"\" />");
-	out.println("<th>ID</th>");
-	out.println("<td class=\"left\">");
-	out.println("<input id=\"oppt_id\" name=\"id\" size=\"4\" value=\""+id+"\" />");				
-	out.println("</td></tr>");
-	out.println("<tr><th>Event</th>");
+		    " maxlength=\"50\" value=\""+opport_name+"\" /></td></tr>");
+	out.println("<tr><th><label for=\"event_id\">Event</label></th>");
 	out.println("<td class=\"left\">");
 	out.println("<select name=\"event_id\">");
 	out.println("<option value=\"\">All</option>");
@@ -384,10 +370,10 @@ public class ReportServ extends TopServlet{
 	    }
 	    out.println("<option value=\""+event.getId()+"\" "+selected+">"+event+"</option>");
 	}
-	out.println("</select></td>");
-	out.println("<th>Program Area</th>");
+	out.println("</select></td></tr>");
+	out.println("<tr><th><label for=\"area\">Program Area</label></th>");
 	out.println("<td class=\"left\">");
-	out.println("<select name=\"program_area\">");
+	out.println("<select name=\"program_area\" id=\"area\">");
 	out.println("<option value=\"\">All</option>");
 	for(String str: progAreas){
 	    String selected="";
@@ -399,9 +385,9 @@ public class ReportServ extends TopServlet{
 	out.println("</select></td>");
 	out.println("</tr>");
 	//		
-	out.println("<tr><th>Season</th>");
+	out.println("<tr><th><label for=\"season_id\">Season</label></th>");
 	out.println("<td class=\"left\">");
-	out.println("<select name=\"season_id\">");
+	out.println("<select name=\"season_id\" id=\"season_id\">");
 	out.println("<option value=\"\">All</option>");
 	for(Type season:seasons){
 	    String selected="";
@@ -410,10 +396,10 @@ public class ReportServ extends TopServlet{
 	    }
 	    out.println("<option value=\""+season.getId()+"\" "+selected+">"+season+"</option>");
 	}
-	out.println("</select></td>");
-	out.println("<th> Year </th>");
+	out.println("</select></td></tr>");
+	out.println("<tr><th><label for=\"year\"> Year </label></th>");
 	out.println("<td class=\"left\">");
-	out.println("<select name=\"year\">");
+	out.println("<select name=\"year\" id=\"year\">");
 	out.println("<option value=\"\">All</option>");
 	for(String str: Helper.getYearsArr()){
 	    String selected="";
@@ -424,27 +410,22 @@ public class ReportServ extends TopServlet{
 	}
 	out.println("</select></td></tr>");
 
-	out.println("<tr><th>Start Date From</th>");
+	out.println("<tr><th><label for=\"date_from\">Date From</label></th>");
 	out.println("<td class=\"left\">");
 	out.println("<input name=\"o_date_from\" size=\"10\" id=\"date_from\" "+
-		    " maxlength=\"10\" value=\""+o_date_from+"\" /></td>");
-	out.println("<th> To </th>");
+		    " maxlength=\"10\" value=\""+o_date_from+"\" /></td></tr>");
+	out.println("<tr><th><label for=\"date_to\">Date To </label></th>");
 	out.println("<td class=\"left\">");
 	out.println("<input name=\"o_date_to\" size=\"10\" id=\"date_to\" "+
 		    " maxlength=\"10\" value=\""+o_date_to+"\" />");
 	out.println("</td></tr>");	
-		
-	out.println("</table></td></tr>");
-	out.println("</table></td></tr>");
+	out.println("</table>");
 	//
-	out.println("<tr><td><table width=\"100%\">");
-	out.println("<tr><td class=\"center title\">");		
-	out.println("Sponsorships Related</td></tr>");
-	out.println("<tr><td>");
-	out.println("<table width=\"100%\">");
-	out.println("<tr><th>Sponsorship Type</th>");	
+	out.println("<table width=\"90%\" border=\"1\">");
+	out.println("<caption>Sponsorships Related</caption>");	
+	out.println("<tr><th><label for=\"don_type\">Sponsorship Type</label></th>");	
 	out.println("<td class=\"left\">");
-	out.println("<select name=\"don_type\">");
+	out.println("<select name=\"don_type\" id=\"don_type\">");
 	out.println("<option value=\"\"></option>");
 	for(String str: Helper.donTypeArr){
 	    String selected="";
@@ -454,10 +435,10 @@ public class ReportServ extends TopServlet{
 	    out.println("<option value=\""+str+"\" "+selected+">"+str+"</option>");
 	}
 	out.println("</select>");
-	out.println("</td>");
-	out.println("<th>Sponsorship Level</th>");	
+	out.println("</td></tr>");
+	out.println("<tr><th><label for=\"level\">Sponsorship Level</label></th>");	
 	out.println("<td class=\"left\">");
-	out.println("<select name=\"spon_level\">");
+	out.println("<select name=\"spon_level\" id=\"level\">");
 	out.println("<option value=\"\"></option>");
 	for(String str: Helper.sponLevelArr){
 	    String selected="";
@@ -468,31 +449,23 @@ public class ReportServ extends TopServlet{
 	}
 	out.println("</select>");
 	out.println("</td></tr>");			
-	out.println("</table></td></tr>");
-	out.println("</table></td></tr>");
-	//		
-	out.println("<tr><td><table width=\"100%\">");
-	out.println("<tr>");
-	out.println("<th>Sort By</th>");
+	out.println("<tr><th><label for=\"sortBy\">Sort By</label></th>");
 	out.println("<td class=\"left\">");
-	out.println("<select name=\"sortBy\">");
+	out.println("<select name=\"sortBy\" id=\"sortBy\">");
 	out.println("<option value=\"orgname\">Business Name</option>");
 	out.println("<option value=\"address\">Business Address</option>");
-	out.println("<select> &nbsp;&nbsp;");
+	out.println("<select></td></tr>");
 	String checked = (report.equals("csv"))? checked="checked=\"checked\"":"";
-	out.println("<th><input type=\"checkbox\" name=\"report\" value=\"csv\" "+checked+" /> Export to csv file. It may take some time to finish, please wait.</th> ");		
-	out.println("</tr></table></td></tr>");
-	out.println("<tr><td class=\"center\"><input type=\"submit\" "+
+	out.println("<tr><th><input type=\"checkbox\" name=\"report\" value=\"csv\" "+checked+" id=\"report\" /></th><td> <label for=\"report\">Export to csv file. It may take some time to finish, please wait.</label></td> ");		
+	out.println("</tr>");
+	out.println("<tr><td class=\"center\" colspan=\"2\"><input type=\"submit\" "+
 		    " name=\"action\" value=\"Submit\" />");
 	out.println("</td></tr>");
-	//
-	out.println("<tr><td><button id=\"showr\">Show Output Profile</button>");
+	out.println("<tr><td colspan=\"2\"><button id=\"showr\">Show Output Profile</button>");
 	out.println("<button id=\"hider\">Hide Output Profile</button></td></tr>");
-	out.println("<tr id=\"profile\"><td>");
-	out.println("<table width=\"100%\"><tr><td class=\"center title\">");
-	out.println("Output Profile</td></tr>");
-	out.println("<tr><td>");
-	out.println("<table width=\"100%\">");		
+	out.println("<tr id=\"profile\"><td colspan=\"2\">");
+	out.println("<table width=\"100%\">");
+	out.println("<caption>Output Profile</caption>");
 	int jj=0;
 	for(int j=0;j<profArr.length;j++){
 	    String str = profArr[j];
@@ -507,8 +480,6 @@ public class ReportServ extends TopServlet{
 	}
 	if(jj > 0) out.println("</tr>");
 	out.println("</table></td></tr>");
-	out.println("</table></td></tr>");
-	out.println("</table>");
 	out.println("</fieldset>");			
 	out.println("</form>");
 
@@ -517,8 +488,7 @@ public class ReportServ extends TopServlet{
 		out.println("<p class=\"center\">No match found</p>"); 
 	    }
 	    else{
-		out.println("<table width=\"90%\"><tr><td align=\"center\">");
-		out.println("<table width=\"100%\" border=\"1\">");
+		out.println("<table width=\"90%\" border=\"1\">");
 		out.println("<caption>Found "+count+" Sponsor(s)</caption>");			
 		out.println("<tr><th>Business</th>");
 		for(String str:profArr){

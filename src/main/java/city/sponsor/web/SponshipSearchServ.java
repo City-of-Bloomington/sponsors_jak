@@ -212,42 +212,39 @@ public class SponshipSearchServ extends TopServlet{
 	out.println("<input type=\"hidden\" name=\"pageNumber\" value=\""+pageNumber+"\" />");
 
 
-	out.println("<fieldset><legend>Search</legend>");
-	out.println("<table border=\"1\" width=\"90%\">");
-	out.println("<tr><td class=\"center\">");
+
 	//
-	// Add/Edit record
-	//
-	out.println("<table width=\"100%\">");
-	out.println("<tr><th>Opportunity</th>");
+	out.println("<table width=\"90%\" border=\"1\">");
+	out.println("<caption>Search</caption>");	
+	out.println("<tr><th><label for=\"opport_name\">Opportunity</label></th>");
 	out.println("<td class=\"left\">");
 	out.println("<input name=\"opport_name\" size=\"30\" id=\"opport_name\""+
 		    " maxlength=\"50\" value=\""+opport_name+"\" />");
-	out.println("<b>ID</b><input id=\"oppt_id\" name=\"oppt_id\" size=\"4\" value=\""+oppt_id+"\" />");		
+	out.println("<label for=\"oppt_id\">ID</label><input id=\"oppt_id\" name=\"oppt_id\" size=\"4\" value=\""+oppt_id+"\" />");		
 	out.println("</td></tr>");
-	out.println("<tr><th>Sponsor</th>");
+	out.println("<tr><th><label for=\"spon_name\">Sponsor</label></th>");
 	out.println("<td class=\"left\">");
 	out.println("<input name=\"spon_name\" size=\"30\" id=\"spon_name\""+
 		    " maxlength=\"50\" value=\""+spon_name+"\" />");
-	out.println("<b>ID</b><input id=\"spon_id\" name=\"spon_id\" size=\"4\" value=\""+spon_id+"\" />");				
+	out.println("<label for=\"spon_id\">ID</label><input id=\"spon_id\" name=\"spon_id\" size=\"4\" value=\""+spon_id+"\" />");				
 	out.println("</td></tr>");
-	out.println("<tr><th>Sponsorship</th>");
+	out.println("<tr><th><label for=\"details\">Sponsorship</label></th>");
 	out.println("<td class=\"left\">");
 	out.println("<input name=\"details\" size=\"30\" id=\"details\""+
 		    " maxlength=\"50\" value=\""+details+"\" />");
 	out.println("<b>ID</b><input id=\"sponship_id\" name=\"sponship_id\" size=\"4\" value=\""+sponship_id+"\" />");		
 	out.println("</td></tr>");
-	out.println("<th>Payment Option</th>");
+	out.println("<tr><th><label for=\"pay_type\">Payment Option</label></th>");
 	out.println("<td class=\"left\">");
 	for(String str:Helper.payTypeArr){
 	    String checked="";
 	    if(pay_type.equals(str)) checked="checked=\"checked\"";
-	    out.println("<input type=\"radio\" name=\"pay_type\" value=\""+str+"\" "+checked+" />"+str);
+	    out.println("<input type=\"radio\" id=\"pay_type\" name=\"pay_type\" value=\""+str+"\" "+checked+" />"+str);
 	}
 	out.println("</td></tr>");
-	out.println("<tr><th>Sponsorship Type</th>");	
+	out.println("<tr><th><label for=\"don_type\">Sponsorship Type</label></th>");	
 	out.println("<td class=\"left\">");
-	out.println("<select name=\"don_type\">");
+	out.println("<select name=\"don_type\" id=\"don_type\">");
 	out.println("<option value=\"\"></option>");
 	for(String str: Helper.donTypeArr){
 	    String selected="";
@@ -258,9 +255,9 @@ public class SponshipSearchServ extends TopServlet{
 	}
 	out.println("</select>");
 	out.println("</td></tr>");
-	out.println("<tr><th>Sponsorship Level</th>");	
+	out.println("<tr><th><label for=\"level\">Sponsorship Level</label></th>");	
 	out.println("<td class=\"left\">");
-	out.println("<select name=\"spon_level\">");
+	out.println("<select name=\"spon_level\" id=\"level\">");
 	out.println("<option value=\"\"></option>");
 	for(int i=0;i< Helper.sponLevelIdArr.length;i++){
 	    String str = Helper.sponLevelIdArr[i];
@@ -273,55 +270,34 @@ public class SponshipSearchServ extends TopServlet{
 	}		
 	out.println("</select>");
 	out.println("</td></tr>");			
-	out.println("<tr><th>Payment Start Date From</th>");
+	out.println("<tr><th><label for=\"date_from\">Payment Start Date From</label></th>");
 	out.println("<td class=\"left\">");
 	out.println("<input name=\"date_from\" size=\"10\" id=\"date_from\" "+
 		    " maxlength=\"10\" value=\""+date_from+"\" />");
 	out.println("&nbsp;&nbsp;");
-	out.println("<b> To </b>");
+	out.println("<label for=\"date_to\"> To </label>");
 	out.println("<input name=\"date_to\" size=\"10\" id=\"date_to\" "+
 		    " maxlength=\"10\" value=\""+date_to+"\" />");
 	out.println("(mm/dd/yyyy)");		
 	out.println("</td></tr>");
-	out.println("<tr><th>Requested Amount From</th>");
-	out.println("<td class=\"left\">");
-	out.println("<input name=\"value_from\" size=\"10\" id=\"value_from\" "+
-		    " maxlength=\"10\" value=\""+value_from+"\" />");
-	out.println("&nbsp;&nbsp;");
-	out.println("<b> To </b>");
-	out.println("<input name=\"value_to\" size=\"10\" id=\"value_to\" "+
-		    " maxlength=\"10\" value=\""+value_to+"\" />");
-	out.println("</td></tr>");	
-	out.println("<tr><th>Number of Payments From</th>");
-	out.println("<td class=\"left\">");
-	out.println("<input name=\"terms_from\" size=\"2\" id=\"terms_from\" "+
-		    " maxlength=\"2\" value=\""+terms_from+"\" />");
-	out.println("&nbsp;&nbsp;");
-	out.println("<b> To </b>");
-	out.println("<input name=\"terms_to\" size=\"2\" id=\"terms_to\" "+
-		    " maxlength=\"2\" value=\""+terms_to+"\" />");
-	out.println("</td></tr>");	
-	out.println("<tr><th>Records Per Page </th>");
+	out.println("<tr><th><label for=\"pageSize\">Records Per Page </label></th>");
 	out.println("<td class=\"left\">");		
 	out.println("<input name=\"pageSize\" size=\"3\" maxlength=\"3\" value=\""+pageSize+"\" /></th></tr>");
-	out.println("<tr><th>Sort By </th>");
+	out.println("<tr><th><label for=\"sortBy\">Sort By </label></th>");
 	out.println("<td class=\"left\">");
-	out.println("<select name=\"sortBy\">");
+	out.println("<select name=\"sortBy\" id=\"sortBy\">");
 	out.println("<option value=\"details\">Sponsorship</option>");
 	out.println("<option value=\"start_date\">Start Date</option>");
-	out.println("<select></th>");	
-	out.println("</tr></table></td></tr>");
-	out.println("<tr><td class=\"center\"><input type=\"submit\" "+
+	out.println("<select></th></td>");	
+	out.println("<tr><td colspan=\"2\" class=\"center\"><input type=\"submit\" "+
 		    " name=\"action\" value=\"Submit\" />");
 	out.println("</td></tr>");		
-	out.println("</table></td></tr>");							
-	out.println("</fieldset>");			
+	out.println("</table>");
 	out.println("</form>");
 
 	if(!action.equals("")){
 	    int cnt = sponships.size();
-	    out.println("<table width=\"90%\"><tr><td align=\"center\">");
-	    out.println("<table width=\"100%\" border=\"1\">");
+	    out.println("<table width=\"90%\" border=\"1\">");
 	    out.println("<caption>Found "+cnt+" Sponsorships</caption>");
 	    if(cnt == 0){
 		out.println("<tr><td class=\"center\">No match found</td></tr>"); 
@@ -381,7 +357,6 @@ public class SponshipSearchServ extends TopServlet{
 		}
 	    }
 	    out.println("</table>");
-	    out.println("</td></tr></table>");
 	    PageList pages = sponships.buildPages(url+"OpportSearchServ?action=Submit");
 	    String all = pages.getPagesStr();
 	    if(!all.equals("")){

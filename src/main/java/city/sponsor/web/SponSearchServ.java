@@ -266,23 +266,18 @@ public class SponSearchServ extends TopServlet{
 		    " action=\""+url+"SponSearchServ?\""+
 		    " onsubmit=\"return validateForm()\">");
 	out.println("<input type=\"hidden\" name=\"pageNumber\" value=\""+pageNumber+"\" />");
-	out.println("<fieldset><legend>Search</legend>");
-	out.println("<table border=\"1\" width=\"90%\">");
-	out.println("<tr><td class=\"center\">");
-	//
-	// Add/Edit record
-	//
-	out.println("<table width=\"100%\">");
-	out.println("<tr><td class=\"center title\">");
-	out.println("Business</td></tr>");		
-	out.println("<tr><td>");
-	out.println("<table width=\"100%\">");
-	out.println("<tr><th>Sponsorship Status</th><th>Account Manager</th>");
-	out.println("<th>Industry Category</th>");
+	out.println("<fieldset><legend>Search Options</legend>");
+
+	out.println("<table width=\"90%\" border=\"1\">");
+	out.println("<caption>");
+	out.println("Business</caption>");		
+	out.println("<tr><th><label for=\"spon_status\">Sponsorship Status</label></th>");
+	out.println("<th><label for=\"acc_manager\">Account Manager</label></th>");
+	out.println("<th><label for=\"type\">Industry Category</label></th>");
 	out.println("</tr>");
 	out.println("<tr>");
 	out.println("<td class=\"left\">");
-	out.println("<select name=\"spon_status\">");
+	out.println("<select name=\"spon_status\" id=\"spon_status\">");
 	out.println("<option value=\"\">All</option>");	
 	for(String status:Helper.statusArr){
 	    String selected = "";
@@ -291,7 +286,7 @@ public class SponSearchServ extends TopServlet{
 	}
 	out.println("</select></td>");
 	out.println("<td class=\"left\">");
-	out.println("<select name=\"acc_manager\">");
+	out.println("<select name=\"acc_manager\" id=\"acc_manager\">");
 	out.println("<option value=\"\">All</option>");	
 	for(User muser:managers){
 	    String selected = "";
@@ -300,7 +295,7 @@ public class SponSearchServ extends TopServlet{
 	}
 	out.println("</select></td>");
 	out.println("<td class=\"left\">");
-	out.println("<select name=\"type\">");
+	out.println("<select name=\"type\" id=\"type\">");
 	out.println("<option value=\"\">All</option>");
 	for(Type tt:orgTypes){
 	    String selected = "";
@@ -308,7 +303,9 @@ public class SponSearchServ extends TopServlet{
 	}
 	out.println("</select></td>");		
 	out.println("</tr>");
-	out.println("<tr><th>Business Name</th><th>ID</th><th>Address</th>");
+	out.println("<tr><th><label for=\"orgname\">Business Name</label></th>");
+	out.println("<th><label for=\"id\">ID</label></th>");
+	out.println("<th><label for=\"addr\">Address</label></th>");
 	out.println("</tr>");
 	out.println("<tr>");
 	out.println("<td class=\"left\">");
@@ -319,54 +316,31 @@ public class SponSearchServ extends TopServlet{
 		    " value=\""+id+"\" />");
 	out.println("</td><td class=\"left\">");
 	out.println("<input name=\"address\" size=\"20\" maxlength=\"30\" "+
-		    " value=\""+address+"\" />");
+		    " value=\""+address+"\" id=\"addr\" />");
 	out.println("</td></tr>");	
-	out.println("<tr><th>City </th><th>State</th><th>Zip code</th></tr>");
+	out.println("<tr><th><label for=\"city\">City </label></th>");
+	out.println("<th><label for=\"state\">State</label></th>");
+	out.println("<th><label for=\"zip\">Zip code</label></th></tr>");
 	out.println("<tr><td class=\"left\">");	
 	out.println("<input name=\"city\" size=\"10\" maxlength=\"30\" "+
-		    " value=\""+city+"\" />");
+		    "id=\"city\" value=\""+city+"\" />");
 	out.println("</td><td class=\"left\">");
 	out.println("<input name=\"state\" size=\"2\" maxlength=\"2\" "+
-		    " value=\""+state+"\" />");
+		    "id=\"state\" value=\""+state+"\" />");
 	out.println("</td><td class=\"left\">");
 	out.println("<input name=\"zip\" size=\"10\" maxlength=\"10\" "+
-		    " value=\""+zip+"\" />");
+		    "id=\"zip\" value=\""+zip+"\" />");
 	out.println("</td></tr>");
 	//
 	// contact info
-	out.println("<tr><th>Phone</th><th>Contact Time</th><th colspan=\"2\">Means of Contact</th></tr>");
+	out.println("<tr><th><label for=\"phone\">Phone</label></th>");
+	out.println("<th><label for=\"focus\">Community Focus</label></th>");
+	out.println("<th><label for=\"target\">Target Market</label></th></tr>");	
 	out.println("<tr><td class=\"left\">");
-	out.println("<input name=\"phone\" size=\"12\" maxlength=\"20\" value=\""+phone+"\" /></td>");		
+	out.println("<input name=\"phone\" size=\"12\" maxlength=\"20\" value=\""+phone+"\" id=\"phone\" /></td>");		
 	out.println("<td class=\"left\">");
-	out.println("<select name=\"pref_con_time\">");
+	out.println("<select name=\"interests\" id=\"focus\">");
 	out.println("<option value=\"\">All</option>");
-	for(String str: conTimes){
-	    String selected="";
-	    if(pref_con_time.indexOf(str) > -1){
-		selected="selected=\"selected\"";
-	    }
-	    out.println("<option value=\""+str+"\" "+selected+">"+str+"</option>");
-	}
-	out.println("</select></td>");
-	out.println("<td colspan=\"2\" class=\"left\">");
-	out.println("<select name=\"con_means\">");
-	out.println("<option value=\"\">All</option>");	
-	for(String str: conMeans){
-	    String selected="";
-	    if(con_means.indexOf(str) > -1){
-		selected="selected=\"selected\"";
-	    }
-	    out.println("<option value=\""+str+"\" "+selected+">"+str+"</option>");
-	}	
-	out.println("<select></td></tr>");	
-		
-	out.println("</tr>");
-	out.println("<tr><th>Community Focus</th><th>Target Market</th>");
-	out.println("</tr>");		
-	out.println("<tr><td class=\"left\">");
-	out.println("<select name=\"interests\">");
-	out.println("<option value=\"\">All</option>");
-		
 	for(String str: interestList){
 	    String selected="";
 	    if(interests.indexOf(str) > -1){
@@ -376,7 +350,7 @@ public class SponSearchServ extends TopServlet{
 	}			
 	out.println("<select></td>");	
 	out.println("<td class=\"left\">");
-	out.println("<select name=\"target_pop\">");
+	out.println("<select name=\"target_pop\" id=\"target\">");
 	out.println("<option value=\"\">All</option>");
 	for(String str: targetPops){
 	    String selected="";
@@ -386,19 +360,15 @@ public class SponSearchServ extends TopServlet{
 	    out.println("<option value=\""+str+"\" "+selected+">"+str+"</option>");
 	}			
 	out.println("<select>");	
-	out.println("</td>");
-	out.println("</tr>");
-	out.println("</table></td></tr>");
-	out.println("</table></td></tr>");
+	out.println("</td></tr>");
+	out.println("</table>");
 	//
 	// contact table
-	out.println("<tr><td><table width=\"100%\">");
-	out.println("<tr><td class=\"center title\">");
-	out.println("Contacts Related</td></tr>");			
-	out.println("<tr><td>");
-	out.println("<table width=\"100%\">");
-	out.println("<tr><th>Name</th><th>ID</th>");
-	out.println("<th>Primary Contact</th>");
+	out.println("<table width=\"90%\" border=\"1\">");	
+	out.println("<caption>Contacts Related</caption>");			
+	out.println("<tr><th><label for=\"c_name\">Name</label></th>");
+	out.println("<th><label for=\"cont_id\">ID</label></th>");
+	out.println("<th><label for=\"prim_cont\">Primary Contact</label></th>");
 	out.println("</tr>");		
 	out.println("<tr><td class=\"left\">");
 	//
@@ -410,7 +380,8 @@ public class SponSearchServ extends TopServlet{
 	String checked = (!prim_cont.equals(""))?"checked=\"checked\"":"";
 	out.println("<input name=\"prim_cont\" type=\"checkbox\" value=\"y\" "+checked+" /></td>");
 	out.println("</tr>");
-	out.println("<tr><th>Address</th><th>City</th>");
+	out.println("<tr><th>Address</th>");
+	out.println("<th>City</th>");
 	out.println("<th>Phone</th>");
 	out.println("</tr>");
 	out.println("<tr><td class=\"left\">");

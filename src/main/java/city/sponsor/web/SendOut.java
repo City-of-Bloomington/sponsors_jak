@@ -167,15 +167,10 @@ public class SendOut extends TopServlet{
 		    " onsubmit=\"return validateForm()\">");
 	out.println("<input type=\"hidden\" id=\"oppt_id\" name=\"oppt_id\" value=\""+oppt_id+"\" />");
 	out.println("<fieldset><legend>Send Out</legend>");
-	out.println("<table border=\"1\" width=\"90%\">");
-	out.println("<tr><td class=\"center\">");
-	//
-	out.println("<table width=\"100%\">");
-	out.println("<tr><td class=\"center title\">");
-	out.println("Letter and Label Processor</td></tr>");
-	out.println("<tr><td>");
-	out.println("<table width=\"100%\">");
-	out.println("<tr><th width=\"15%\">Opportunity</th>");		
+
+	out.println("<table width=\"90%\" border=\"1\">");
+	out.println("<caption>Letter and Label Process</caption>");
+	out.println("<tr><th width=\"15%\"><label for=\"opptName\">Opportunity</label></th>");		
 	out.println("<td class=\"left\">");
 	out.println("<input type=\"text\" name=\"opptName\" id=\"opptName\" value=\""+opptName+"\" size=\"70\" />");
 	out.println("</td></tr>");
@@ -183,31 +178,28 @@ public class SendOut extends TopServlet{
 	String check="checked=\"checked\"";
 	if(letter.equals("thank")) check="checked=\"checked\"";
 	out.println("<tr><th colspan=\"2\">");		
-	out.println("<input type=\"radio\" name=\"letter\" value=\"thank\" "+check+" />");
-	out.println("Thank You letter</th></tr>");
+	out.println("<input type=\"radio\" name=\"letter\" value=\"thank\" "+check+" id=\"thank\" />");
+	out.println("<label for=\"thank\">Thank You letter</label></th></tr>");
 	out.println("<tr><th colspan=\"2\">");
 	check="";
 	if(letter.equals("confirm")) check="checked=\"checked\"";
-	out.println("<input type=\"radio\" name=\"letter\" value=\"confirm\" />");
-	out.println("Confirmation letter</th></tr>");
+	out.println("<input type=\"radio\" name=\"letter\" value=\"confirm\" id=\"letter\" />");
+	out.println("<label for=\"letter\">Confirmation letter</label></th></tr>");
 	//
-	out.println("<tr><th colspan=\"2\"><table>");		
-	out.println("<tr><th></th><th>From</th><th>To</th>");
-	out.println("<tr><th>Date</th>");
+	out.println("<tr><th><label for=\"date_from\">Date from</label></th>");
 	out.println("<td class=\"left\">");
 	out.println("<input type=\"text\" name=\"date_from\" size=\"10\" id=\"date_from\" value=\""+date_from+"\" />");		
-	out.println("</td>");
+	out.println("</td></tr>");
+	out.println("<tr><th><label for=\"date_to\">Date to</label></th>");	
 	out.println("<td class=\"left\">");
 	out.println("<input type=\"text\" name=\"date_to\" id=\"date_to\" size=\"10\" value=\""+date_to+"\" />");
-	out.println("</td></tr></table></th></tr>");
-	out.println("<tr><th>Sender</th>");		
+	out.println("</td></tr>");
+	out.println("<tr><th><label for=\"sender\">Sender</label></th>");		
 	out.println("<td class=\"left\">");
 	out.println("<input type=\"text\" name=\"sender\" id=\"sender\" value=\""+sender+"\" />");
 	out.println("</td></tr>");	
-	out.println("</table></td></tr>");
-	out.println("</table></td></tr>");							
 	if(user.canEdit()){
-	    out.println("<tr><td class=\"center\"><input type=\"submit\" "+
+	    out.println("<tr><td colspan=\"2\" class=\"center\"><input type=\"submit\" "+
 			" name=\"action\" value=\"Process Letters and Labels\" />");
 	    out.println("</td></tr>");
 	}
