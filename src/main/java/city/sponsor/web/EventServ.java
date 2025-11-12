@@ -175,8 +175,8 @@ public class EventServ extends TopServlet{
 	if(!id.equals("")){
 	    out.println("<tr><th>ID:</th><td>"+id+"</td></tr>");
 	}
-	out.println("<tr><th>Name:</th>");
-	out.println("<td><input name=\"name\" value=\""+event.getName()+"\" size=\"30\" maxlength=\"70\" /></td>");
+	out.println("<tr><th><label for=\"name\">Name:</label></th>");
+	out.println("<td><input name=\"name\" value=\""+event.getName()+"\" size=\"30\" maxlength=\"70\" id=\"name\"/></td>");
 	out.println("</tr>");
 	out.println("<tr><td>&nbsp;</td></tr>");
 	if(id.equals("")){

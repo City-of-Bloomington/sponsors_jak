@@ -19,7 +19,7 @@ public class Inserts{
     // xhtmlHeaderInc
     public final static String xhtmlHeaderInc = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"+
 	"<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.1//EN\" \"http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd\">\n"+
-	"<html xmlns=\"http://www.w3.org/1999/xhtml\" xml:lang=\"en\">";
+	"<html lang=\"en\">";
     //
     // basic constructor
     public Inserts(boolean deb){
@@ -39,15 +39,17 @@ public class Inserts{
     public final static String banner(String url){
 
 	String banner = "<head>\n"+
-	    "<meta http-equiv=\"Content-Type\" content=\"application/xhtml+xml; charset=utf-8\" />\n"+
-	    "<meta http-equiv=\"Content-Script-Type\" content=\"text/javascript\" />\n"+
+	    "<meta charset=\"utf-8\" />\n"+
+	    "<meta http-equiv=\"Cache-Control\" content=\"no-cache, no-store, must-revalidate\">"+
+	    "<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">"+
+	    "<title>Sponsors - City of Bloomington, Indiana</title>\n"+
 	    "<link rel=\"shortcut icon\" href=\""+url+"images/favicon.ico\" />\n"+
 	    "<link rel=\"stylesheet\" href=\""+url+"css/skins.css\" type=\"text/css\" media=\"screen\" />\n"+
 	    "<style type=\"text/css\" media=\"print\">\n"+
 	    "body { color:black; background-color:white; margin:0px; font-family:sans-serif; font-size:11pt; }\n"+
 	    "</style>\n"+
 	    "<link rel=\"stylesheet\" href=\""+url+"css/jquery-ui.min-1.13.2.css\" type=\"text/css\" media=\"all\" />\n"+
-	    "<link rel=\"stylesheet\" href=\""+url+"css/jquery.ui.theme.min-1.13.2.css\" type=\"text/css\" media=\"all\" />\n"+	
+	    "<link rel=\"stylesheet\" href=\""+url+"css/jquery-ui.theme.min-1.13.2.css\" type=\"text/css\" media=\"all\" />\n"+	
 	    "<style type=\"text/css\">\n"+
 	    ".ui-datepicker-prev .ui-icon, .ui-datepicker-next .ui-icon {\n "+
 	    " background-image: url(\"js/images/ui-icons_228ef1_256x240.png\");\n"+
@@ -190,7 +192,6 @@ public class Inserts{
 	    "         time.value = time.value+\"0\";                   \n"+
 	    "  }}}}}                                             \n"+
 	    " </script>				                  \n"+
-	    "<title>Sponsors - City of Bloomington, Indiana</title>\n"+
 	    "</head>\n"+
 	    "<body>\n"+
 	    "<div id=\"banner\">\n"+
@@ -207,8 +208,9 @@ public class Inserts{
     public final static String banner2(String url, String bodyStr, String js){
 
 	String banner = "<head>\n"+
-	    "<meta http-equiv=\"Content-Type\" content=\"application/xhtml+xml; charset=utf-8\" />\n"+
-	    "<meta http-equiv=\"Content-Script-Type\" content=\"text/javascript\" />\n"+
+	    "<meta charset=\"utf-8\" />\n"+
+	    "<meta http-equiv=\"Cache-Control\" content=\"no-cache, no-store, must-revalidate\">"+
+	    "<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">"+	    
 	    "<style type=\"text/css\">"+
 	    "body { color:black; background-color:white; margin:0px; font-family:sans-serif; font-size:11pt; }\n"+
 	    "</style>\n"+

@@ -207,52 +207,46 @@ public class TaskSearchServ extends TopServlet{
 		    " action=\""+url+"TaskSearchServ?\""+
 		    " onsubmit=\"return validateForm()\">");
 	out.println("<input type=\"hidden\" name=\"pageNumber\" value=\""+pageNumber+"\" />");
-	out.println("<fieldset><legend>Search</legend>");
 	out.println("<table border=\"1\" width=\"90%\">");
-	out.println("<tr><td class=\"center\">");
-	//
-	// Add/Edit record
-	//
-	out.println("<table width=\"100%\">");
-	out.println("<tr><th>Sponsor</th>");
-	out.println("<td class=\"left\">");
-	out.println("<input name=\"spon_name\" size=\"30\" id=\"spon_name\""+
+	out.println("<caption>Search Options</caption>");
+	out.println("<tr><th><label for=\"spon_name\">Sponsor</label></th>");
+	out.println("<td><input name=\"spon_name\" size=\"30\" id=\"spon_name\""+
 		    " maxlength=\"50\" value=\""+spon_name+"\" />");
-	out.println("<b>ID</b><input id=\"spon_id\" name=\"spon_id\" value=\""+spon_id+"\" size=\"4\" />");		
+	out.println("<label for=\"spon_id\">ID</label><input id=\"spon_id\" name=\"spon_id\" value=\""+spon_id+"\" size=\"4\" />");		
 	out.println("</td></tr>");
-	out.println("<tr><th>Opportunity</th>");
+	out.println("<tr><th><label for=\"opport_name\">Opportunity</label></th>");
 	out.println("<td class=\"left\">");
 	out.println("<input name=\"opport_name\" size=\"30\" id=\"opport_name\""+
 		    " maxlength=\"50\" value=\""+opport_name+"\" />");
-	out.println("<b>ID</b><input id=\"oppt_id\" name=\"oppt_id\" value=\""+oppt_id+"\" size=\"4\" />");		
+	out.println("<label for=\"oppt_id\">ID</label><input id=\"oppt_id\" name=\"oppt_id\" value=\""+oppt_id+"\" size=\"4\" />");		
 	out.println("</td></tr>");
-	out.println("<tr><th>Sponsorship</th>");
+	out.println("<tr><th><label for=\"details\">Sponsorship</label></th>");
 	out.println("<td class=\"left\">");
 	out.println("<input name=\"details\" size=\"30\" id=\"details\""+
 		    " maxlength=\"50\" value=\""+details+"\" />");
-	out.println("<b>ID</b><input id=\"sponship_id\" name=\"sponship_id\" value=\""+sponship_id+"\" size=\"4\" />");		
+	out.println("<label for=\"sponship_id\">ID</label><input id=\"sponship_id\" name=\"sponship_id\" value=\""+sponship_id+"\" size=\"4\" />");		
 	out.println("</td></tr>");
-	out.println("<tr><th>Contact</th>");
+	out.println("<tr><th><label for=\"fullName\">Contact</label></th>");
 	out.println("<td class=\"left\">");
 	out.println("<input name=\"fullName\" size=\"30\" id=\"fullName\""+
 		    " maxlength=\"50\" value=\""+fullName+"\" />");
-	out.println("<b>ID</b><input id=\"cont_id\" name=\"cont_id\" value=\""+cont_id+"\" size=\"4\" />");			
+	out.println("<label for=\"cont_id\">ID</label><input id=\"cont_id\" name=\"cont_id\" value=\""+cont_id+"\" size=\"4\" />");			
 	out.println("</td></tr>");		
 	out.println("<tr><th>Specify Date </th>");
 	out.println("<td class=\"left\">");
 	String checked = dateType.equals("date")?"checked=\"checked\"":"";
-	out.println("<input name=\"date\" type=\"radio\" "+
-		    " "+checked+" value=\"date\" />Date");
+	out.println("<input name=\"date\" type=\"radio\" id=\"date\" "+
+		    " "+checked+" value=\"date\" /><label for=\"date\">Date</label>");
 	checked = dateType.equals("followup")?"checked=\"checked\"":"";
 	out.println("<input name=\"whichDate\" type=\"radio\" "+
-		    " "+checked+" value=\"followup\" />Followup Date");
+		    " "+checked+" value=\"followup\" id=\"fullowup\" /><label for=\"followup\">Followup Date</label>");
 	out.println("</td></tr>");
-	out.println("<tr><th>Date From</th>");
+	out.println("<tr><th><label for=\"date_from\">Date From</label></th>");
 	out.println("<td class=\"left\">");
 	out.println("<input name=\"date_from\" size=\"10\" id=\"date_from\" "+
 		    " maxlength=\"10\" value=\""+date_from+"\" />");
 	out.println("&nbsp;&nbsp;");
-	out.println("<b> To </b>");
+	out.println("<label for=\"date_to\"> To </label>");
 	out.println("<input name=\"date_to\" size=\"10\" id=\"date_to\" "+
 		    " maxlength=\"10\" value=\""+date_to+"\" />");
 	out.println("(mm/dd/yyyy)");		
@@ -262,12 +256,12 @@ public class TaskSearchServ extends TopServlet{
 	for(String str:Helper.actionStatusArr){
 	    checked = status.equals(str)?"checked=\"checked\"":"";
 	    out.println("<input type=\"radio\" name=\"status\" "+checked+
-			" value=\""+str+"\" />"+str);
+			" id=\""+str+"\" value=\""+str+"\" /><label for=\""+str+"\">"+str+"</label>");
 	}
 	out.println("</td></tr>");
-	out.println("<tr><th>Initiated by</th>");
+	out.println("<tr><th><label for=\"actionBy\">Initiated by</label></th>");
 	out.println("<td class=\"left\">");
-	out.println("<select name=\"actionBy\">");	
+	out.println("<select name=\"actionBy\" id=\"actionBy\">");	
 	out.println("<option value=\"\">All</option>");
 	if(users != null && users.size() > 0){
 	    for(User usrr:users){
@@ -277,24 +271,22 @@ public class TaskSearchServ extends TopServlet{
 	    }
 	}
 	out.println("</select></td></tr>");	
-	out.println("<tr><th>Records Per Page </th>");
+	out.println("<tr><th><label for=\"pageSize\">Records Per Page </label></th>");
 	out.println("<td class=\"left\">");		
-	out.println("<input name=\"pageSize\" size=\"3\" maxlength=\"3\" value=\""+pageSize+"\" /></th></tr>");
-	out.println("<tr><th>Sort By </th>");
+	out.println("<input name=\"pageSize\" size=\"3\" maxlength=\"3\" value=\""+pageSize+"\" id=\"pageSize\" /></th></tr>");
+	out.println("<tr><th><label for=\"sortBy\">Sort By </label></th>");
 	out.println("<td class=\"left\">");
-	out.println("<select name=\"sortBy\">");
+	out.println("<select name=\"sortBy\" id=\"sortBy\">");
 	String selected="";
 	selected = sortBy.equals("date")?"selected=\"selected\"":"";
 	out.println("<option value=\"date\" "+selected+">Date</option>");
 	selected = sortBy.equals("date")?"":"selected=\"selected\"";
 	out.println("<option value=\"followup\" "+selected+">Followup Date</option>");
-	out.println("</select></td>");	
-	out.println("</tr></table></td></tr>");
-	out.println("<tr><td class=\"center\"><input type=\"submit\" "+
+	out.println("</select></td></tr>");	
+	out.println("<tr><td class=\"center\" colspan=\"2\"><input type=\"submit\" "+
 		    " name=\"action\" value=\"Submit\" />");
 	out.println("</td></tr>");		
-	out.println("</table></td></tr>");							
-	out.println("</fieldset>");			
+	out.println("</table>");							
 	out.println("</form>");
 	if(!action.equals("")){
 	    Helper.writeActions(out, actions, url);

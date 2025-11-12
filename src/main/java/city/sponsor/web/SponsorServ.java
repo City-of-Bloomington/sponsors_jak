@@ -316,20 +316,13 @@ public class SponsorServ extends TopServlet{
 	}			
 	out.println("<input type=\"hidden\" id=\"spon_id\" name=\"spon_id\" value=\"\" />");
 	out.println("<table border=\"1\" width=\"90%\">");
-	out.println("<tr><td class=\"center\">");
-	//
-	// Add/Edit record
-	//
-	out.println("<table width=\"100%\">");
-	out.println("<tr><td class=\"center title\">");
-	out.println("Business </td></tr>");
-	out.println("<tr><td>");
-	out.println("<table width=\"100%\">");
-	out.println("<tr><th>Sponsorship Status</th><th>Account Manager</th>");
+	out.println("<caption>Business </caption>");
+	out.println("<tr><th><label for=\"status\">Sponsorship Status</label></th>");
+	out.println("<th><label for=\"acc_manager\">Account Manager</label></th>");
 	out.println("</tr>");
 	out.println("<tr>");
 	out.println("<td class=\"left\">");
-	out.println("<select name=\"spon_status\">");
+	out.println("<select name=\"spon_status\" id=\"status\">");
 	for(String status:Helper.statusArr){
 	    String selected = "";
 	    if(sponsor.getSpon_status().equals(status)){
@@ -339,8 +332,7 @@ public class SponsorServ extends TopServlet{
 	}
 	out.println("</select></td>");
 	out.println("<td class=\"left\">");
-	out.println("<select name=\"acc_manager\">");
-		
+	out.println("<select name=\"acc_manager\" id=\"acc_manager\">");
 	for(User muser:managers){
 	    String selected = "";
 	    if(sponsor.getAcc_manager().equals(muser.getUserid())){
@@ -350,15 +342,16 @@ public class SponsorServ extends TopServlet{
 	}
 	out.println("</select></td>");
 	out.println("</tr>");
-	out.println("<tr><th>Business Name</th><th>Industry Category</th>");
+	out.println("<tr><th><label for=\"orgname\">Business Name</label></th>");
+	out.println("<th><label for=\"type\">Industry Category</label></th>");
 	out.println("</tr>");
 	out.println("<tr>");
 	out.println("<td class=\"left\">");
-	out.println("<input name=\"orgname\" "+
+	out.println("<input name=\"orgname\" id=\"orgname\" autocomplete=\"off\" "+
 		    " size=\"50\" maxlength=\"50\" value=\""+
 		    Helper.replaceSpecialChars(sponsor.getOrgname())+"\" />");
 	out.println("</td><td class=\"left\">");
-	out.println("<select name=\"type\">");
+	out.println("<select name=\"type\" id=\"type\">");
 	out.println("<option value=\"\"></option>");
 	for(Type type:orgTypes){
 	    String selected = "";
@@ -369,47 +362,46 @@ public class SponsorServ extends TopServlet{
 	}
 	out.println("</select></td>");
 	out.println("</tr>");
-	out.println("<tr><th>Address</th><th>City</th></tr>");
+	out.println("<tr><th><label for=\"addr\">Address</label></th>");
+	out.println("<th><label for=\"city\">City</label></th></tr>");
 	out.println("<tr><td class=\"left\">");	
 	out.println("<input name=\"address\" size=\"50\" maxlength=\"70\" "+
-		    " value=\""+sponsor.getAddress()+"\" />");
+		    " id=\"addr\" value=\""+sponsor.getAddress()+"\" />");
 	out.println("</td><td class=\"left\">");
 	out.println("<input name=\"city\" size=\"10\" maxlength=\"30\" "+
-		    " value=\""+sponsor.getCity()+"\" />");
+		    " id=\"city\"  value=\""+sponsor.getCity()+"\" />");
 	out.println("</td></tr>");		
-	out.println("<tr><th>State</th><th>Zip code</th></tr>");
+	out.println("<tr><th><label for=\"state\">State</label></th>");
+	out.println("<th><label for=\"zip\">Zip code</label></th></tr>");
 	out.println("<tr><td class=\"left\">");	
 	out.println("<input name=\"state\" size=\"2\" maxlength=\"2\" "+
-		    " value=\""+sponsor.getState()+"\" />");
+		    " id=\"state\" value=\""+sponsor.getState()+"\" />");
 	out.println("</td><td class=\"left\">");
 	out.println("<input name=\"zip\" size=\"10\" maxlength=\"10\" "+
-		    " value=\""+sponsor.getZip()+"\" />");
+		    " id=\"zip\" value=\""+sponsor.getZip()+"\" />");
 	out.println("</td></tr>");
-	out.println("</table></td></tr>");
-	//
-	// contact info
-	out.println("<tr><td class=\"center title\">Business Details</td></tr>");		
-	out.println("<tr><td><table width=\"100%\">");
-	out.println("<tr><th>Fax</th><th>Email</th><th>Website</th></tr>");
+	out.println("</table>");
+	out.println("<table border=\"1\" width=\"90%\">");
+	out.println("<caption>Business Contact</caption>");
+
+	out.println("<tr><th><label for=\"fax\">Fax</label></th>");
+	out.println("<th><label for=\"em_id\">Email</label></th>");
+	out.println("<th><label for=\"website\">Website</label></th></tr>");
 	out.println("<tr><td class=\"left\">");
-	out.println("<input name=\"fax\" size=\"12\" maxlength=\"20\" value=\""+sponsor.getFax()+"\" /></td>");
+	out.println("<input name=\"fax\" size=\"12\" maxlength=\"20\" value=\""+sponsor.getFax()+"\" id=\"fax\" /></td>");
 	out.println("<td class=\"left\">");
-	out.println("<input name=\"email\" size=\"30\" maxlength=\"50\" value=\""+sponsor.getEmail()+"\" /></td>");
+	out.println("<input name=\"email\" size=\"30\" maxlength=\"50\" value=\""+sponsor.getEmail()+"\" id=\"em_id\" /></td>");
 	out.println("<td class=\"left\">");
-	out.println("<input name=\"website\" size=\"50\" maxlength=\"70\" value=\""+sponsor.getWebsite()+"\" /></td>");
+	out.println("<input name=\"website\" size=\"50\" maxlength=\"70\" value=\""+sponsor.getWebsite()+"\" id=\"website\" /></td>");
 	out.println("</tr>");
-	out.println("<tr><th colspan=\"2\">Facebook</th><th>Instagram</th></tr>");
+	out.println("<tr><th colspan=\"2\"><label for=\"facebook\">Facebook</label></th>");
+	out.println("<th><label for=\"instagram\">Instagram</label></th></tr>");
 	out.println("<tr><td class=\"left\" colspan=\"2\">");			
-	out.println("<input name=\"facebook\" size=\"50\" maxlength=\"150\" value=\""+sponsor.getFacebook()+"\" /></td>");
+	out.println("<input name=\"facebook\" size=\"50\" maxlength=\"150\" value=\""+sponsor.getFacebook()+"\" id=\"facebook\" /></td>");
 	out.println("<td class=\"left\">");
-	out.println("<input name=\"instagram\" size=\"70\" maxlength=\"150\" value=\""+sponsor.getInstagram()+"\" /></td>");
+	out.println("<input name=\"instagram\" size=\"70\" maxlength=\"150\" value=\""+sponsor.getInstagram()+"\" id=\"instagram\" /></td>");
 	out.println("</tr>");				
-	out.println("<tr><td class=\"left\">");				
-	out.println("<tr><th colspan=\"3\">&nbsp;</th></tr>");
-	out.println("</table></td></tr>");
-				
-	out.println("<tr><th align=\"center\"><table width=\"50%\">");
-	out.println("<caption><b>Phones</b></caption>");
+	out.println("<tr><td colspan=\"3\" align=\"center\"><b>Phones</b></td></tr>");
 	int nps = 0;
 	if(phones != null){
 	    out.println("<tr><th>Delete</th><th>Phone #</th><th>Type</th><th></th></tr>");			
@@ -422,25 +414,20 @@ public class SponsorServ extends TopServlet{
 		out.println("</tr>");
 	    }
 	}
-	out.println("<tr><td colspan=\"4\" align=\"center\"><b>Add new phones </b></td></tr>");
-	out.println("<tr><th></th><th>Phone #</th><th>Type</th><th></th></tr>");			
+	out.println("<tr><td colspan=\"3\" align=\"center\"><b>Add new phones </b></td></tr>");
 	for(int jj=1;jj<4;jj++){
 	    out.println("<tr>");
-	    out.println("<td>"+(nps+jj)+" - </td>");
-	    out.println("<td><input name=\"phone_"+jj+"\" value=\"\" size=\"20\" maxlength=\"20\" /></td>");
-	    out.println("<td><select name=\"phone_type_"+jj+"\" >");
+	    out.println("<td><label for=\"phone_"+jj+"\">Phone Number </label> </td>");
+	    out.println("<td><input name=\"phone_"+jj+"\" value=\"\" size=\"20\" maxlength=\"20\" id=\"phone_"+jj+"\" autocomplete=\"off\" /></td>");
+	    out.println("<td><label for=\"type_"+jj+"\">Type</label><select name=\"phone_type_"+jj+"\" id=\"type_"+jj+"\">");
 	    out.println("<option></option>");
 	    for(String str:Phone.phoneTypes){
 		out.println("<option>"+str+"</option>");
 	    }
 	    out.println("</select></td>");
-	    out.println("<td>&nbsp;</td>");
 	    out.println("</tr>");
 	}	
-	out.println("</table></th></tr>");
-	out.println("<tr><td><table>");
-	out.println("<tr><th>&nbsp;</th></tr>");		
-	out.println("<tr><th valign=\"top\">Budget Cycle</th><td class=\"left\">");
+	out.println("<tr><th>Preferred Contact Time</th><td colspan=\"2\">");
 	String checked="";
 	int jj=1;
 	for(Type tt: cycles){
@@ -448,7 +435,7 @@ public class SponsorServ extends TopServlet{
 	    if(sponsor.getPref_con_time().indexOf(":"+tt.getId()+":") > -1){
 		checked="checked=\"checked\"";
 	    }
-	    out.println("<input type=\"checkbox\" name=\"pref_con_time\" value=\""+tt.getId()+"\" "+checked+" />"+tt);
+	    out.println("<input type=\"checkbox\" name=\"pref_con_time\" value=\""+tt.getId()+"\" "+checked+" id=\""+tt+"\"/><label for=\""+tt+"\"> "+tt+"</label>");
 	    jj++;
 	    if(jj > 8) {
 		out.println("<br />");
@@ -456,16 +443,15 @@ public class SponsorServ extends TopServlet{
 	    }
 	}
 	out.println("</td></tr>");
-	out.println("<tr><th>&nbsp;</th></tr>");
 	out.println("<tr><th valign=\"top\">Preferred Contact Method</th>");
-	out.println("<td class=\"left\">");
+	out.println("<td colspan=\"2\" class=\"left\">");
 	jj = 1;
 	for(String str: conMeans){
 	    checked="";
 	    if(sponsor.getCon_means().indexOf(str) > -1){
 		checked="checked=\"checked\"";
 	    }
-	    out.println("<input type=\"checkbox\" name=\"con_means\" value=\""+str+"\" "+checked+" />"+str);
+	    out.println("<input type=\"checkbox\" name=\"con_means\" value=\""+str+"\" "+checked+" id=\""+str+"\"/><label for=\""+str+"\">"+str+"</label>");
 	    jj++;
 	    if(jj > 8) {
 		out.println("<br />");
@@ -473,7 +459,9 @@ public class SponsorServ extends TopServlet{
 	    }
 	}
 	out.println("</td></tr>");
-	out.println("<tr><th>&nbsp;</th></tr>");
+	out.println("</table>");
+	out.println("<table border=\"1\" width=\"90%\">");
+	out.println("<caption>Other Business Details</caption>");
 	out.println("<tr><th valign=\"top\">Community Focus</th>");
 	out.println("<td class=\"left\">");
 	jj = 1;
@@ -482,7 +470,7 @@ public class SponsorServ extends TopServlet{
 	    if(sponsor.getInterests().indexOf(str) > -1){
 		checked="checked=\"checked\"";
 	    }
-	    out.println("<input type=\"checkbox\" name=\"interests\" value=\""+str+"\" "+checked+" />"+str);
+	    out.println("<input type=\"checkbox\" name=\"interests\" value=\""+str+"\" "+checked+" id=\""+str+"\" /><label for=\""+str+"\">"+str+"</label>");
 	    jj++;
 	    if(jj > 4) {
 		out.println("<br />");
@@ -490,7 +478,6 @@ public class SponsorServ extends TopServlet{
 	    }
 	}
 	out.println("</td></tr>");
-	out.println("<tr><th>&nbsp;</th></tr>");
 	out.println("<tr><th valign=\"top\">Target Market</th>");
 	out.println("<td class=\"left\">");
 	jj = 1;
@@ -499,7 +486,7 @@ public class SponsorServ extends TopServlet{
 	    if(sponsor.getTarget_pop().indexOf(str) > -1){
 		checked="checked=\"checked\"";
 	    }
-	    out.println("<input type=\"checkbox\" name=\"target_pop\" value=\""+str+"\" "+checked+">"+str);
+	    out.println("<input type=\"checkbox\" name=\"target_pop\" value=\""+str+"\" "+checked+" id=\""+str+"\"><label for=\""+str+"\">"+str+"</label>");
 	    jj++;
 	    if(jj > 6) {
 		out.println("<br />");
@@ -507,7 +494,6 @@ public class SponsorServ extends TopServlet{
 	    }
 	}
 	out.println("</td></tr>");
-	out.println("<tr><th>&nbsp;</th></tr>");
 	List<Sponsor> sponsors = sponsor.getSponsorLinks();
 	if(sponsors != null){
 	    out.println("<tr><th valign=\"top\">Business Links</th>");
@@ -517,78 +503,57 @@ public class SponsorServ extends TopServlet{
 	    }
 	    out.println("</td></tr>");
 	}
-	out.println("<tr><th valign=\"top\">Add Business Link</th>");
+	out.println("<tr><th valign=\"top\"><label for=\"spon_link\">Add Business Link</label></th>");
 	out.println("<td class=\"left\">");
 	out.println("<input id=\"spon_link\" value=\"\" size=\"70\" maxlength=\"80\" />");
 	out.println("</td></tr>");
 	out.println("<tr>");
-	out.println("<tr><th>Chapter</th><td class=\"left\"><input name=\"chapter\" value=\""+sponsor.getChapter()+"\" size=\"50\" maxlength=\"80\" /> ");
+	out.println("<tr><th><label for=\"chapter\">Chapter</th><td class=\"left\">");
+	out.println("<input name=\"chapter\" value=\""+sponsor.getChapter()+"\" size=\"50\" maxlength=\"80\" id=\"chapter\" /> ");
 	checked = sponsor.getBni().equals("") ? "":"checked=\"checked\"";
-	out.println("<input type=\"checkbox\" name=\"bni\" value=\"y\" "+checked+" /><b>BNI Member</b></td></tr>");
-	out.println("<tr><th>Referral From</th><td class=\"left\"><input name=\"referral_from\" value=\""+sponsor.getReferral_from()+"\" size=\"70\" maxlength=\"80\" /></td></tr>");
+	out.println("<input type=\"checkbox\" name=\"bni\" value=\"y\" "+checked+" id=\"bni\" /><label for=\"bni\">BNI Member</label></b></td></tr>");
+	out.println("<tr><th><label for=\"refer\">Referral From</label></th><td class=\"left\"><input name=\"referral_from\" value=\""+sponsor.getReferral_from()+"\" size=\"70\" maxlength=\"80\" id=\"refer\" /></td></tr>");
 				
-	out.println("<th valign=\"top\">Notes</th>");
-	out.println("<td class=\"left\"><textarea name=\"notes\" rows=\"3\" cols=\"70\">");
+	out.println("<th valign=\"top\"><label for=\"notes\">Notes</label></th>");
+	out.println("<td class=\"left\"><textarea name=\"notes\" rows=\"3\" cols=\"70\" id=\"notes\">");
 	out.println(sponsor.getNotes());
 	out.println("</textarea>");
 	out.println("</td></tr>");
-	out.println("</table></td></tr>");		
-	out.println("</table></td></tr>");
 	if(id.equals("")){
-	    out.println("</table></td></tr>");							
 	    if(user.canEdit()){
-		out.println("<tr><td class=\"center\"><input type=\"submit\" "+
+		out.println("<tr><td class=\"center\" colspan=\"2\"><input type=\"submit\" "+
 			    " name=\"action\" value=\"Save\" />");
 		out.println("</td></tr>");
 	    }
-	    out.println("</table>");
-	    out.println("</fieldset>");			
-	    out.println("</form>");
 	}
 	else{ // Save, Update
-	    out.println("<tr><td valign=\"top\" class=\"center\">");
-	    out.println("<table width=\"100%\" border=\"1\"><tr><td>");
-	    out.println("<table width=\"100%\">");	
 	    out.println("<tr>");
-	    if(user.canEdit()){
-		out.println("<td><input "+
-			    "type=\"submit\" name=\"action\" value=\"Update\" />");
-		out.println("</td>");
-	    }
+	    out.println("<td><input "+
+			"type=\"submit\" name=\"action\" value=\"Update\" />");
+	    out.println("</td>");
 	    out.println("<td><input type=\"button\" value=\"Add Contacts\" "+
 			"onclick=\"document.location='"+url+"ContactServ?spon_id="+id+"'\" />");
-	    out.println("</td>");
-	    out.println("<td valign=\"top\"><input type=\"button\" "+
+	    out.println("</td></tr>");
+	    out.println("<tr><td valign=\"top\"><input type=\"button\" "+
 			"onclick=\"document.location='"+url+"ActionServ?spon_id="+id+"'\" "+
 			"value=\"Add Note\" />");
 	    out.println("</td>");
 	    out.println("<td valign=\"top\"><input type=\"button\" "+
-			"onclick=\"document.location='"+url+"SponsorshipServ?spon_id="+id+"'\" "+
-			" value=\"New Sponsorship\" />");	
-	    out.println("</td>");
-	    out.println("<td valign=\"top\"><input type=\"button\" "+
 			"onclick=\"document.location='"+url+"SponFileServ?spon_id="+id+"'\" "+
 			" value=\"Upload Files\" />");	
-	    out.println("</td>");					
-	    out.println("<td valign=\"top\"><input type=\"button\" "+
+	    out.println("</td></tr>");					
+	    out.println("<tr><td valign=\"top\"><input type=\"button\" "+
 			"onclick=\"document.location='"+url+"InvoiceServ?spon_id="+id+"'\" "+
-			" value=\"New Invoice\" />");
-	    out.println("</td>");
-
-	    if(user.canDelete()){
-		out.println("<td>");
-		out.println("<input type=\"button\" "+
-			    " onclick=\"validateDelete2();\" "+
-			    " value=\"Delete\" />");
-		out.println("</td>");
-	    }
-	    out.println("</tr></table></td></tr>");
-	    out.println("</table></td></tr>");			
-	    out.println("</table>");
-	    out.println("</td></tr></table>");	
-	    out.println("</fieldset>");
-	    out.println("</form>");
+			" value=\"New Invoice\" /></td>");
+	    out.println("<td><input type=\"button\" "+
+			" onclick=\"validateDelete2();\" "+
+			" value=\"Delete\" />");
+	    out.println("</td></tr>");
 	}
+	out.println("</table>");
+	out.println("</fieldset>");
+	out.println("</form>");
+
 	//
 	if(!id.equals("")){
 	    ContactList contacts = new ContactList(debug, id);
@@ -636,11 +601,7 @@ public class SponsorServ extends TopServlet{
 	out.flush();
 	out.close();
     }
-    /**
-       select count(d.id),sum(a.labor),concat(d.deptName,' ',IFNULL(d.busCat,'')) as name from requests r,actions a,departments d where a.id=r.id and d.dept=r.dept and year(r.reqDate)=2018 group by name;
 
-
-    */
 }
 
 

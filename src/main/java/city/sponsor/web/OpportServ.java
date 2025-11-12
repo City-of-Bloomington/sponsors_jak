@@ -252,7 +252,7 @@ public class OpportServ extends TopServlet{
 	out.println("<tr><td class=\"center title\">");
 	out.println("<tr><th><label for=\"event_id\">Event</label></th>");
 	out.println("<td class=\"left\">");			
-	out.println("<select name=\"event_id\">");
+	out.println("<select name=\"event_id\" id=\"event_id\">");
 	out.println("<option value=\"\">Pick Event</option>");
 	for(Type event: events){
 	    String selected="";

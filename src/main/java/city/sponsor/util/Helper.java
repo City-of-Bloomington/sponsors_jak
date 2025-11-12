@@ -641,8 +641,7 @@ public class Helper{
 				   ActionList actions,
 				   String url){
 	int cnt = actions.getCount();
-	out.println("<table width=\"90%\"><tr><td align=\"center\">");
-	out.println("<table width=\"100%\" border=\"1\">");
+	out.println("<table width=\"90%\" border=\"1\">");
 	out.println("<caption>Found "+cnt+"  notes </caption>");			
 	if(cnt > 0){
 	    out.println("<tr>"+
@@ -667,14 +666,6 @@ public class Helper{
 		DonBenType benefit = act.getBenefit();
 		boolean critical = act.isCritical();
 		String bgcolor="";
-		if(critical){
-		    bgcolor="\"pink\"";
-		}
-		/*
-		  else{
-		  if(jj == 2) bgcolor="\"silver\"";
-		  }
-		*/
 		out.println("<tr bgcolor="+bgcolor+">");
 		out.println("<td><a href=\""+url+
 			    "ActionServ?id="+act.getId()+"\">"+act.getDate()+
@@ -734,7 +725,6 @@ public class Helper{
 	    }
 	}
 	out.println("</table>");
-	out.println("</td></tr></table>");
     }
     public final static void writeActionsVertical(PrintWriter out,
 					   ActionList actions,
@@ -744,8 +734,6 @@ public class Helper{
 	}
 	out.println("<table width=\"90%\" border=\"1\">");
 	out.println("<caption>Recent Notes </caption>");
-	out.println("<tr><td align=\"center\">");
-	out.println("<table width=\"100%\" >");
 	int jj = 0;		
 	for(Action actt:actions){
 	    Sponsorship sponship = null;
@@ -796,17 +784,14 @@ public class Helper{
 	    if(jj > Helper.maxActionCount) break;
 	}
 	out.println("</table>");
-	out.println("</td></tr></table>");
 		
     }
     public final static void writePayments(PrintWriter out,
 				    PaymentList pays,
 				    String url){
 	if(pays != null && pays.size() > 0){
-	    out.println("<table width=\"90%\">");
+	    out.println("<table width=\"90%\" border=\"1\">");
 	    out.println("<caption>Payments </caption>");
-	    out.println("<tr><td align=\"center\">");
-	    out.println("<table width=\"100%\" border=\"1\">");
 	    out.println("<tr><th>Payment</th>"+
 			"<th>Due Date</th>"+
 			"<th>Amount</th>"+
@@ -831,17 +816,14 @@ public class Helper{
 	    out.println("<td class=\"money\">"+cf.format(balance)+"</td>");
 	    out.println("<td>&nbsp;</td></tr>");
 	    out.println("</table>");
-	    out.println("</td></tr></table>");
 	}
     }
     public final static void writeExpenses(PrintWriter out,
 				    ExpenseList rows,
 				    String url){
 	if(rows != null && rows.size() > 0){
-	    out.println("<table width=\"90%\">");
+	    out.println("<table width=\"90%\" border=\"1\">");
 	    out.println("<caption>Expenses </caption>");
-	    out.println("<tr><td align=\"center\">");
-	    out.println("<table width=\"100%\" border=\"1\">");
 	    out.println("<tr><th>Expense</th>"+
 			"<th>Vendor</th>"+
 			"<th>Date</th>"+
@@ -866,15 +848,13 @@ public class Helper{
 		out.println("<td>&nbsp;</td></tr>");
 	    }
 	    out.println("</table>");
-	    out.println("</td></tr></table>");
 	}
     }	
     public final static void writeContacts(PrintWriter out,
 				    ContactList contacts,
 				    String url){
 	if(contacts != null && contacts.size() > 0){
-	    out.println("<table width=\"90%\"><tr><td align=\"center\">");
-	    out.println("<table width=\"100%\" border=\"1\">");
+	    out.println("<table width=\"90%\" border=\"1\">");
 	    out.println("<caption>Current Contacts</caption>");
 	    out.println("<tr>"+
 			"<th>Name</th>"+
@@ -897,7 +877,6 @@ public class Helper{
 		out.println("</tr>");
 	    }
 	    out.println("</table>");
-	    out.println("</td></tr></table>");
 	}
     }
     public final static void writeSponsorships(PrintWriter out,
@@ -906,8 +885,7 @@ public class Helper{
 	if(donors == null || donors.size() < 1){
 	    return;
 	}
-	out.println("<table width=\"90%\"><tr><td align=\"center\">");
-	out.println("<table width=\"100%\" border=\"1\">");
+	out.println("<table width=\"90%\" border=\"1\">");
 	out.println("<caption>Sponsorships</caption>");
 	out.println("<tr>"+
 		    "<th>Sponsorship</th>"+
@@ -946,7 +924,6 @@ public class Helper{
 	    if(jj > Helper.maxSponsorshipCount) break;
 	}
 	out.println("</table>");
-	out.println("</td></tr></table>");	
     }
     public final static void writeSponsorLinks(PrintWriter out,
 					List<Sponsor> sponLinks,
@@ -954,8 +931,7 @@ public class Helper{
 	if(sponLinks == null || sponLinks.size() < 1){
 	    return;
 	}
-	out.println("<table width=\"90%\"><tr><td align=\"center\">");
-	out.println("<table width=\"100%\" border=\"1\">");
+	out.println("<table width=\"90%\" border=\"1\">");
 	out.println("<caption>Related Sponsors</caption>");
 	out.println("<tr>"+
 		    "<th>Sponsor</th>"+
@@ -975,13 +951,12 @@ public class Helper{
 	    out.println("</tr>");
 	}
 	out.println("</table>");
-	out.println("</td></tr></table>");	
     }		
     public final static void writeInvoices(PrintWriter out,
 				    InvoiceList rows,
 				    String url){
 	if(rows != null && rows.size() > 0){
-	    out.println("<table width=\"90%\">");
+	    out.println("<table width=\"90%\" border=\"1\">");
 	    out.println("<caption>Invoices </caption>");
 	    out.println("<tr><td align=\"center\">");
 	    out.println("<table width=\"100%\" border=\"1\">");
@@ -1003,7 +978,6 @@ public class Helper{
 		out.println("</tr>");				
 	    }
 	    out.println("</table>");
-	    out.println("</td></tr></table>");
 	}
     }
 }

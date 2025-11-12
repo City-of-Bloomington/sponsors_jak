@@ -285,7 +285,6 @@ public class SponsorshipServ extends TopServlet{
 	out.println("<form name=\"myForm\" method=\"post\" "+
 		    " action=\""+url+"SponsorshipServ?\""+
 		    " onsubmit=\"return validateForm()\">");
-	out.println("<fieldset><legend>Sponsorship Info</legend>");
 	if(!id.equals("")){
 	    out.println("<input type=\"hidden\" name=\"id\" value=\""+id+"\" />");
 	    out.println("<input type=\"hidden\" name=\"action2\" value=\"\" />");
@@ -296,84 +295,80 @@ public class SponsorshipServ extends TopServlet{
 	if(sponsor != null){
 	    out.println("<input name=\"spon_id\" type=\"hidden\" value=\""+spon_id+"\" />");			
 	}	
-	out.println("<table width=\"90%\">");
-	out.println("<tr><td class=\"center\">");
-	//
-	// Add/Edit record
-	//
-	out.println("<table width=\"100%\" border=\"1\">");
-	out.println("<tr><td class=\"center title\">");
-	out.println("Sponsorship Info</td></tr>");
-	out.println("<tr><td>");
-	out.println("<table width=\"100%\">");
-	out.println("<tr><th>Opportunity</th>");
-	out.println("<td class=\"left\">");
+	out.println("<table width=\"90%\" border=\"1\">");
+	out.println("<caption>Sponsorship Info</caption>");
 	if(oppt != null){
-	    out.println("<a href=\""+url+"OpportServ?id="+oppt.getId()+"\">"+oppt+"</a>");
+	    out.println("<tr><th>Opportunity</th>");
+	    out.println("<td class=\"left\">");
+	    out.println("<a href=\""+url+"OpportServ?id="+oppt.getId()+"\">"+oppt+"</a></td></tr>");
 	}
 	else{
+	    out.println("<tr><th><label for=\"opptName\">Opportunity</label></th>");
+	    out.println("<td class=\"left\">");	    
 	    out.println("<input id=\"opptName\" name=\"opptName\" value=\"\" size=\"50\" />");
-	    out.println("<b>ID</b><input id=\"oppt_id\" name=\"oppt_id\" size=\"4\" value=\""+oppt_id+"\" />");			
+	    out.println("<label for=\"oppt_id\">ID</label><input id=\"oppt_id\" name=\"oppt_id\" size=\"4\" value=\""+oppt_id+"\" />");			
 	}
 	out.println("</td></tr>");
-	out.println("<tr><th>Sponsor</th>");
-	out.println("<td class=\"left\">");
 	if(sponsor != null){
-	    out.println("<a href=\""+url+"SponsorServ?id="+sponsor.getId()+"\">"+sponsor.getOrgname()+"</a>");
+	    out.println("<tr><th>Sponsor</th>");
+	    out.println("<td class=\"left\">");
+	    out.println("<a href=\""+url+"SponsorServ?id="+sponsor.getId()+"\">"+sponsor.getOrgname()+"</a></td></tr>");
 	}
 	else{
+	    out.println("<tr><th><label for=\"sponsorName\">Sponsor</label></th>");
+	    out.println("<td class=\"left\">");
 	    out.println("<input id=\"sponsorName\" name=\"sponsorName\" value=\"\" size=\"50\" />");
-	    out.println("<b>ID</b><input id=\"spon_id\" name=\"spon_id\" size=\"4\" value=\""+spon_id+"\" />");			
+	    out.println("<label for=\"spon_id\">ID</label><input id=\"spon_id\" name=\"spon_id\" size=\"4\" value=\""+spon_id+"\" />");			
 	}
 	out.println("</td></tr>");
-	out.println("<tr><th>Details</th>");
+	out.println("<tr><th><label for=\"spon_det\">Details</label></th>");
 	out.println("<td class=\"left\">");
 	out.println("<input name=\"details\" size=\"50\" maxlength=\"50\" "+
-		    " value=\""+Helper.replaceSpecialChars(sponship.getDetails())+"\" required=\"required\" />* ");
+		    " value=\""+Helper.replaceSpecialChars(sponship.getDetails())+"\" required=\"required\" id=\"spon_det\" />* ");
 	out.println("</td></tr>");				
-	out.println("<tr><th>Total Sponsorship $</th>");
+	out.println("<tr><th><label for=\"spon_total\">Total Sponsorship $</label></th>");
 	out.println("<td class=\"left\">");
-	out.println("<input name=\"totalValue\" size=\"8\" maxlength=\"8\" disabled=\"disabled\" "+
+	out.println("<input name=\"totalValue\" size=\"8\" maxlength=\"8\" disabled=\"disabled\" id=\"spon_total\" "+
 		    " value=\""+sponship.getTotalValue()+"\" />");
 	out.println("</td></tr>");	
-	out.println("<tr><th>Sponsorship Amount $</th>");
+	out.println("<tr><th><label for=\"value\">Sponsorship Amount $</label></th>");
 	out.println("<td class=\"left\">");
 	out.println("<input name=\"value\" size=\"8\" maxlength=\"8\" "+
-		    " value=\""+sponship.getValue()+"\" onchange=\"doTotal();\"/>");
+		    " id=\"value\" value=\""+sponship.getValue()+"\" onchange=\"doTotal();\"/>");
 	out.println("(per term)</td></tr>");
 	out.println("<tr>");
-	out.println("<th>Number of Sponsorships (terms)</th>");
+	out.println("<th><label for=\"terms\">Number of Sponsorships (terms)</label></th>");
 	out.println("<td class=\"left\">");
-	out.println("<input name=\"terms\" size=\"2\" maxlength=\"2\" "+
+	out.println("<input name=\"terms\" size=\"2\" maxlength=\"2\" id=\"terms\" "+
 		    " value=\""+sponship.getTerms()+"\" onchange=\"doTotal();\"/>");
 	out.println("</tr>");
-	out.println("<th>Payment Option</th>");
+	out.println("<tr><th>Payment Option</th>");
 	out.println("<td class=\"left\">");
 	String ptype = sponship.getPay_type();
 	for(String str:Helper.payTypeArr){
 	    String checked="";
 	    if(str.equals(ptype)) checked="checked=\"checked\"";
-	    out.println("<input type=\"radio\" name=\"pay_type\" value=\""+str+"\" "+checked+" />"+str);
+	    out.println("<input type=\"radio\" name=\"pay_type\" value=\""+str+"\" "+checked+" id=\""+str+"\" /><label for=\""+str+"\">"+str+"</label>");
 	}
 	out.println("</td></tr>");
-	out.println("<th>First Payment Date</th>");
+	out.println("<tr><th><label for=\"start_date\">First Payment Date</label></th>");
 	out.println("<td class=\"left\">");
 	out.println("<input name=\"start_date\" id=\"start_date\" size=\"10\" maxlength=\"10\" "+
 		    " value=\""+sponship.getStart_date()+"\" />");
 	out.println("</td></tr>");
-	out.println("<th>Contract Start Date</th>");
+	out.println("<tr><th><label for=\"cont_start_date\">Contract Start Date</label></th>");
 	out.println("<td class=\"left\">");
 	out.println("<input name=\"cont_start_date\" id=\"cont_start_date\" size=\"10\" maxlength=\"10\" "+
 		    " value=\""+sponship.getCont_start_date()+"\" />");
 	out.println("</td></tr>");
-	out.println("<th>Contract End Date</th>");
+	out.println("<tr><th><label for=\"cont_end_date\">Contract End Date</label></th>");
 	out.println("<td class=\"left\">");
 	out.println("<input name=\"cont_end_date\" id=\"cont_end_date\" size=\"10\" maxlength=\"10\" "+
 		    " value=\""+sponship.getCont_end_date()+"\" />");
 	out.println("</td></tr>");		
-	out.println("<tr><th>Sponsorship Type</th>");	
+	out.println("<tr><th><label for=\"don_type\">Sponsorship Type</label></th>");	
 	out.println("<td class=\"left\">");
-	out.println("<select name=\"don_type\">");
+	out.println("<select name=\"don_type\" id=\"don_type\">");
 	out.println("<option value=\"\"></option>");
 	for(String str: Helper.donTypeArr){
 	    String selected="";
@@ -384,9 +379,9 @@ public class SponsorshipServ extends TopServlet{
 	}
 	out.println("</select>");
 	out.println("</td></tr>");
-	out.println("<tr><th>Sponsorship Level</th>");	
+	out.println("<tr><th><label for=\"spon_level\">Sponsorship Level</label></th>");	
 	out.println("<td class=\"left\">");
-	out.println("<select name=\"spon_level\">");
+	out.println("<select name=\"spon_level\" id=\"spon_level\">");
 	out.println("<option value=\"\"></option>");
 	for(int i=0;i< Helper.sponLevelIdArr.length;i++){
 	    String str = Helper.sponLevelIdArr[i];
@@ -399,20 +394,17 @@ public class SponsorshipServ extends TopServlet{
 	}
 	out.println("</select>");
 	out.println("</td></tr>");
-	out.println("<tr><th>Misc Notes</th>");
+	out.println("<tr><th><label for=\"note\">Misc Notes</label></th>");
 	out.println("<td class=\"left\">");
-	out.println("<textarea name=\"notes\" cols=\"60\" rows=\"5\">");
+	out.println("<textarea name=\"notes\" id=\"note\" cols=\"60\" rows=\"5\">");
 	out.println(Helper.replaceSpecialChars(sponship.getNotes()));
 	out.println("</textarea></td></tr>");
-	out.println("</table></td></tr>");
+	out.println("</table>");
 	if(!id.equals("") && benefits != null){
-	    out.println("<tr><td class=\"center\">");
-	    out.println("<table width=\"100%\" border=\"1\">");
+	    out.println("<table width=\"90%\" border=\"1\">");
 	    out.println("<tr><td class=\"center title\">");
-	    out.println("Benefits</td></tr>");
-	    out.println("<tr><td>");
-	    out.println("<table width=\"100%\">");
-	    out.println("<tr><th>#</th><th>Benefit</th><th>Fulfilled</th>"+
+	    out.println("<caption>Benefits</caption>");
+	    out.println("<tr><th>Delete</th><th>Benefit</th><th>Fulfilled</th>"+
 			"<th>Fulf. Date</th><th>Notes</th>"+
 			"</tr>");
 	    int jj=1;
@@ -427,24 +419,16 @@ public class SponsorshipServ extends TopServlet{
 		out.println("<td><a href=\""+url+"ActionServ?ben_id="+dbt.getId()+"&amp;sponship_id="+dbt.getSponship_id()+"\">Add Notes</a>");				
 		out.println("</td></tr>");
 	    }
-	    out.println("</table></td></tr>");
-	    out.println("</table></td></tr>");
-	}
-	if(id.equals("")){
-	    out.println("</table></td></tr>");							
-	    if(user.canEdit()){
-		out.println("<tr><td class=\"center\"><input type=\"submit\" "+
-			    " name=\"action\" value=\"Save\" />");
-		out.println("</td></tr>");
-	    }
 	    out.println("</table>");
-	    out.println("</fieldset>");			
-	    out.println("</form>");
+	}
+	out.println("<table width=\"90%\" border=\"1\">");
+	out.println("<caption>Actions </caption>");
+	if(id.equals("")){
+	    out.println("<tr><td class=\"center\"><input type=\"submit\" "+
+			" name=\"action\" value=\"Save\" />");
+	    out.println("</td></tr>");
 	}
 	else{ // Save, Update
-	    out.println("<tr><td valign=\"top\" class=\"center\">");
-	    out.println("<table width=\"100%\" border=\"1\"><tr><td>");
-	    out.println("<table width=\"100%\">");	
 	    out.println("<tr>");
 	    if(user.canEdit()){
 		out.println("<td valign=\"top\"><input "+
@@ -459,17 +443,17 @@ public class SponsorshipServ extends TopServlet{
 	    out.println("<td valign=\"top\"><input type=\"button\" "+
 			"onclick=\"document.location='"+url+"BenefitServ?sponship_id="+id+"'\" "+
 			"value=\"Add/Edit Benefits\" />");
-	    out.println("</td>");
-	    out.println("<td valign=\"top\"><input type=\"button\" "+
+	    out.println("</td><tr>");
+	    out.println("<tr><td valign=\"top\"><input type=\"button\" "+
 			"onclick=\"document.location='"+url+"ActionServ?sponship_id="+id+"'\" "+
 			"value=\"Add Notes\" />");
 	    out.println("</td>");
 	    out.println("<td valign=\"top\"><input type=\"button\" "+
 			"onclick=\"document.location='"+url+"ExpenseServ?sponship_id="+id+"'\" "+
 			"value=\"Add Expenses\" />");
-	    out.println("</td>");		
-			
+	    out.println("</td></tr>");		
 	    if(sponship.getDon_type().equals("monetary")){
+		out.println("<tr>");
 		if(!sponship.hasPayments()){
 		    out.println("<td valign=\"top\"><input type=\"submit\" "+
 				"name=\"action\" "+
@@ -486,24 +470,22 @@ public class SponsorshipServ extends TopServlet{
 				"value=\"New Invoice\" />");
 		    out.println("</td>");	
 		}
+		out.println("</tr>");
 	    }
-	    out.println("<td valign=\"top\"><input type=\"button\" "+
+	    
+	    out.println("<tr><td valign=\"top\"><input type=\"button\" "+
 			"onclick=\"document.location='"+url+"AgreePrint?sponship_id="+id+"'\" "+
 			"value=\"Adv. Agreement\" />");
 	    out.println("</td>");
 	    //			
-	    if(user.canDelete()){
-		out.println("<td>");
-		out.println("<input type=\"button\" "+
-			    " onclick=\"validateDelete2();\" "+
-			    " value=\"Delete\" />");
-		out.println("</td>");
-	    }
-	    out.println("</tr></table></td></tr>");
-	    out.println("</table></td></tr>");			
+	    out.println("<td>");
+	    out.println("<input type=\"button\" "+
+			" onclick=\"validateDelete2();\" "+
+			" value=\"Delete\" />");
+	    out.println("</td>");
+
+	    out.println("</tr>");
 	    out.println("</table>");
-	    out.println("</td></tr></table>");	
-	    out.println("</fieldset>");
 	    out.println("</form>");
 	}
 	if(!id.equals("")){

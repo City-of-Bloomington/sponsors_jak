@@ -232,14 +232,14 @@ public class SponshipSearchServ extends TopServlet{
 	out.println("<td class=\"left\">");
 	out.println("<input name=\"details\" size=\"30\" id=\"details\""+
 		    " maxlength=\"50\" value=\""+details+"\" />");
-	out.println("<b>ID</b><input id=\"sponship_id\" name=\"sponship_id\" size=\"4\" value=\""+sponship_id+"\" />");		
+	out.println("<label for=\"sponship_id\">ID</label><input id=\"sponship_id\" name=\"sponship_id\" size=\"4\" value=\""+sponship_id+"\" />");		
 	out.println("</td></tr>");
-	out.println("<tr><th><label for=\"pay_type\">Payment Option</label></th>");
+	out.println("<tr><th>Payment Option</th>");
 	out.println("<td class=\"left\">");
 	for(String str:Helper.payTypeArr){
 	    String checked="";
 	    if(pay_type.equals(str)) checked="checked=\"checked\"";
-	    out.println("<input type=\"radio\" id=\"pay_type\" name=\"pay_type\" value=\""+str+"\" "+checked+" />"+str);
+	    out.println("<input type=\"radio\" id=\""+str+"\" name=\"pay_type\" value=\""+str+"\" "+checked+" /><label for=\""+str+"\">"+str+"</label>");
 	}
 	out.println("</td></tr>");
 	out.println("<tr><th><label for=\"don_type\">Sponsorship Type</label></th>");	
@@ -282,7 +282,7 @@ public class SponshipSearchServ extends TopServlet{
 	out.println("</td></tr>");
 	out.println("<tr><th><label for=\"pageSize\">Records Per Page </label></th>");
 	out.println("<td class=\"left\">");		
-	out.println("<input name=\"pageSize\" size=\"3\" maxlength=\"3\" value=\""+pageSize+"\" /></th></tr>");
+	out.println("<input name=\"pageSize\" size=\"3\" maxlength=\"3\" value=\""+pageSize+"\" id=\"pageSize\" /></th></tr>");
 	out.println("<tr><th><label for=\"sortBy\">Sort By </label></th>");
 	out.println("<td class=\"left\">");
 	out.println("<select name=\"sortBy\" id=\"sortBy\">");
@@ -303,7 +303,7 @@ public class SponshipSearchServ extends TopServlet{
 		out.println("<tr><td class=\"center\">No match found</td></tr>"); 
 	    }
 	    else{
-		out.println("<tr><th>"+
+		out.println("<tr>"+
 			    "<th>Sponsor</th>"+
 			    "<th>Opportunity </th>"+
 			    "<th>Sponsorship</th>"+
