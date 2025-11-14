@@ -465,7 +465,9 @@ public class Helper{
     public final static String banner(String url){
 
 	String banner = "<head>\n"+
-	    "<meta http-equiv=\"Content-Type\" content=\"application/xhtml+xml; charset=utf-8\" />\n"+
+	    "<meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-8\">"+
+	    "<meta http-equiv=\"Cache-Control\" content=\"no-cache, no-store, must-revalidate\">"+
+	    "<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">"+	    
 	    "<meta http-equiv=\"Content-Script-Type\" content=\"text/javascript\" />\n"+
 	    "<link rel=\"SHORTCUT ICON\" href=\"/favicon.ico\" />\n"+
 	    "<style type=\"text/css\" media=\"screen\">\n"+

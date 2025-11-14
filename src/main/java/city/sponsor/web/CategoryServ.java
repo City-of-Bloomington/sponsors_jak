@@ -205,7 +205,7 @@ public class CategoryServ extends TopServlet{
 	    out.println("</select></td></tr>");
 	}
 	if(cat_name.equals("")) disabled="disabled=\"disabled\"";
-	out.println("<tr><th><label for\"new_name\">Add New Category Option</label></th>");		
+	out.println("<tr><th><label for=\"new_name\">Add New Category Option</label></th>");		
 	out.println("<td class=\"left\">");
 	out.println("<input name=\"new_name\" size=\"70\" maxlength=\"150\" "+
 		    " id=\"new_name\" value=\"\" "+disabled+"/>");		

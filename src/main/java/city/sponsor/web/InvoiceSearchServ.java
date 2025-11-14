@@ -218,7 +218,7 @@ public class InvoiceSearchServ extends TopServlet{
 	out.println("<td class=\"left\">");
 	out.println("<input name=\"spon_name\" size=\"30\" id=\"spon_name\""+
 		    " maxlength=\"50\" value=\""+spon_name+"\" />");
-	out.println("<b>ID</b><input id=\"spon_id\" name=\"spon_id\" value=\""+spon_id+"\" size=\"4\" />");
+	out.println("<label for=\"spon_id\">ID</label><input id=\"spon_id\" name=\"spon_id\" value=\""+spon_id+"\" size=\"4\" />");
 	out.println("</td></tr>");
 	out.println("<tr><th>Invoice has</th>");
 	out.println("<td class=\"left\">");
@@ -230,7 +230,7 @@ public class InvoiceSearchServ extends TopServlet{
 	out.println("<td class=\"left\">");
 	String checked = whichDate.equals("dueDate")?"checked=\"checked\"":"";
 	out.println("<input name=\"whichDate\" type=\"checkbox\" id=\"dueDate\" "+
-		    " "+checked+" value=\"dueDate\" /><label for=\"due_date\">Due Date</label>");
+		    " "+checked+" value=\"dueDate\" /><label for=\"dueDate\">Due Date</label>");
 	checked = whichDate.equals("dueDate")?"":"checked=\"checked\"";
 	out.println("<input name=\"whichDate\" type=\"checkbox\" "+
 		    " "+checked+" value=\"invoiceDate\" id=\"invoiceDate\" /><label for=\"invoiceDate\">Invoice Date</label>");

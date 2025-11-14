@@ -471,7 +471,7 @@ public class ReportServ extends TopServlet{
 	    String str = profArr[j];
 	    if(jj == 0) out.println("<tr>");
 	    checked = (showSet.contains(str))?"checked=\"checked\"":""; 
-	    out.println("<td><input type=\"checkbox\" name=\"show\" value=\""+str+"\" "+checked+">"+str+"</td>");
+	    out.println("<td><input type=\"checkbox\" name=\"show\" value=\""+str+"\" id=\""+str+"\" "+checked+"><label for=\""+str+"\">"+str+"</label></td>");
 	    jj++;
 	    if(jj == 3){
 		out.println("</tr>");

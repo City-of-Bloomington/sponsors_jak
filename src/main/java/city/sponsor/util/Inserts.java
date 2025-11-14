@@ -17,9 +17,10 @@ public class Inserts{
     public final static String searchStatusArr[] ={"","New","Pending","Closed","Filed Suit"}; 
     //
     // xhtmlHeaderInc
-    public final static String xhtmlHeaderInc = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"+
+    public final static String xhtmlHeaderInc =
 	"<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.1//EN\" \"http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd\">\n"+
-	"<html lang=\"en\">";
+	"<html lang=\"en\">\n";
+    //    
     //
     // basic constructor
     public Inserts(boolean deb){
@@ -40,6 +41,7 @@ public class Inserts{
 
 	String banner = "<head>\n"+
 	    "<meta charset=\"utf-8\" />\n"+
+	    "<meta http-equiv=\"Content-Type\" content=\"text/html\">\n"+
 	    "<meta http-equiv=\"Cache-Control\" content=\"no-cache, no-store, must-revalidate\">"+
 	    "<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">"+
 	    "<title>Sponsors - City of Bloomington, Indiana</title>\n"+

@@ -239,7 +239,7 @@ public class TaskSearchServ extends TopServlet{
 		    " "+checked+" value=\"date\" /><label for=\"date\">Date</label>");
 	checked = dateType.equals("followup")?"checked=\"checked\"":"";
 	out.println("<input name=\"whichDate\" type=\"radio\" "+
-		    " "+checked+" value=\"followup\" id=\"fullowup\" /><label for=\"followup\">Followup Date</label>");
+		    " "+checked+" value=\"followup\" id=\"followup\" /><label for=\"followup\">Followup Date</label>");
 	out.println("</td></tr>");
 	out.println("<tr><th><label for=\"date_from\">Date From</label></th>");
 	out.println("<td class=\"left\">");

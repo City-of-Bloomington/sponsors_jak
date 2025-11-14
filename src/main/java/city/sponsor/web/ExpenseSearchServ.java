@@ -218,7 +218,7 @@ public class ExpenseSearchServ extends TopServlet{
 	out.println("<td class=\"left\">");
 	out.println("<input name=\"spon_name\" size=\"30\" id=\"spon_name\""+
 		    " maxlength=\"50\" value=\""+spon_name+"\" />");
-	out.println("<b>ID</b><input id=\"spon_id\" name=\"spon_id\" value=\""+spon_id+"\" size=\"4\" />");
+	out.println("<label for=\"spon_id\">ID</label><input id=\"spon_id\" name=\"spon_id\" value=\""+spon_id+"\" size=\"4\" />");
 	out.println("</td></tr>");
 	out.println("<tr><th><label for=\"vendor_id\">Vendor</label></th>");
 	out.println("<td class=\"left\">");
@@ -249,7 +249,7 @@ public class ExpenseSearchServ extends TopServlet{
 	out.println("<input name=\"value_to\" size=\"10\" id=\"value_to\" "+
 		    " maxlength=\"10\" value=\""+value_to+"\" />");
 	out.println("</td></tr>");	
-	out.println("<tr><th><label for=\"pageSize\">Records Per Page </label></th>");
+	out.println("<tr><th><label for=\"page_size\">Records Per Page </label></th>");
 	out.println("<td class=\"left\">");		
 	out.println("<input name=\"pageSize\" size=\"3\" maxlength=\"3\" value=\""+pageSize+"\" id=\"page_size\" /></th></tr>");
 	out.println("<tr><th><label for=\"sort_by\">Sort By </label></th>");

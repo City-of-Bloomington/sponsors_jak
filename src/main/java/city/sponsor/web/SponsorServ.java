@@ -328,17 +328,18 @@ public class SponsorServ extends TopServlet{
 	    if(sponsor.getSpon_status().equals(status)){
 		selected = "selected=\"selected\"";
 	    }
-	    out.println("<option "+selected+">"+status+"</option>");			
+	    out.println("<option value=\""+status+"\" "+selected+">"+status+"</option>");			
 	}
 	out.println("</select></td>");
 	out.println("<td class=\"left\">");
 	out.println("<select name=\"acc_manager\" id=\"acc_manager\">");
 	for(User muser:managers){
 	    String selected = "";
+	    String uname = muser.getUserid().replace('.','_');
 	    if(sponsor.getAcc_manager().equals(muser.getUserid())){
 		selected = "selected=\"selected\"";
 	    }
-	    out.println("<option value=\""+muser.getUserid()+"\" "+selected+">"+muser+"</option>");			
+	    out.println("<option value=\""+muser.getUserid()+"\" "+selected+">"+muser+"</option>");
 	}
 	out.println("</select></td>");
 	out.println("</tr>");
@@ -354,11 +355,13 @@ public class SponsorServ extends TopServlet{
 	out.println("<select name=\"type\" id=\"type\">");
 	out.println("<option value=\"\"></option>");
 	for(Type type:orgTypes){
+	    int jj=1;
 	    String selected = "";
 	    if(sponsor.getType().equals(type.getId())){
 		selected = "selected=\"selected\"";
 	    }
-	    out.println("<option value=\""+type.getId()+"\" "+selected+">"+type+"</option>");			
+	    out.println("<option value=\""+type.getId()+"\" "+selected+">"+type+"</option>");
+	    jj++;
 	}
 	out.println("</select></td>");
 	out.println("</tr>");
@@ -407,11 +410,12 @@ public class SponsorServ extends TopServlet{
 	    out.println("<tr><th>Delete</th><th>Phone #</th><th>Type</th><th></th></tr>");			
 	    for(Phone pp:phones){
 		out.println("<tr>");
-		out.println("<td>"+(++nps)+" - <input type=\"checkbox\" name=\"del_phones\" value=\""+pp.getId()+"\" /></td>");
+		out.println("<td><label for=\"p"+pp.getId()+"\">"+nps+"</label><input type=\"checkbox\" name=\"del_phones\" value=\""+pp.getId()+"\" id=\"p"+pp.getId()+"\" /></td>");
 		out.println("<td>"+pp.getNumber()+"</td>");
 		out.println("<td>"+pp.getType()+"</td>");
 		out.println("<td>&nbsp;</td>");
 		out.println("</tr>");
+		nps++;
 	    }
 	}
 	out.println("<tr><td colspan=\"3\" align=\"center\"><b>Add new phones </b></td></tr>");
@@ -422,7 +426,7 @@ public class SponsorServ extends TopServlet{
 	    out.println("<td><label for=\"type_"+jj+"\">Type</label><select name=\"phone_type_"+jj+"\" id=\"type_"+jj+"\">");
 	    out.println("<option></option>");
 	    for(String str:Phone.phoneTypes){
-		out.println("<option>"+str+"</option>");
+		out.println("<option value=\""+str+"\">"+str+"</option>");
 	    }
 	    out.println("</select></td>");
 	    out.println("</tr>");
@@ -435,7 +439,7 @@ public class SponsorServ extends TopServlet{
 	    if(sponsor.getPref_con_time().indexOf(":"+tt.getId()+":") > -1){
 		checked="checked=\"checked\"";
 	    }
-	    out.println("<input type=\"checkbox\" name=\"pref_con_time\" value=\""+tt.getId()+"\" "+checked+" id=\""+tt+"\"/><label for=\""+tt+"\"> "+tt+"</label>");
+	    out.println("<input type=\"checkbox\" name=\"pref_con_time\" value=\""+tt.getId()+"\" "+checked+" id=\"cc"+tt.getId()+"\"/><label for=\"cc"+tt.getId()+"\">"+tt+"</label>");
 	    jj++;
 	    if(jj > 8) {
 		out.println("<br />");
@@ -448,10 +452,11 @@ public class SponsorServ extends TopServlet{
 	jj = 1;
 	for(String str: conMeans){
 	    checked="";
+	    String str2=str.replaceAll("\\s","_");
 	    if(sponsor.getCon_means().indexOf(str) > -1){
 		checked="checked=\"checked\"";
 	    }
-	    out.println("<input type=\"checkbox\" name=\"con_means\" value=\""+str+"\" "+checked+" id=\""+str+"\"/><label for=\""+str+"\">"+str+"</label>");
+	    out.println("<input type=\"checkbox\" name=\"con_means\" value=\""+str+"\" "+checked+" id=\""+str2+"\"/><label for=\""+str2+"\">"+str+"</label>");
 	    jj++;
 	    if(jj > 8) {
 		out.println("<br />");
@@ -466,11 +471,12 @@ public class SponsorServ extends TopServlet{
 	out.println("<td class=\"left\">");
 	jj = 1;
 	for(String str: interests){
+	    String str2 = str.replaceAll("\\s","_");
 	    checked="";
 	    if(sponsor.getInterests().indexOf(str) > -1){
 		checked="checked=\"checked\"";
 	    }
-	    out.println("<input type=\"checkbox\" name=\"interests\" value=\""+str+"\" "+checked+" id=\""+str+"\" /><label for=\""+str+"\">"+str+"</label>");
+	    out.println("<input type=\"checkbox\" name=\"interests\" value=\""+str+"\" "+checked+" id=\""+str2+"\" /><label for=\""+str2+"\">"+str+"</label>");
 	    jj++;
 	    if(jj > 4) {
 		out.println("<br />");
@@ -483,10 +489,11 @@ public class SponsorServ extends TopServlet{
 	jj = 1;
 	for(String str: targetPops){
 	    checked="";
+	    String str2 = str.replaceAll("\\s","_");
 	    if(sponsor.getTarget_pop().indexOf(str) > -1){
 		checked="checked=\"checked\"";
 	    }
-	    out.println("<input type=\"checkbox\" name=\"target_pop\" value=\""+str+"\" "+checked+" id=\""+str+"\"><label for=\""+str+"\">"+str+"</label>");
+	    out.println("<input type=\"checkbox\" name=\"target_pop\" value=\""+str+"\" "+checked+" id=\""+str2+"\"><label for=\""+str2+"\">"+str+"</label>");
 	    jj++;
 	    if(jj > 6) {
 		out.println("<br />");
@@ -499,7 +506,7 @@ public class SponsorServ extends TopServlet{
 	    out.println("<tr><th valign=\"top\">Business Links</th>");
 	    out.println("<td class=\"left\">");
 	    for(Sponsor spon:sponsors){
-		out.println("<input type=\"checkbox\" name=\"del_spons\" value=\""+spon.getId()+"\" />* <a href=\""+url+"SponsorServ?id="+spon.getId()+"\">"+spon+"</a><br />");
+		out.println("<label for=\""+spon.getId()+"\">Delete </label> <input type=\"checkbox\" name=\"del_spons\" value=\""+spon.getId()+"\" id=\""+spon.getId()+"\"/>* <a href=\""+url+"SponsorServ?id="+spon.getId()+"\">"+spon+"</a><br />");
 	    }
 	    out.println("</td></tr>");
 	}
@@ -507,14 +514,13 @@ public class SponsorServ extends TopServlet{
 	out.println("<td class=\"left\">");
 	out.println("<input id=\"spon_link\" value=\"\" size=\"70\" maxlength=\"80\" />");
 	out.println("</td></tr>");
-	out.println("<tr>");
-	out.println("<tr><th><label for=\"chapter\">Chapter</th><td class=\"left\">");
+	out.println("<tr><th><label for=\"chapter\">Chapter</label></th><td class=\"left\">");
 	out.println("<input name=\"chapter\" value=\""+sponsor.getChapter()+"\" size=\"50\" maxlength=\"80\" id=\"chapter\" /> ");
 	checked = sponsor.getBni().equals("") ? "":"checked=\"checked\"";
-	out.println("<input type=\"checkbox\" name=\"bni\" value=\"y\" "+checked+" id=\"bni\" /><label for=\"bni\">BNI Member</label></b></td></tr>");
+	out.println("<input type=\"checkbox\" name=\"bni\" value=\"y\" "+checked+" id=\"bni\" /><label for=\"bni\">BNI Member</label></td></tr>");
 	out.println("<tr><th><label for=\"refer\">Referral From</label></th><td class=\"left\"><input name=\"referral_from\" value=\""+sponsor.getReferral_from()+"\" size=\"70\" maxlength=\"80\" id=\"refer\" /></td></tr>");
 				
-	out.println("<th valign=\"top\"><label for=\"notes\">Notes</label></th>");
+	out.println("<tr><th><label for=\"notes\">Notes</label></th>");
 	out.println("<td class=\"left\"><textarea name=\"notes\" rows=\"3\" cols=\"70\" id=\"notes\">");
 	out.println(sponsor.getNotes());
 	out.println("</textarea>");

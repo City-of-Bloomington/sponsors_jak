@@ -341,11 +341,11 @@ public class IncomeReport extends TopServlet{
 	//
 	out.println("<table width=\"80%\">");
 	out.println("<caption>Report options</caption>");	
-	out.println("<tr><th><label for=\"oppt_id\">Opportunity</label></th>");
+	out.println("<tr><th><label for=\"opport_name\">Opportunity</label></th>");
 	out.println("<td class=\"left\">");
 	out.println("<input name=\"name\" size=\"30\" id=\"opport_name\" "+
 		    " maxlength=\"50\" value=\"\" />");
-	out.println("<b>ID</b><input id=\"oppt_id\" name=\"oppt_id\" size=\"4\" value=\"\" />");				
+	out.println("<label for=\"oppt_id\">ID</label><input id=\"oppt_id\" name=\"oppt_id\" size=\"4\" value=\"\" />");				
 	out.println("</td></tr>");		
 	out.println("<tr><th><label for=\"type\">Period Type</label></th></tr>");
 	out.println("<tr>");
