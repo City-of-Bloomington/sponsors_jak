@@ -198,7 +198,7 @@ public class CategoryServ extends TopServlet{
 	    out.println("<tr><th><label for=\"id\">Available Options</label></th>");
 	    out.println("<td class=\"left\">");			
 	    out.println("<select name=\"id\" id=\"id\">");
-	    out.println("<option value=\"\"></option>\n");			
+	    out.println("<option value=\"\">Select One</option>\n");			
 	    for(Type type:types){
 		out.println("<option value=\""+type.getId()+"\">"+type+"</option>\n");
 	    }

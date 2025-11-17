@@ -387,7 +387,7 @@ public class ActionServ extends TopServlet{
 	}
 	else if(contacts != null){
 	    if(contacts.size() > 1){
-		out.println("<tr><th><label for=\"cont_id2\">Contacts</lable></th><td class=\"left\">");
+		out.println("<tr><th><label for=\"cont_id2\">Contacts</label></th><td class=\"left\">");
 		out.println("<select name=\"cont_id\" id=\"cont_id2\">");
 		out.println("<option value=\"\"></option>");
 		for(Contact cont:contacts){
@@ -432,12 +432,12 @@ public class ActionServ extends TopServlet{
 	out.println("<td class=\"left\">");
 	out.println("<input name=\"another_userid\" size=\"10\" maxlength=\"10\" "+
 		    " id=\"another_id\" value=\""+act.getAnotherUserid()+"\"/>(make sure this a valid city employee userid)</td></tr>");		
-	out.println("<tr><th><label for=\"notes\">Notes </lable></th>");		
+	out.println("<tr><th><label for=\"notes\">Notes </label></th>");		
 	out.println("<td class=\"left\">");
 	out.println("<textarea name=\"notes\" id=\"notes\" row=\"5\" cols=\"50\">");
 	out.println(act.getNotes());
 	out.println("</textarea></td></tr>");
-	out.println("<tr><th><label for=\"followup\">Followup Date</lable></th>");
+	out.println("<tr><th><label for=\"followup\">Followup Date</label></th>");
 	out.println("<td class=\"left\">");
 	out.println("<input name=\"followup\" size=\"10\" maxlength=\"10\" "+
 		    " id=\"followup\" value=\""+act.getFollowup()+"\" />");

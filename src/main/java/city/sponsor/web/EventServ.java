@@ -194,9 +194,9 @@ public class EventServ extends TopServlet{
 	if(events.size() > 0){
 	    out.println("<p class=\"center\">");
 	    out.println("<table border=\"1\" width=\"70%\"><caption>Events</caption>");
-	    out.println("<tr><td>ID</td><td>Name</td></tr>");				
+	    out.println("<tr><td>Event</td></tr>");				
 	    for(Type one:events){
-		out.println("<tr><td><a href=\""+url+"EventServ?id="+one.getId()+"\">"+one.getId()+"</a></td><td>"+one+"</td></tr>");
+		out.println("<tr><td><a href=\""+url+"EventServ?id="+one.getId()+"\">"+one+"</a></td></tr>");
 	    }
 	    out.println("</table>");
 	    out.println("</p>");

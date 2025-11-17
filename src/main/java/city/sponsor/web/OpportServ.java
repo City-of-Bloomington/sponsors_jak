@@ -277,7 +277,7 @@ public class OpportServ extends TopServlet{
 	out.println("<tr><th><label for=\"season_id\">Season</label></th>");
 	out.println("<td class=\"left\">");
 	out.println("<select name=\"season_id\" id=\"season_id\">");
-	out.println("<option value=\"\"></option>");
+	out.println("<option value=\"\">Select Season</option>");
 	for(Type tt: seasons){
 	    String selected="";
 	    if(opport.getSeason_id().equals(tt.getId())){
@@ -289,7 +289,7 @@ public class OpportServ extends TopServlet{
 	
 	out.println("<tr><th><label for=\"year\">Year</label></th><td class=\"left\">");
 	out.println("<select name=\"year\" id=\"year\">");
-	out.println("<option value=\"\"></option>");
+	out.println("<option value=\"\">Select year</option>");
 	for(int yy: Helper.getYearList()){
 	    String selected="";
 	    if(opport.getYear().equals(""+yy)){
@@ -315,7 +315,7 @@ public class OpportServ extends TopServlet{
 	out.println("<th><label for=\"area\">Program Area</label></th>");
 	out.println("<td class=\"left\">");
 	out.println("<select name=\"program_area\" id=\"area\">");
-	out.println("<option value=\"\"></option>");
+	out.println("<option value=\"\">Select program area</option>");
 	for(String str: progAreas){
 	    String selected="";
 	    if(opport.getProgram_area().equals(str)){

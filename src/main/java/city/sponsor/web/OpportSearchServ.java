@@ -271,13 +271,13 @@ public class OpportSearchServ extends TopServlet{
 	out.println("</td></tr>");	
 	out.println("<tr><th><label for=\"pageSize\">Records Per Page </label></th>");
 	out.println("<td class=\"left\">");		
-	out.println("<input name=\"pageSize\" size=\"3\" maxlength=\"3\" value=\""+pageSize+"\" id=\"pageSize\" /></th></tr>");
+	out.println("<input name=\"pageSize\" size=\"3\" maxlength=\"3\" value=\""+pageSize+"\" id=\"pageSize\" /></td></tr>");
 	out.println("<tr><th><label for=\"sortBy\">Sort By </label></th>");
 	out.println("<td class=\"left\">");
 	out.println("<select name=\"sortBy\" id=\"sortBy\">");
 	out.println("<option value=\"name\">Name</option>");
 	out.println("<option value=\"start_date DESC\" selected=\"selected\">Start Date</option>");
-	out.println("<select></th>");	
+	out.println("<select></td></tr>");	
 	out.println("<tr><th>&nbsp;</th><td><input type=\"submit\" "+
 		    " name=\"action\" value=\"Submit\" />");
 	out.println("</td></tr>");		

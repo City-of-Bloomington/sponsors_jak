@@ -369,7 +369,7 @@ public class SponsorshipServ extends TopServlet{
 	out.println("<tr><th><label for=\"don_type\">Sponsorship Type</label></th>");	
 	out.println("<td class=\"left\">");
 	out.println("<select name=\"don_type\" id=\"don_type\">");
-	out.println("<option value=\"\"></option>");
+	out.println("<option value=\"\">Select Type</option>");
 	for(String str: Helper.donTypeArr){
 	    String selected="";
 	    if(sponship.getDon_type().equals(str)){
@@ -382,7 +382,7 @@ public class SponsorshipServ extends TopServlet{
 	out.println("<tr><th><label for=\"spon_level\">Sponsorship Level</label></th>");	
 	out.println("<td class=\"left\">");
 	out.println("<select name=\"spon_level\" id=\"spon_level\">");
-	out.println("<option value=\"\"></option>");
+	out.println("<option value=\"\">Select level</option>");
 	for(int i=0;i< Helper.sponLevelIdArr.length;i++){
 	    String str = Helper.sponLevelIdArr[i];
 	    String str2 = Helper.sponLevelArr[i];

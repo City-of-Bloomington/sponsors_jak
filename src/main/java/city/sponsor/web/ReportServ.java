@@ -337,7 +337,7 @@ public class ReportServ extends TopServlet{
 	    }
 	    out.println("<option value=\""+str+"\" "+selected+">"+str+"</option>");
 	}			
-	out.println("<select></td>");	
+	out.println("</select></td>");	
 	out.println("<td class=\"left\" colspan=\"2\">");
 	out.println("<select name=\"target_pop\" id=\"target\">");
 	out.println("<option value=\"\">All</option>");
@@ -348,7 +348,7 @@ public class ReportServ extends TopServlet{
 	    }
 	    out.println("<option value=\""+str+"\" "+selected+">"+str+"</option>");
 	}			
-	out.println("<select>");	
+	out.println("</select>");	
 	out.println("</td>");
 	out.println("</tr>");
 	out.println("</table>");
@@ -426,7 +426,7 @@ public class ReportServ extends TopServlet{
 	out.println("<tr><th><label for=\"don_type\">Sponsorship Type</label></th>");	
 	out.println("<td class=\"left\">");
 	out.println("<select name=\"don_type\" id=\"don_type\">");
-	out.println("<option value=\"\"></option>");
+	out.println("<option value=\"\">All</option>");
 	for(String str: Helper.donTypeArr){
 	    String selected="";
 	    if(don_type.equals(str)){
@@ -439,7 +439,7 @@ public class ReportServ extends TopServlet{
 	out.println("<tr><th><label for=\"level\">Sponsorship Level</label></th>");	
 	out.println("<td class=\"left\">");
 	out.println("<select name=\"spon_level\" id=\"level\">");
-	out.println("<option value=\"\"></option>");
+	out.println("<option value=\"\">All</option>");
 	for(String str: Helper.sponLevelArr){
 	    String selected="";
 	    if(spon_level.equals(str)){
@@ -454,7 +454,7 @@ public class ReportServ extends TopServlet{
 	out.println("<select name=\"sortBy\" id=\"sortBy\">");
 	out.println("<option value=\"orgname\">Business Name</option>");
 	out.println("<option value=\"address\">Business Address</option>");
-	out.println("<select></td></tr>");
+	out.println("</select></td></tr>");
 	String checked = (report.equals("csv"))? checked="checked=\"checked\"":"";
 	out.println("<tr><th><input type=\"checkbox\" name=\"report\" value=\"csv\" "+checked+" id=\"report\" /></th><td> <label for=\"report\">Export to csv file. It may take some time to finish, please wait.</label></td> ");		
 	out.println("</tr>");
@@ -480,6 +480,7 @@ public class ReportServ extends TopServlet{
 	}
 	if(jj > 0) out.println("</tr>");
 	out.println("</table></td></tr>");
+	out.println("</table>");
 	out.println("</fieldset>");			
 	out.println("</form>");
 

@@ -667,8 +667,7 @@ public class Helper{
 		Sponsorship sponship = act.getSponship();
 		DonBenType benefit = act.getBenefit();
 		boolean critical = act.isCritical();
-		String bgcolor="";
-		out.println("<tr bgcolor="+bgcolor+">");
+		out.println("<tr>");
 		out.println("<td><a href=\""+url+
 			    "ActionServ?id="+act.getId()+"\">"+act.getDate()+
 			    "</a></td>");

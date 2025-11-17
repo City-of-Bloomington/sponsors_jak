@@ -353,7 +353,7 @@ public class SponsorServ extends TopServlet{
 		    Helper.replaceSpecialChars(sponsor.getOrgname())+"\" />");
 	out.println("</td><td class=\"left\">");
 	out.println("<select name=\"type\" id=\"type\">");
-	out.println("<option value=\"\"></option>");
+	out.println("<option value=\"\">Select Category</option>");
 	for(Type type:orgTypes){
 	    int jj=1;
 	    String selected = "";
@@ -424,7 +424,7 @@ public class SponsorServ extends TopServlet{
 	    out.println("<td><label for=\"phone_"+jj+"\">Phone Number </label> </td>");
 	    out.println("<td><input name=\"phone_"+jj+"\" value=\"\" size=\"20\" maxlength=\"20\" id=\"phone_"+jj+"\" autocomplete=\"off\" /></td>");
 	    out.println("<td><label for=\"type_"+jj+"\">Type</label><select name=\"phone_type_"+jj+"\" id=\"type_"+jj+"\">");
-	    out.println("<option></option>");
+	    out.println("<option value=\"\">Select Type</option>");
 	    for(String str:Phone.phoneTypes){
 		out.println("<option value=\""+str+"\">"+str+"</option>");
 	    }

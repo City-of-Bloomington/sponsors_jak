@@ -245,7 +245,7 @@ public class SponshipSearchServ extends TopServlet{
 	out.println("<tr><th><label for=\"don_type\">Sponsorship Type</label></th>");	
 	out.println("<td class=\"left\">");
 	out.println("<select name=\"don_type\" id=\"don_type\">");
-	out.println("<option value=\"\"></option>");
+	out.println("<option value=\"\">Select Type</option>");
 	for(String str: Helper.donTypeArr){
 	    String selected="";
 	    if(don_type.equals(str)){
@@ -258,7 +258,7 @@ public class SponshipSearchServ extends TopServlet{
 	out.println("<tr><th><label for=\"level\">Sponsorship Level</label></th>");	
 	out.println("<td class=\"left\">");
 	out.println("<select name=\"spon_level\" id=\"level\">");
-	out.println("<option value=\"\"></option>");
+	out.println("<option value=\"\">Select Level</option>");
 	for(int i=0;i< Helper.sponLevelIdArr.length;i++){
 	    String str = Helper.sponLevelIdArr[i];
 	    String str2 = Helper.sponLevelArr[i];
@@ -282,13 +282,13 @@ public class SponshipSearchServ extends TopServlet{
 	out.println("</td></tr>");
 	out.println("<tr><th><label for=\"pageSize\">Records Per Page </label></th>");
 	out.println("<td class=\"left\">");		
-	out.println("<input name=\"pageSize\" size=\"3\" maxlength=\"3\" value=\""+pageSize+"\" id=\"pageSize\" /></th></tr>");
+	out.println("<input name=\"pageSize\" size=\"3\" maxlength=\"3\" value=\""+pageSize+"\" id=\"pageSize\" /></td></tr>");
 	out.println("<tr><th><label for=\"sortBy\">Sort By </label></th>");
 	out.println("<td class=\"left\">");
 	out.println("<select name=\"sortBy\" id=\"sortBy\">");
 	out.println("<option value=\"details\">Sponsorship</option>");
 	out.println("<option value=\"start_date\">Start Date</option>");
-	out.println("<select></th></td>");	
+	out.println("<select></td></td>");	
 	out.println("<tr><td colspan=\"2\" class=\"center\"><input type=\"submit\" "+
 		    " name=\"action\" value=\"Submit\" />");
 	out.println("</td></tr>");		

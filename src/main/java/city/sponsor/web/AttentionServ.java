@@ -177,7 +177,6 @@ public class AttentionServ extends TopServlet{
 	//
 	out.println("<div class=\"center\">");
 	out.println("<h2>Need Attention Notes</h2>");
-	out.println("<fieldset>");
 	if(!message.equals("")){
 	    if(success)
 		out.println("<p class=\"center\">"+message+"</p>");
@@ -185,7 +184,6 @@ public class AttentionServ extends TopServlet{
 		out.println("<p class=\"warning center\">"+message+"</p>");
 	}
 	Helper.writeActions(out, actions, url);
-	out.println("</fieldset>");					
 	out.print("</div>");
 	out.print("</body></html>");
 	out.flush();
