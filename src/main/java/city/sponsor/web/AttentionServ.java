@@ -176,7 +176,7 @@ public class AttentionServ extends TopServlet{
 	out.println(" </script>				        ");
 	//
 	out.println("<div class=\"center\">");
-	out.println("<h2>Need Attention Notes</h2>");
+	out.println("<h1>Need Attention Notes</h1>");
 	if(!message.equals("")){
 	    if(success)
 		out.println("<p class=\"center\">"+message+"</p>");

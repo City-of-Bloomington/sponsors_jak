@@ -254,7 +254,7 @@ public class SponSearchServ extends TopServlet{
 	// delete startNew
 	//
 	out.println("<div class=\"center\">");
-	out.println("<h2>Search Sponsors</h2>");
+	out.println("<h1>Search Sponsors</h1>");
 	out.println("</div>"); 		
 	if(!message.equals("")){
 	    if(success)

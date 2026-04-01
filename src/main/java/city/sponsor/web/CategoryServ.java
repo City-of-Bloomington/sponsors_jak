@@ -155,7 +155,7 @@ public class CategoryServ extends TopServlet{
     	// delete startNew
 	//
 	out.println("<div class=\"center\">");
-	out.println("<h2>Category Editor</h2>");
+	out.println("<h1>Category Editor</h1>");
 	out.println("</div>"); 		
 	if(!message.equals("")){
 	    if(success)

@@ -63,7 +63,7 @@ public class Starter extends TopServlet{
 	out.println(Inserts.sideBar(url, user));
 
 	out.println("<div id=\"mainContent\">");
-	out.println("<h2>Sponsors Program</h2>");
+	out.println("<h1>Sponsors App</h1>");
 	out.println("<fieldset><legend>Introduction </legend>");
 	out.println("Select one of the following options from the left side menu:<br />");
 	out.println("<ul>");

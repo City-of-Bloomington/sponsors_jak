@@ -297,10 +297,10 @@ public class ActionServ extends TopServlet{
 	//
 	out.println("<div class=\"center\">");
 	if(id.equals("")){
-	    out.println("<h2>New Note</h2>");
+	    out.println("<h1>New Note</h1>");
 	}
 	else { 
-	    out.println("<h2>View/Edit Note</h2>");
+	    out.println("<h1>View/Edit Note</h1>");
 	}
 	out.println("</div>"); 		
 	if(!message.equals("")){
@@ -430,7 +430,7 @@ public class ActionServ extends TopServlet{
 	out.println("</td></tr>");
 	out.println("<tr><th><label for=\"another_id\">Notify Another User</label></th>");
 	out.println("<td class=\"left\">");
-	out.println("<input name=\"another_userid\" size=\"10\" maxlength=\"10\" "+
+	out.println("<input name=\"another_userid\" size=\"30\" maxlength=\"80\" "+
 		    " id=\"another_id\" value=\""+act.getAnotherUserid()+"\"/>(make sure this a valid city employee userid)</td></tr>");		
 	out.println("<tr><th><label for=\"notes\">Notes </label></th>");		
 	out.println("<td class=\"left\">");
@@ -452,7 +452,7 @@ public class ActionServ extends TopServlet{
 	}
 	out.println("</td></tr>");
 	if(id.equals("")){
-	    out.println("<tr><td class=\"center\"><input type=\"submit\" "+
+	    out.println("<tr><td colspan=\"2\" class=\"center\"><input type=\"submit\" "+
 			" name=\"action\" value=\"Save\" />");
 	    out.println("</td></tr>");
 	}

@@ -207,10 +207,10 @@ public class PaymentServ extends TopServlet{
 	//
 	out.println("<div class=\"center\">");
 	if(id.equals("")){
-	    out.println("<h2>New Payment</h2>");
+	    out.println("<h1>New Payment</h1>");
 	}
 	else { 
-	    out.println("<h2>View/Edit Payment </h2>");
+	    out.println("<h1>View/Edit Payment </h1>");
 	}
 	out.println("</div>"); 		
 	if(!message.equals("")){

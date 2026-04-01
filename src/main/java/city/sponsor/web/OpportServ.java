@@ -223,10 +223,10 @@ public class OpportServ extends TopServlet{
 	//
 	out.println("<div class=\"center\">");
 	if(id.equals("")){
-	    out.println("<h2>New Opportunity</h2>");
+	    out.println("<h1>New Opportunity</h1>");
 	}
 	else { 
-	    out.println("<h2>View/Edit Opportunity "+id+"</h2>");
+	    out.println("<h1>View/Edit Opportunity "+id+"</h1>");
 	}
 	out.println("</div>"); 		
 	if(!message.equals("")){

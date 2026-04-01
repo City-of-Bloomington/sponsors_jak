@@ -189,7 +189,7 @@ public class PaymentSearchServ extends TopServlet{
     	// delete startNew
 	//
 	out.println("<div class=\"center\">");
-	out.println("<h2>Search Payments</h2>");
+	out.println("<h1>Search Payments</h1>");
 	out.println("</div>"); 		
 	if(!message.equals("")){
 	    if(success)

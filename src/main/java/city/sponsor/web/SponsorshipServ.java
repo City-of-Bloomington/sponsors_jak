@@ -269,10 +269,10 @@ public class SponsorshipServ extends TopServlet{
 	//
 	out.println("<div class=\"center\">");
 	if(id.equals("")){
-	    out.println("<h2>New Sponsorship</h2>");
+	    out.println("<h1>New Sponsorship</h1>");
 	}
 	else { 
-	    out.println("<h2>View/Edit Sponsorship "+id+"</h2>");
+	    out.println("<h1>View/Edit Sponsorship "+id+"</h1>");
 	}
 	out.println("</div>"); 		
 	if(!message.equals("")){
@@ -342,15 +342,15 @@ public class SponsorshipServ extends TopServlet{
 	out.println("<input name=\"terms\" size=\"2\" maxlength=\"2\" id=\"terms\" "+
 		    " value=\""+sponship.getTerms()+"\" onchange=\"doTotal();\"/>");
 	out.println("</tr>");
-	out.println("<tr><th>Payment Option</th>");
-	out.println("<td class=\"left\">");
+	out.println("<tr><td colspan=\"2\"><fieldset><legend>Payment Options</legend>");
+	out.println("<ul>");
 	String ptype = sponship.getPay_type();
 	for(String str:Helper.payTypeArr){
 	    String checked="";
 	    if(str.equals(ptype)) checked="checked=\"checked\"";
-	    out.println("<input type=\"radio\" name=\"pay_type\" value=\""+str+"\" "+checked+" id=\""+str+"\" /><label for=\""+str+"\">"+str+"</label>");
+	    out.println("<li><input type=\"radio\" name=\"pay_type\" value=\""+str+"\" "+checked+" id=\""+str+"\" /><label for=\""+str+"\">"+str+"</label></li>");
 	}
-	out.println("</td></tr>");
+	out.println("</ul></fieldset></td></tr>");
 	out.println("<tr><th><label for=\"start_date\">First Payment Date</label></th>");
 	out.println("<td class=\"left\">");
 	out.println("<input name=\"start_date\" id=\"start_date\" size=\"10\" maxlength=\"10\" "+

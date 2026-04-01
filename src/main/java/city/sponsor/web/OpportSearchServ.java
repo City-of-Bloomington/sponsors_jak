@@ -188,7 +188,7 @@ public class OpportSearchServ extends TopServlet{
 	// delete startNew
 	//
 	out.println("<div class=\"center\">");
-	out.println("<h2>Search Opportunities</h2>");
+	out.println("<h1>Search Opportunities</h1>");
 	out.println("</div>"); 		
 	if(!message.equals("")){
 	    if(success)
@@ -278,7 +278,7 @@ public class OpportSearchServ extends TopServlet{
 	out.println("<option value=\"name\">Name</option>");
 	out.println("<option value=\"start_date DESC\" selected=\"selected\">Start Date</option>");
 	out.println("<select></td></tr>");	
-	out.println("<tr><th>&nbsp;</th><td><input type=\"submit\" "+
+	out.println("<tr><td>&nbsp;</td><td><input type=\"submit\" "+
 		    " name=\"action\" value=\"Submit\" />");
 	out.println("</td></tr>");		
 	out.println("</table>");							

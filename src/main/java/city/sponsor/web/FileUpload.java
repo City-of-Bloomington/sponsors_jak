@@ -280,15 +280,15 @@ public class FileUpload extends TopServlet{
        	out.println("     return true;				         ");
 	out.println("	}	         			             ");
 	out.println(" </script>		                            ");
-    	out.println(" <center><h2>File Upload</h2>");
+    	out.println(" <center><h1>File Upload</h1>");
 	//
 	if(success){
 	    if(!message.equals(""))
-		out.println("<h3>"+message+"</h3>");
+		out.println("<p>"+message+"</p>");
 	}
 	else{
 	    if(!message.equals(""))
-		out.println("<h3><font color=\"red\">"+message+"</font></h3>");
+		out.println("<p>"+message+"</p>");
 	}
 	out.println("<form name=\"myForm\" method=\"post\" "+
 		    "ENCTYPE=\"multipart/form-data\" >");

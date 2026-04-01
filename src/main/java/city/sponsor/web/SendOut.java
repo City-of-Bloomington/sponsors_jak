@@ -154,7 +154,7 @@ public class SendOut extends TopServlet{
 	out.println(" </script>				        ");
 	//
 	out.println("<div class=\"center\">");
-	out.println("<h2>Send Out</h2>");
+	out.println("<h1>Send Out</h1>");
 	out.println("</div>"); 		
 	if(!message.equals("")){
 	    if(success)

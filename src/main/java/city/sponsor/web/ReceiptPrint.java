@@ -126,7 +126,7 @@ public class ReceiptPrint extends TopServlet{
 	    out.println("Parks and Recreation Department <br />");
 	    out.println("Sponsorship Programs</h3>");
 	    out.println("<hr width=\"50%\" />");
-	    out.println("<h2>RECEIPT</h2>");
+	    out.println("<h1>RECEIPT</h1>");
 	    out.println("<table width=\"90%\">");
 	    out.println("<tr><td align=\"center\" width=\"70%\">");
 	    out.println("</td><td><img src=\""+url+"images/"+"parks_logo_15.png\" alt=\"City Parks logo\" /></td></tr>");

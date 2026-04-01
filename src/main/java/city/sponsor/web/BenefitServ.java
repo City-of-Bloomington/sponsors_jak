@@ -228,7 +228,7 @@ public class BenefitServ extends TopServlet{
 	// delete startNew
 	//
 	out.println("<div class=\"center\">");
-	out.println("<h2> Sponsorship Benefits</h2>");
+	out.println("<h1> Sponsorship Benefits</h1>");
 	out.println("</div>"); 		
 	if(!message.equals("")){
 	    if(success)

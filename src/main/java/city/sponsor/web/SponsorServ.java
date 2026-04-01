@@ -294,10 +294,10 @@ public class SponsorServ extends TopServlet{
 	//
 	out.println("<div class=\"center\">");
 	if(id.equals("")){
-	    out.println("<h2>New Sponsor</h2>");
+	    out.println("<h1>New Sponsor</h1>");
 	}
 	else { 
-	    out.println("<h2>View/Edit Sponsor "+id+"</h2>");
+	    out.println("<h1>View/Edit Sponsor "+id+"</h1>");
 	}
 	out.println("</div>"); 		
 	if(!message.equals("")){

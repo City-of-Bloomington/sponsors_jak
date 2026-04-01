@@ -134,7 +134,7 @@ public class BenNoteServ extends TopServlet{
 	//
 	out.println("<div class=\"center\">");
 	String title = dbt.hasNotes()?"Edit":"Add";
-	out.println("<h2> "+title+" Benefit Notes</h2>");
+	out.println("<h1> "+title+" Benefit Notes</h1>");
 	out.println("</div>"); 		
 	if(!message.equals("")){
 	    if(success)

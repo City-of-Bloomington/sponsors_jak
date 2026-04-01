@@ -273,7 +273,7 @@ public class ReportServ extends TopServlet{
 	// delete startNew
 	//
 	out.println("<div class=\"center\">");
-	out.println("<h2>Reports</h2>");
+	out.println("<h1>Reports</h1>");
 	out.println("</div>"); 		
 	if(!message.equals("")){
 	    if(success)
@@ -361,7 +361,7 @@ public class ReportServ extends TopServlet{
 		    " maxlength=\"50\" value=\""+opport_name+"\" /></td></tr>");
 	out.println("<tr><th><label for=\"event_id\">Event</label></th>");
 	out.println("<td class=\"left\">");
-	out.println("<select name=\"event_id\">");
+	out.println("<select name=\"event_id\" id=\"event_id\">");
 	out.println("<option value=\"\">All</option>");
 	for(Type event: events){
 	    String selected="";
@@ -456,7 +456,7 @@ public class ReportServ extends TopServlet{
 	out.println("<option value=\"address\">Business Address</option>");
 	out.println("</select></td></tr>");
 	String checked = (report.equals("csv"))? checked="checked=\"checked\"":"";
-	out.println("<tr><th><input type=\"checkbox\" name=\"report\" value=\"csv\" "+checked+" id=\"report\" /></th><td> <label for=\"report\">Export to csv file. It may take some time to finish, please wait.</label></td> ");		
+	out.println("<tr><td colspan=\"2\"><input type=\"checkbox\" name=\"report\" value=\"csv\" "+checked+" id=\"report\" /> <label for=\"report\">Export to csv file. It may take some time to finish, please wait.</label></td> ");		
 	out.println("</tr>");
 	out.println("<tr><td class=\"center\" colspan=\"2\"><input type=\"submit\" "+
 		    " name=\"action\" value=\"Submit\" />");

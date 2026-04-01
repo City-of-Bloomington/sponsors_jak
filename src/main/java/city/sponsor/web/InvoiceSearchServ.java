@@ -191,6 +191,7 @@ public class InvoiceSearchServ extends TopServlet{
     	// delete startNew
 	//
 	out.println("<div class=\"center\">");
+	out.println("<h1>Search Invoices</h1>");
 	out.println("</div>"); 		
 	if(!message.equals("")){
 	    if(success)
@@ -204,7 +205,7 @@ public class InvoiceSearchServ extends TopServlet{
 	out.println("<input type=\"hidden\" name=\"pageNumber\" value=\""+pageNumber+"\" />");
 
 	out.println("<fieldset>");
-	out.println("<legend>Search Invoices</legend>");
+	out.println("<legend>Search Options</legend>");
 	//
 	// Add/Edit record
 	//

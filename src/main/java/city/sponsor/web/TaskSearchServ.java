@@ -195,7 +195,7 @@ public class TaskSearchServ extends TopServlet{
     	// delete startNew
 	//
 	out.println("<div class=\"center\">");
-	out.println("<h2>Search Notes</h2>");
+	out.println("<h1>Search Notes</h1>");
 	out.println("</div>"); 		
 	if(!message.equals("")){
 	    if(success)

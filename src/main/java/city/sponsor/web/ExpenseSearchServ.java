@@ -192,7 +192,7 @@ public class ExpenseSearchServ extends TopServlet{
     	// delete startNew
 	//
 	out.println("<div class=\"center\">");
-
+	out.println("<h1>Expenses Search</h1>");
 	out.println("</div>");
 	
 	if(!message.equals("")){

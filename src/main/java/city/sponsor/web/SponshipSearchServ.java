@@ -198,7 +198,7 @@ public class SponshipSearchServ extends TopServlet{
 	// delete startNew
 	//
 	out.println("<div class=\"center\">");
-	out.println("<h2>Search Sponsorships</h2>");
+	out.println("<h1>Search Sponsorships</h1>");
 	out.println("</div>"); 		
 	if(!message.equals("")){
 	    if(success)
@@ -234,14 +234,15 @@ public class SponshipSearchServ extends TopServlet{
 		    " maxlength=\"50\" value=\""+details+"\" />");
 	out.println("<label for=\"sponship_id\">ID</label><input id=\"sponship_id\" name=\"sponship_id\" size=\"4\" value=\""+sponship_id+"\" />");		
 	out.println("</td></tr>");
-	out.println("<tr><th>Payment Option</th>");
-	out.println("<td class=\"left\">");
+	out.println("<tr><td colspan=\"2\"><fieldset><legend>Payment Options</legend>");
+	out.println("<ul>");
+	out.println("<li><input type=\"radio\" id=\"pay_all\" name=\"pay_type\" value=\"\" checked=\"checked\" /><label for=\"pay_all\">All</label></li>");	
 	for(String str:Helper.payTypeArr){
 	    String checked="";
 	    if(pay_type.equals(str)) checked="checked=\"checked\"";
-	    out.println("<input type=\"radio\" id=\""+str+"\" name=\"pay_type\" value=\""+str+"\" "+checked+" /><label for=\""+str+"\">"+str+"</label>");
+	    out.println("<li><input type=\"radio\" id=\""+str+"\" name=\"pay_type\" value=\""+str+"\" "+checked+" /><label for=\""+str+"\">"+str+"</label></li>");
 	}
-	out.println("</td></tr>");
+	out.println("</ul></fieldset></td></tr>");
 	out.println("<tr><th><label for=\"don_type\">Sponsorship Type</label></th>");	
 	out.println("<td class=\"left\">");
 	out.println("<select name=\"don_type\" id=\"don_type\">");

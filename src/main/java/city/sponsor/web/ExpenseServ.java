@@ -234,10 +234,10 @@ public class ExpenseServ extends TopServlet{
 	//
 	out.println("<div class=\"center\">");
 	if(id.equals("")){
-	    out.println("<h2>New Expenses</h2>");
+	    out.println("<h1>New Expenses</h1>");
 	}
 	else { 
-	    out.println("<h2>View/Edit Expenses </h2>");
+	    out.println("<h1>View/Edit Expenses </h1>");
 	}
 	out.println("</div>"); 		
 	if(!message.equals("")){
