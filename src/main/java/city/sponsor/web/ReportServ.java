@@ -440,12 +440,14 @@ public class ReportServ extends TopServlet{
 	out.println("<td class=\"left\">");
 	out.println("<select name=\"spon_level\" id=\"level\">");
 	out.println("<option value=\"\">All</option>");
-	for(String str: Helper.sponLevelArr){
+	for(int jj=0;jj< Helper.sponLevelArr.length;jj++){
 	    String selected="";
+	    String str = Helper.sponLevelIdArr[jj];
+	    String str2 = Helper.sponLevelArr[jj];
 	    if(spon_level.equals(str)){
 		selected="selected=\"selected\"";
 	    }
-	    out.println("<option value=\""+str+"\" "+selected+">"+str+"</option>");
+	    out.println("<option value=\""+str+"\" "+selected+">"+str2+"</option>");
 	}
 	out.println("</select>");
 	out.println("</td></tr>");			
@@ -666,7 +668,7 @@ public class ReportServ extends TopServlet{
 		if(showSet.contains("Contact Email"))	
 		    line += ",\""+ctEmail+"\"";
 		line += "\n";
-		System.err.println(line);
+		// System.err.println(line);
 		buf.append(line);
 	    }
 	    res.setContentLength(buf.length());

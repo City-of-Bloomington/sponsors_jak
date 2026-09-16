@@ -518,6 +518,7 @@ public class SponsorList extends ArrayList<Sponsor>{
 	}
 	qo += " order by s."+sortBy;
 	qq = qc + qf + qw;
+	//System.err.println(qq);
 	con = Helper.getConnection();
 	if(con == null){
 	    back = "Could not connect to DB";
@@ -706,9 +707,6 @@ public class SponsorList extends ArrayList<Sponsor>{
     }
 	
 }
-
-
-
 
 
 
